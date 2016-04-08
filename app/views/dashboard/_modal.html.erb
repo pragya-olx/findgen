@@ -6,11 +6,48 @@
         <h4 class="modal-title">Add new booking</h4>
       </div>
       <div class="modal-body">
-        
+        <div class="form-group">
+          <label for="usr">Description</label>
+          <input type="text" class="form-control" id="usr">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Location</label>
+          <input type="password" class="form-control" id="pwd">
+        </div>
+
+        <div class="form-group">
+                <label for="startDate">Start Date and Time</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar" id="startDate"></span>
+                    </span>
+                </div>
+        </div>
+
+        <div class="form-group">
+                <label for="endDate">End Date and Time</label>
+                <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar" id="endDate"></span>
+                    </span>
+                </div>
+        </div>
+
+        <div class="form-group">
+          <label for="sel1">Select Generator Type</label>
+          <select class="form-control" id="sel1">
+            <option>50 Watt</option>
+            <option>100 Watt</option>
+            <option>150 Watt</option>
+            <option>200 Watt</option>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" id="save">Save changes</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
