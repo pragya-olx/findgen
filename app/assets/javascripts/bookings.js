@@ -1,9 +1,10 @@
 window.Booking = function() {};
 
 Booking.load = function() {
-	var t = $("#bookings").DataTable();
+	var pendingTable = $(".pending table").DataTable();
+	var allBookings = $("#bookings").DataTable();
 
-	refreshBookings = function(data) {
+	refreshBookings = function(data,t) {
 		t.clear().draw();
 		for(var i = 0; i < data.length; i++) {
 			t.row.add([
@@ -19,14 +20,14 @@ Booking.load = function() {
 		}
 	};
 
-	showBookings = function(bookingStatus) {
+	showBookings = function(bookingStatus, t) {
 		
 		$.ajax({
     		url: '/bookings',
     		data: {status: bookingStatus},
     		datatype : "json"
     	}).done(function(data){
-    		refreshBookings(data);
+    		refreshBookings(data, t);
     	}).fail(function(data){
     		console.log("error")
     	});
@@ -41,14 +42,16 @@ Booking.load = function() {
     	}
 	}
 
+	showBookings('pending', pendingTable)
+
 	$('#active').click(function(){
-		showBookings('approved')
+		showBookings('approved', allBookings)
 	});
 	$('#pending').click(function(){
-		showBookings('pending')
+		showBookings('pending', allBookings)
 	});
 	$('#previous').click(function(){
-		showBookings('previous')
+		showBookings('previous', allBookings)
 	});
 
 
@@ -72,7 +75,7 @@ Booking.load = function() {
     		data: formData
     	}).done(function(data){
     		$('#createBooking').modal('hide')
-    		showBookings('pending')
+    		showBookings('pending', allBookings)
     	}).fail(function(data){
     		console.log("error")
     	});
