@@ -8,7 +8,6 @@
 </head>
 <body>
 
-
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -19,7 +18,10 @@
           <a onclick="location.href = '/'">Bookings</a>
         </li>
         <li>
-        <a onclick="location.href = '/users' ">Users</a>
+        <a onclick="location.href = '/clients' ">Clients</a>
+        </li>
+        <li>
+        <a onclick="location.href = '/owners' ">Owners</a>
         </li>
 
           <% if current_user.present? %>

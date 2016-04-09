@@ -1,0 +1,17 @@
+<%= render "modal.html.erb" %>
+
+<div class="container main-content">
+
+	<ul class="nav nav-tabs" id="navTabs">
+	  <li role="presentation" class="active"><a href="#">Details</a></li>
+	  <li role="presentation"><a href="#">Bookings</a></li>
+	  <li role="presentation"><a href="#">Users</a></li>
+	</ul>
+
+    <div class="row">
+    	<%= render "details" %>
+    	<%= render "dashboard/content" %>
+    	<%= render "users/content" %>
+    </div>
+
+</div>

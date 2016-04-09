@@ -1,33 +1,9 @@
+<div id="create-modal">
+    <%= render "modal.html.erb" %>
+</div>
 
-
-        <div id="create-modal">
-            <%= render "modal.html.erb" %>
-        </div>
-
-        <div class="container main-content">
-
-            <div class="row">
-
-                <div class="col-md-3">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item active" id="active">Active Bookings</a>
-                        <a href="#" class="list-group-item previous" id="previous">Previous Bookings</a>
-                        <a href="#" class="list-group-item pending" id="pending">Pending Approval</a>
-                    </div>
-                    <div>
-                    <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createModal">
-                        Create New Booking
-                    </button>
-                    </div>
-                </div>
-                
-
-                <div class="col-md-9">
-                    <div class="row">
-    					<%= render "table.html.erb" %>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+<div class="container main-content">
+    <div class="row">
+        <%= render "content.html.erb" %>
+    </div>
+</div>

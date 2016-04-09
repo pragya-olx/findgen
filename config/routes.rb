@@ -6,11 +6,13 @@ Rails.application.routes.draw do
   root 'dashboard#index'
 
   resources :bookings
+  resources :clients
+  resources :users
 
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  resources :users
+  
 
 
   # The priority is based upon order of creation: first created -> highest priority.

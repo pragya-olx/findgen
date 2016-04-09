@@ -49,3 +49,17 @@ aside {
 .mynav {
   width: 90% !important;
 }
+
+.bookings_content {
+  margin-top: 20px;
+  display: none;
+}
+
+.details {
+  margin-top: 20px
+}
+
+.users_content{
+  margin-top: 20px;
+  display: none;
+}
