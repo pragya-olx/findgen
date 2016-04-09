@@ -1,6 +1,6 @@
 $(function() {
     $(document).ready(function() {
-    	var t = $("#example").DataTable();
+    	var t = $("#users").DataTable();
 
     	refreshTable = function(data) {
     		t.clear().draw();

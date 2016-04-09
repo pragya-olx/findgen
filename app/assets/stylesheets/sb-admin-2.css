@@ -43,5 +43,9 @@ aside {
 }
 
 .user {
-  float: right;
+  float: right !important;
+}
+
+.mynav {
+  width: 90% !important;
 }

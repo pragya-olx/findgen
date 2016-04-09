@@ -14,9 +14,12 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">FindGen</a>
         </div>
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav mynav">
         <li>
-        <a href="/users">Users</a>
+          <a onclick="location.href = '/'">Bookings</a>
+        </li>
+        <li>
+        <a onclick="location.href = '/users' ">Users</a>
         </li>
 
           <% if current_user.present? %>
