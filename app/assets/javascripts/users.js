@@ -2,7 +2,7 @@ $(function() {
     $(document).ready(function() {
     	var t = $("#users").DataTable();
 
-    	refreshTable = function(data) {
+    	refreshUsers = function(data) {
     		t.clear().draw();
     		for(var i = 0; i < data.length; i++) {
     			t.row.add([
@@ -21,7 +21,7 @@ $(function() {
 	    		data: {role_type: "admin"},
 	    		datatype : "json"
 	    	}).done(function(data){
-	    		refreshTable(data);
+	    		refreshUsers(data);
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});
@@ -37,7 +37,7 @@ $(function() {
 	    		data: {role_type: "spoc"},
 	    		datatype : "json"
 	    	}).done(function(data){
-	    		refreshTable(data);
+	    		refreshUsers(data);
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});
@@ -52,7 +52,7 @@ $(function() {
 	    		url: '/users',
 	    		data: {role_type: "vendor"},
 	    	}).done(function(data){
-	    		refreshTable(data);
+	    		refreshUsers(data);
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});
@@ -67,7 +67,7 @@ $(function() {
 	    		url: '/users',
 	    		data: {role_type: "owner"},
 	    	}).done(function(data){
-	    		refreshTable(data);
+	    		refreshUsers(data);
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});

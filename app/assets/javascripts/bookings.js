@@ -2,7 +2,7 @@ $(function() {
     $(document).ready(function() {
     	var t = $("#example").DataTable();
 
-    	refreshTable = function(data) {
+    	refreshBookings = function(data) {
     		t.clear().draw();
     		for(var i = 0; i < data.length; i++) {
     			t.row.add([
@@ -24,7 +24,7 @@ $(function() {
 	    		data: {status: "pending"},
 	    		datatype : "json"
 	    	}).done(function(data){
-	    		refreshTable(data);
+	    		refreshBookings(data);
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});
@@ -39,7 +39,7 @@ $(function() {
 	    		data: {status: "approved"},
 	    		datatype : "json"
 	    	}).done(function(data){
-	    		refreshTable(data);
+	    		refreshBookings(data);
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});
@@ -53,7 +53,7 @@ $(function() {
 	    		url: '/bookings',
 	    		datatype : "json"
 	    	}).done(function(data){
-	    		refreshTable(data);
+	    		refreshBookings(data);
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});
@@ -71,7 +71,7 @@ $(function() {
     	 $('#datetimepicker1').datetimepicker();
     	 $('#datetimepicker2').datetimepicker();
 
-    	 $("#save").click(function(){
+    	 $("#save_bookings").click(function(){
 
     	 	formData = {
     	 		booking: {
