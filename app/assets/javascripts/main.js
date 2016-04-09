@@ -1,31 +1,108 @@
 $(function() {
     $(document).ready(function() {
-    	$("#example").DataTable();
+    	var t = $("#example").DataTable();
 
-    	$.ajax({
-    		url: '/bookings'
-    	}).done(function(data){
-    		console.log(data);
-    	}).fail(function(data){
-    		console.log("error")
-    	});
+    	
+
+    	refreshTable = function(data) {
+    		t.clear().draw();
+    		for(var i = 0; i < data.length; i++) {
+    			t.row.add([
+    				data[i].name,
+    				data[i].location,
+    				data[i].start_date,
+    				data[i].end_date,
+    				data[i].gen_type,
+    				data[i].status,
+    				null,
+    				null
+    			]).draw();
+    		}
+    	};
+
+    	showPending = function() {
+    		$.ajax({
+	    		url: '/bookings',
+	    		data: {status: "pending"},
+	    		datatype : "json"
+	    	}).done(function(data){
+	    		refreshTable(data);
+	    	}).fail(function(data){
+	    		console.log("error")
+	    	});
+	    	$('#pending').addClass('active');
+	    	$("#active").removeClass('active');
+	    	$("#previous").removeClass('active');
+    	}
+
+    	showActive = function() {
+    		$.ajax({
+	    		url: '/bookings',
+	    		data: {status: "approved"},
+	    		datatype : "json"
+	    	}).done(function(data){
+	    		refreshTable(data);
+	    	}).fail(function(data){
+	    		console.log("error")
+	    	});
+	    	$('#active').addClass('active');
+	    	$("#pending").removeClass('active');
+	    	$("#previous").removeClass('active');
+    	}
+
+    	showPrevious = function() {
+    		$.ajax({
+	    		url: '/bookings',
+	    		datatype : "json"
+	    	}).done(function(data){
+	    		refreshTable(data);
+	    	}).fail(function(data){
+	    		console.log("error")
+	    	});
+	    	$('#active').removeClass('active');
+	    	$("#pending").removeClass('active');
+	    	$("#previous").addClass('active');
+    	}
+
+		$('#active').click(showActive)
+		$('#pending').click(showPending)
+		$('#previous').click(showPrevious)
+
+
 
     	 $('#datetimepicker1').datetimepicker();
+    	 $('#datetimepicker2').datetimepicker();
 
     	 $("#save").click(function(){
+
+    	 	formData = {
+    	 		booking: {
+	    	 		name: $('#name').val(),
+	    	 		location: $('#location').val(),
+	    	 		start_date: $("#datetimepicker1 input").val(),
+	    	 		end_date: $("#datetimepicker2 input").val(),
+	    	 		gen_type: $('#type').val(),
+	    	 	}
+    	 	};
+
     	 	$.post({
-	    		url: '/bookings'
-	    		data: {}
+	    		url: '/bookings',
+	    		data: formData
 	    	}).done(function(data){
-	    		console.log(data);
+	    		$('#createModal').modal('hide')
+	    		showPending();
 	    	}).fail(function(data){
 	    		console.log("error")
 	    	});
 
-    	 })
+    	 });
 
         // var newRow;
         // $("#example tbody").append(newRow);
+
+
+
     } );
+
 
 });
