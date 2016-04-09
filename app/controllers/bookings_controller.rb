@@ -24,7 +24,6 @@ class BookingsController < ApplicationController
 	end
 
 	def create
-		debugger
 	  booking = Booking.new(params.require(:booking).permit(:name, :location,:start_date,:end_date,:gen_type))
 	  booking.status = "pending"
 
