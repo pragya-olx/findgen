@@ -2,8 +2,6 @@ $(function() {
     $(document).ready(function() {
     	var t = $("#example").DataTable();
 
-    	
-
     	refreshTable = function(data) {
     		t.clear().draw();
     		for(var i = 0; i < data.length; i++) {
@@ -96,11 +94,6 @@ $(function() {
 	    	});
 
     	 });
-
-        // var newRow;
-        // $("#example tbody").append(newRow);
-
-
 
     } );
 

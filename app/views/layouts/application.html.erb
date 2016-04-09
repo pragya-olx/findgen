@@ -8,6 +8,25 @@
 </head>
 <body>
 
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">FindGen</a>
+        </div>
+        <ul class="nav navbar-nav">
+        <li>
+        <a href="/users">Users</a>
+        </li>
+
+          <% if current_user.present? %>
+            <li class="user"><a href="#">
+                <%= current_user.name %>
+            </a></li> 
+          <% end %>
+        </ul>
+      </div>
+    </nav>
 <%= yield %>
 
 </body>
