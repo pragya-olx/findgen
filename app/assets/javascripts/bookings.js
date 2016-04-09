@@ -14,6 +14,7 @@ Booking.load = function() {
 				data[i].end_date,
 				data[i].gen_type,
 				data[i].status,
+				data[i].client_id,
 				null,
 				null
 			]).draw();
@@ -24,7 +25,7 @@ Booking.load = function() {
 		
 		$.ajax({
     		url: '/bookings',
-    		data: {status: bookingStatus},
+    		data: {status: bookingStatus, client_id: window.clientId},
     		datatype : "json"
     	}).done(function(data){
     		refreshBookings(data, t);

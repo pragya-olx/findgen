@@ -10,13 +10,15 @@ class BookingsController < ApplicationController
   			return
   		end
 
-  	  if params[:status] == "approved"
-  	  	render json:  Booking.where(:status => "approved").where("end_date > ?", Time.now).to_json, status: 201
-  	  elsif params[:status] == "pending"
-  	  	render json: Booking.where(:status => "pending").to_json, status: 201
-  	  else
-  	  	render json: Booking.where(:status => "completed").to_json, status: 201	
-  	  end
+      bookings = nil
+
+      if params[:client_id].present?
+        bookings = Booking.where(:status => params[:status]).where(:client_id => params[:client_id])
+      else
+        bookings = Booking.where(:status => params[:status])
+      end
+
+      render json: bookings, status: 201
   	end
 
 	def new
@@ -27,6 +29,7 @@ class BookingsController < ApplicationController
 	  booking = Booking.new(params.require(:booking).permit(:name, :location,:start_date,:end_date,:gen_type))
 	  booking.status = "pending"
     booking.user = current_user
+    booking.client = Client.find(params[:client_id])
 
 	  booking.save
 	  render json: Booking.where(:status => "pending").to_json, status: 201

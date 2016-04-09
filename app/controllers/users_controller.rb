@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type))
     @user.role_type = @user.role_type.downcase
+    @user.client = Client.find(params[:client_id])
     if @user.save
       flash[:notice] = "You signed up successfully"
       flash[:color]= "valid"

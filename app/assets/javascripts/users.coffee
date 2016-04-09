@@ -38,6 +38,8 @@ window.User.load = ->
 	    else
 	      $('#' + type).removeClass 'active'
 
+	showUsers('admin')
+
 	$('#admin').click ->
 	  showUsers 'admin'
 	$('#spoc').click ->
