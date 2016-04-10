@@ -28,7 +28,6 @@ class BookingsController < ApplicationController
 	  booking = Booking.new(params.require(:booking).permit(:name, :location,:start_date,:end_date,:gen_type))
 	  booking.status = "pending"
     booking.user = current_user
-    debugger
     booking.client = Client.find(params[:booking][:client_id])
 
 	  booking.save
