@@ -1,4 +1,4 @@
-<% if current_user.client_id != @current_client.id %>
+<% if !current_user.is_owner? and current_user.client_id != @current_client.id %>
 
     You dont have permissions to view this client's details
 
