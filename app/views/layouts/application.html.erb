@@ -14,15 +14,17 @@
           <a class="navbar-brand" href="#">FindGen</a>
         </div>
         <ul class="nav navbar-nav mynav">
-        <li>
-          <a onclick="location.href = '/'">Bookings</a>
-        </li>
-        <li>
-        <a onclick="location.href = '/clients' ">Clients</a>
-        </li>
-        <li>
-        <a onclick="location.href = '/owners' ">Owners</a>
-        </li>
+          <% if current_user.is_owner? %>
+            <li>
+              <a onclick="location.href = '/'">Bookings</a>
+            </li>
+            <li>
+            <a onclick="location.href = '/clients' ">Clients</a>
+            </li>
+            <li>
+            <a onclick="location.href = '/owners' ">Owners</a>
+            </li>
+          <% end %>
 
           <% if current_user.present? %>
             <li class="user"><a href="#">

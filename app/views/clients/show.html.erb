@@ -1,3 +1,9 @@
+<% if current_user.client_id != @current_client.id %>
+
+    You dont have permissions to view this client's details
+
+<% else %>
+
 <%= render "modal.html.erb" %>
 
 <div class="container main-content">
@@ -19,3 +25,5 @@
 <script type="text/javascript">
 	window.clientId = <%= @current_client.id %>
 </script>
+
+<% end %>

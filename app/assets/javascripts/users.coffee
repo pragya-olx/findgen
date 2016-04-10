@@ -48,13 +48,14 @@ window.User.load = ->
 	  showUsers 'vendor'
 	$('#owner').click ->
 	  showUsers 'owner'
-	$('#save').click ->
+	$('#save_user').click ->
 	  formData = user:
-	    name: $('#name').val()
-	    location: $('#location').val()
-	    email: $('#email').val()
-	    phone_number: $('#phone_number').val()
+	    name: $('#user_name').val()
+	    location: $('#user_location').val()
+	    email: $('#user_email').val()
+	    phone_number: $('#user_phone_number').val()
 	    role_type: $('#role_type').val()
+	    client_id: clientId
 	  $.post(
 	    url: '/users'
 	    data: formData).done((data) ->

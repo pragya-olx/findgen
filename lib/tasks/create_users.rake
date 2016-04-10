@@ -8,7 +8,11 @@ namespace :users do
 
     User.create(:name => ENV['name'],
     	:email => ENV['email'],
-    	:encrypted_password => ENV['password'])
+    	:encrypted_password => ENV['password'],
+    	:role_type => ENV['role_type'],
+    	:client_id => ENV['client_id']
+    )
+
   end
 
 end
