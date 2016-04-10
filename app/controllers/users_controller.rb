@@ -1,15 +1,20 @@
 class UsersController < ApplicationController
 
   def index
-      if params[:role_type] == "admin"
-        render json:  User.where(:role_type => "admin").to_json, status: 201
-      elsif params[:role_type] == "spoc"
-        render json: User.where(:role_type => "spoc").to_json, status: 201
-      elsif params[:role_type] == "vendor"
-        render json: User.where(:role_type => "vendor").to_json, status: 201
-      elsif params[:role_type] == "owner"
-        render json: User.where(:role_type => "owner").to_json, status: 201 
-      end
+    users = nil
+    if params[:role_type] == "admin"
+      users = User.where(:role_type => "admin")
+    elsif params[:role_type] == "spoc"
+      users = User.where(:role_type => "spoc")
+    elsif params[:role_type] == "vendor"
+      users = User.where(:role_type => "vendor")
+    end
+
+    if !params[:client_id].blank?
+      users = users.where(:client_id => params[:client_id])
+    end
+
+    render json: users, status: 201 
   end
 
   def new
@@ -19,7 +24,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type))
     @user.role_type = @user.role_type.downcase
-    @user.client = Client.find(params[:client_id])
+    @user.client = Client.find(params[:user][:client_id])
     if @user.save
       flash[:notice] = "You signed up successfully"
       flash[:color]= "valid"

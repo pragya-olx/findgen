@@ -1,13 +1,15 @@
 window.Booking = function() {};
 
 Booking.load = function() {
-	var pendingTable = $(".pending table").DataTable();
+	var pendingTable = $("#pending_bookings").DataTable();
 	var allBookings = $("#bookings").DataTable();
+	var statuses = ['pending', 'approved', 'previous']
 
 	refreshBookings = function(data,t) {
 		t.clear().draw();
 		for(var i = 0; i < data.length; i++) {
 			t.row.add([
+				data[i].id,
 				data[i].name,
 				data[i].location,
 				data[i].start_date,
@@ -15,8 +17,7 @@ Booking.load = function() {
 				data[i].gen_type,
 				data[i].status,
 				data[i].client_id,
-				null,
-				null
+				data[i].user_id,
 			]).draw();
 		}
 	};
@@ -25,7 +26,7 @@ Booking.load = function() {
 		
 		$.ajax({
     		url: '/bookings',
-    		data: {status: bookingStatus, client_id: window.clientId},
+    		data: {status: bookingStatus, client_id: clientId ? clientId : ""},
     		datatype : "json"
     	}).done(function(data){
     		refreshBookings(data, t);
@@ -33,8 +34,10 @@ Booking.load = function() {
     		console.log("error")
     	});
 
-    	statuses = ['pending', 'approved', 'previous']
-    	for (var status in statuses) {
+    	var i = 0;
+    	while(i < statuses.length) {
+    		status = statuses[i];
+    		i++;
     		if(status == bookingStatus) {
     			$("#" + status).addClass('active')
     		} else {
@@ -45,16 +48,20 @@ Booking.load = function() {
 
 	showBookings('pending', pendingTable)
 
-	$('#active').click(function(){
+	$('#pending_bookings tbody').on('click', 'tr', function(){
+      id = $(this).find('td').first().text();
+      window.location = "/bookings/" + id;
+    });
+
+	$('#' + 'approved').click(function(){
 		showBookings('approved', allBookings)
 	});
-	$('#pending').click(function(){
+	$('#' + 'pending').click(function(){
 		showBookings('pending', allBookings)
 	});
-	$('#previous').click(function(){
+	$('#' + 'previous').click(function(){
 		showBookings('previous', allBookings)
 	});
-
 
 	 $('#datetimepicker1').datetimepicker();
 	 $('#datetimepicker2').datetimepicker();
@@ -63,11 +70,12 @@ Booking.load = function() {
 
 	 	formData = {
 	 		booking: {
-    	 		name: $('#name').val(),
-    	 		location: $('#location').val(),
+    	 		name: $('#booking_name').val(),
+    	 		location: $('#booking_location').val(),
     	 		start_date: $("#datetimepicker1 input").val(),
     	 		end_date: $("#datetimepicker2 input").val(),
     	 		gen_type: $('#type').val(),
+    	 		client_id: clientId
     	 	}
 	 	};
 

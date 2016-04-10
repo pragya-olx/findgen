@@ -10,4 +10,8 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+
+  def get_all_vendors
+  	User.where(:role_type => "vendor")
+  end
 end

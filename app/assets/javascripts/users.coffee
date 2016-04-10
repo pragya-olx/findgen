@@ -20,7 +20,7 @@ window.User.load = ->
 	showUsers = (user) ->
 	  $.ajax(
 	    url: '/users'
-	    data: role_type: user
+	    data: {role_type: user, client_id: clientId}
 	    datatype: 'json').done((data) ->
 	    refreshUsers data
 	    return
@@ -32,7 +32,7 @@ window.User.load = ->
 	    'vendor',
 	    'owner'
 	  ]
-	  for type of types
+	  for type in types
 	    if type == user
 	      $('#' + type).addClass 'active'
 	    else

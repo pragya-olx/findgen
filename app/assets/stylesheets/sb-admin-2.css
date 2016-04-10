@@ -1,3 +1,7 @@
+tr {
+  cursor: pointer;
+}
+
 .create-booking {
 	width: 100%
 }
@@ -62,4 +66,17 @@ aside {
 .users_content{
   margin-top: 20px;
   display: none;
+}
+
+.booking-edit {
+  margin-left: 20px;
+
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+nav li {
+  cursor: pointer;
 }
