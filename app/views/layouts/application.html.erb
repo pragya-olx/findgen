@@ -14,7 +14,7 @@
           <a class="navbar-brand" href="#">FindGen</a>
         </div>
         <ul class="nav navbar-nav mynav">
-          <% if current_user.is_owner? %>
+          <% if current_user.present? and current_user.is_owner? %>
             <li>
               <a onclick="location.href = '/'">Bookings</a>
             </li>
@@ -27,9 +27,18 @@
           <% end %>
 
           <% if current_user.present? %>
-            <li class="user"><a href="#">
-                <%= current_user.name %>
-            </a></li> 
+            <li class="dropdown user">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= current_user.name %> <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_user %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out", logout_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
           <% end %>
         </ul>
       </div>

@@ -8,6 +8,8 @@ class UsersController < ApplicationController
       users = User.where(:role_type => "spoc")
     elsif params[:role_type] == "vendor"
       users = User.where(:role_type => "vendor")
+    else
+      users = User.where(:role_type => "owner")
     end
 
     if !params[:client_id].blank?
@@ -24,7 +26,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type))
     @user.role_type = @user.role_type.downcase
-    @user.client = Client.find(params[:user][:client_id])
+    if !params[:user][:client_id].blank?
+      @user.client = Client.find(params[:user][:client_id])
+    end
     if @user.save
       flash[:notice] = "You signed up successfully"
       flash[:color]= "valid"

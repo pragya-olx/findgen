@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :bookings
   resources :clients
   resources :users
+  resources :owners
 
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'

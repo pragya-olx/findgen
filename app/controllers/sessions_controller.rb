@@ -14,4 +14,9 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
+
+  def destroy
+    reset_session
+    redirect_to '/login'
+  end
 end
