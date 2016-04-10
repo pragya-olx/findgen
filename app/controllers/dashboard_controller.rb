@@ -4,7 +4,6 @@ class DashboardController < ApplicationController
 		if !logged_in?
 			redirect_to '/login'
 		else
-			debugger
 			if !current_user.is_owner?
 				redirect_to "/clients/#{current_user.client_id}"
 			end
