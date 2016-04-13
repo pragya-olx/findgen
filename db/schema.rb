@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409184433) do
+ActiveRecord::Schema.define(version: 20160413033730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20160409184433) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "vendor_id"
     t.string   "gen_type"
     t.integer  "client_id"
   end
@@ -35,6 +36,22 @@ ActiveRecord::Schema.define(version: 20160409184433) do
     t.string   "email"
     t.string   "location"
     t.string   "balance"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "location_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "state"
+    t.string   "city"
+    t.string   "kv"
+    t.integer  "fixed",      default: 0
+    t.integer  "variable",   default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "rates", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -50,6 +67,8 @@ ActiveRecord::Schema.define(version: 20160409184433) do
     t.string   "encrypted_password"
     t.string   "salt"
     t.string   "role_type"
+    t.string   "state"
+    t.string   "city"
     t.integer  "client_id"
   end
 

@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type))
+    @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type,:state,:city))
     @user.role_type = @user.role_type.downcase
     if !params[:user][:client_id].blank?
       @user.client = Client.find(params[:user][:client_id])

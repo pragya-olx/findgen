@@ -1,0 +1,4 @@
+class RatesController < ApplicationController
+
+end
+

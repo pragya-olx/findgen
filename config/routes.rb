@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   resources :clients
   resources :users
   resources :owners
+  resources :vendors
+  resources :locations
+
+  get 'cities/:state', to: 'application#cities'
 
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'

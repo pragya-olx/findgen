@@ -29,14 +29,16 @@ class BookingsController < ApplicationController
 	  booking.status = "pending"
     booking.user = current_user
     booking.client = Client.find(params[:booking][:client_id])
-
 	  booking.save
+    UserMailer.booking_create(booking).deliver
+
 	  render json: Booking.where(:status => "pending").to_json, status: 201
 	end
 
   def update
     booking = Booking.find(params[:id])
     booking.update!(booking_params)
+    UserMailer.booking_update(booking).deliver
     redirect_to booking
   end
 

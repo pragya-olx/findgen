@@ -11,6 +11,7 @@ class CreateBookings < ActiveRecord::Migration
     	t.timestamps
     end
 
-    add_reference :bookings, :user
+    add_column :bookings, :user_id, :integer
+    add_column :bookings, :vendor_id, :integer
   end
 end
