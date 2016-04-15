@@ -38,7 +38,7 @@ class BookingsController < ApplicationController
     booking.user = current_user
     booking.client = Client.find(params[:booking][:client_id])
     booking.name = "#{booking.client.name}_#{booking.user.name}"
-    booking.location = client.location
+    booking.location = booking.client.location
 	  booking.save
     booking.name = "#{booking.name}_#{booking.id}"
     booking.save
