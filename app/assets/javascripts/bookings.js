@@ -63,20 +63,11 @@ Booking.load = function() {
 	$('#' + 'previous').click(function(){
 		window.location = url + "?booking_status=previous"
 	});
+	$('#' + 'approver_approved').click(function(){
+		window.location = url + "?booking_status=approver_approved"
+	});
 
-	if (qs["booking_status"] == "pending") {
-		$("#pending").addClass('active')
-		$("#previous").removeClass('active')
-		$("#approved").removeClass('active')
-	} else if (qs["booking_status"] == "previous") {
-		$("#pending").removeClass('active')
-		$("#approved").removeClass('active')
-		$("#previous").addClass('active')
-	} else {
-		$("#pending").removeClass('active')
-		$("#approved").addClass('active')
-		$("#previous").removeClass('active')
-	}
+	$("#" + qs["booking_status"]).addClass('active')
 
 	  $('#datetimepicker1').datetimepicker();
 	  $('#datetimepicker2').datetimepicker();
