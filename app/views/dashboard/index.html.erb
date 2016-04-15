@@ -26,7 +26,11 @@
 			            <td><%= booking.gen_type %></td>
 			            <td><%= booking.status %></td>
 			            <td><%= booking.client.name %></td>
-			            <td>NULL </td>
+			            <% if booking.vendor.present? %>
+			            	<td><%= booking.vendor.name %> </td>
+			            <% else %>
+			            	<td> NULL </td>
+			            <%end %>
 			          </tr>
 			        <% end %>
 

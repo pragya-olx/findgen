@@ -26,7 +26,7 @@
             <td><%= booking.status %></td>
             <td><%= booking.client.name %></td>
             <td>NULL </td>
-            <% if current_user.is_approver? %>
+            <% if current_user.is_approver? and booking.status == "pending" %>
             <td><button class="approve_btn">Approve</button></td>
             <% end %>
           </tr>
