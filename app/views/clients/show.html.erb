@@ -9,9 +9,11 @@
 <div class="container main-content">
 
 	<ul class="nav nav-tabs" id="navTabs">
-	  <li role="presentation" class="active"><a href="#">Details</a></li>
-	  <li role="presentation"><a href="#">Bookings</a></li>
+	  <li role="presentation" class="active"><a href="#">Bookings</a></li>
+	  <li role="presentation"><a href="#">Details</a></li>
+	  <% if current_user.is_admin_or_owner? %>
 	  <li role="presentation"><a href="#">Users</a></li>
+	  <% end %>
 	</ul>
 
     <div class="row">

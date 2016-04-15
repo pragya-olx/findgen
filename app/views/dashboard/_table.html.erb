@@ -10,8 +10,27 @@
             <th>Status</th>
             <th>Client Id</th>
             <th>Vendor Id</th>
+            <% if current_user.is_approver? %>
+            <th>Actions</th>
+            <% end %>
         </tr>
     </thead>
+        <% @bookings.each do |booking| %>
+          <tr>
+            <td><%= booking.id %></td>
+            <td><%= booking.name %></td>
+            <td><%= booking.location %></td>
+            <td><%= booking.start_date %></td>
+            <td><%= booking.end_date %></td>
+            <td><%= booking.gen_type %></td>
+            <td><%= booking.status %></td>
+            <td><%= booking.client.name %></td>
+            <td>NULL </td>
+            <% if current_user.is_approver? %>
+            <td><button class="approve_btn">Approve</button></td>
+            <% end %>
+          </tr>
+        <% end %>
 
     <tbody>
     </tbody>

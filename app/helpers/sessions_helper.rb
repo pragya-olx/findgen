@@ -12,6 +12,6 @@ module SessionsHelper
   end
 
   def get_all_vendors
-  	User.where(:role_type => "vendor")
+  	User.where(:role_type => "vendor").pluck(:name)
   end
 end

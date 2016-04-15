@@ -21,6 +21,13 @@ class BookingsController < ApplicationController
     render json: bookings, status: 201
 	end
 
+  def approve
+    booking = Booking.find(params[:id])
+    booking.status = "approver_approved"
+    booking.save
+    render json: {}, status: 201
+  end
+
 	def new
 	end
 
@@ -38,14 +45,14 @@ class BookingsController < ApplicationController
   def update
     booking = Booking.find(params[:id])
     booking.update!(booking_params)
-    UserMailer.booking_update(booking).deliver
+    #UserMailer.booking_update(booking).deliver
     redirect_to booking
   end
 
   private
 
   def booking_params
-    params.require(:booking).permit(:name, :email,:start_date,:end_date,:status, :user_id)
+    params.require(:booking).permit(:name, :email,:start_date,:end_date,:status, :user_id, :vendor_id)
   end
 
 end

@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   resources :vendors
   resources :locations
 
+  resources :bookings do
+    member do
+      get 'approve'
+    end
+  end
+
   get 'cities/:state', to: 'application#cities'
 
   get    'login'   => 'sessions#new'

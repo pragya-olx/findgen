@@ -14,4 +14,16 @@ class User < ActiveRecord::Base
 		self.role_type == "admin"
 	end
 
+	def is_spoc?
+		self.role_type == "spoc"
+	end
+
+	def is_approver?
+		self.role_type == "approver"
+	end
+
+	def is_admin_or_owner?
+		is_admin? or is_owner?
+	end
+
 end

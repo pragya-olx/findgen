@@ -2,7 +2,37 @@
 <div class="container main-content pending">
     <div class="row">
         <div class="col-md-12">
-			<%= render "pending_bookings.html.erb" %>
+			<table id="dashboard_bookings" class="table hover table-bordered hover" cellspacing="0" width="100%">
+			    <thead>
+			        <tr>
+			            <th>Id</th>
+			            <th>Name</th>
+			            <th>Office Location</th>
+			            <th>Required from</th>
+			            <th>Required Till</th>
+			            <th>Generator Type</th>
+			            <th>Status</th>
+			            <th>Client Id</th>
+			            <th>Vendor Id</th>
+			        </tr>
+			    </thead>
+			        <% @bookings.each do |booking| %>
+			          <tr>
+			            <td><%= booking.id %></td>
+			            <td><%= booking.name %></td>
+			            <td><%= booking.location %></td>
+			            <td><%= booking.start_date %></td>
+			            <td><%= booking.end_date %></td>
+			            <td><%= booking.gen_type %></td>
+			            <td><%= booking.status %></td>
+			            <td><%= booking.client.name %></td>
+			            <td>NULL </td>
+			          </tr>
+			        <% end %>
+
+			    <tbody>
+			    </tbody>
+			</table>
         </div>
     </div>
     </div>

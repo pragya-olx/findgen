@@ -1,70 +1,85 @@
 window.Booking = function() {};
 
 Booking.load = function() {
-	var pendingTable = $("#pending_bookings").DataTable();
-	var allBookings = $("#bookings").DataTable();
-	var statuses = ['pending', 'approved', 'previous']
+	// var pendingTable = $("#pending_bookings").DataTable();
+	// var allBookings = $("#bookings").DataTable();
+	// var statuses = ['pending', 'approved', 'previous']
 
-	refreshBookings = function(data,t) {
-		t.clear().draw();
-		for(var i = 0; i < data.length; i++) {
-			t.row.add([
-				data[i].id,
-				data[i].name,
-				data[i].location,
-				data[i].start_date,
-				data[i].end_date,
-				data[i].gen_type,
-				data[i].status,
-				data[i].client_id,
-				data[i].user_id,
-			]).draw();
-		}
-	};
+	// refreshBookings = function(data,t) {
+	// 	t.clear().draw();
+	// 	for(var i = 0; i < data.length; i++) {
+	// 		t.row.add([
+	// 			data[i].id,
+	// 			data[i].name,
+	// 			data[i].location,
+	// 			data[i].start_date,
+	// 			data[i].end_date,
+	// 			data[i].gen_type,
+	// 			data[i].status,
+	// 			data[i].client_id,
+	// 			data[i].user_id,
+	// 		]).draw();
+	// 	}
+	// };
 
-	showBookings = function(bookingStatus, t) {
+	// showBookings = function(bookingStatus, t) {
 		
-		$.ajax({
-    		url: '/bookings',
-    		data: {status: bookingStatus, client_id: clientId ? clientId : ""},
-    		datatype : "json"
-    	}).done(function(data){
-    		refreshBookings(data, t);
-    	}).fail(function(data){
-    		console.log("error")
-    	});
+	// 	$.ajax({
+ //    		url: '/bookings',
+ //    		data: {status: bookingStatus, client_id: clientId ? clientId : ""},
+ //    		datatype : "json"
+ //    	}).done(function(data){
+ //    		refreshBookings(data, t);
+ //    	}).fail(function(data){
+ //    		console.log("error")
+ //    	});
 
-    	var i = 0;
-    	while(i < statuses.length) {
-    		status = statuses[i];
-    		i++;
-    		if(status == bookingStatus) {
-    			$("#" + status).addClass('active')
-    		} else {
-    			$("#" + status).removeClass('active')
-    		}
-    	}
-	}
+ //    	var i = 0;
+ //    	while(i < statuses.length) {
+ //    		status = statuses[i];
+ //    		i++;
+ //    		if(status == bookingStatus) {
+ //    			$("#" + status).addClass('active')
+ //    		} else {
+ //    			$("#" + status).removeClass('active')
+ //    		}
+ //    	}
+	// }
 
-	showBookings('pending', pendingTable)
+	// showBookings('pending', pendingTable)
 
-	$('#pending_bookings tbody').on('click', 'tr', function(){
+	$('#dashboard_bookings tbody').on('click', 'tr', function(){
       id = $(this).find('td').first().text();
       window.location = "/bookings/" + id;
     });
 
+ 	var url = window.location.href.split('?')[0];
 	$('#' + 'approved').click(function(){
-		showBookings('approved', allBookings)
+		window.location = url + "?booking_status=approved"
 	});
 	$('#' + 'pending').click(function(){
-		showBookings('pending', allBookings)
+		window.location = url + "?booking_status=pending"
 	});
 	$('#' + 'previous').click(function(){
-		showBookings('previous', allBookings)
+		window.location = url + "?booking_status=previous"
 	});
 
-	 $('#datetimepicker1').datetimepicker();
-	 $('#datetimepicker2').datetimepicker();
+	if (qs["booking_status"] == "pending") {
+		$("#pending").addClass('active')
+		$("#previous").removeClass('active')
+		$("#approved").removeClass('active')
+	} else if (qs["booking_status"] == "previous") {
+		$("#pending").removeClass('active')
+		$("#approved").removeClass('active')
+		$("#previous").addClass('active')
+	} else {
+		$("#pending").removeClass('active')
+		$("#approved").addClass('active')
+		$("#previous").removeClass('active')
+	}
+
+	  $('#datetimepicker1').datetimepicker();
+	  $('#datetimepicker2').datetimepicker();
 
 	 $("#save_bookings").click(function(){
 
@@ -83,8 +98,8 @@ Booking.load = function() {
     		url: '/bookings',
     		data: formData
     	}).done(function(data){
-    		$('#createBooking').modal('hide')
-    		showBookings('pending', allBookings)
+    		location.reload()
+    		
     	}).fail(function(data){
     		console.log("error")
     	});

@@ -17,10 +17,10 @@
         <br>
 
         <%= f.label :status %>
-        <%= f.select(:status, ['pending', 'approved', 'rejected', 'cancelled', 'completed']) %>
+        <%= f.select(:status, ['approver_approved', 'approved', 'rejected']) %>
         <br>
         <%= f.label :vendor %>
-        <%= f.collection_select(:user_id, get_all_vendors, :id, :name) %>
+        <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
         <br>
 
       </div>
