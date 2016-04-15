@@ -6,33 +6,28 @@
         <h4 class="modal-title">Add new booking</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="booking_name">
-        </div>
-        <div class="form-group">
-          <label for="location">Location</label>
-          <input type="text" class="form-control" id="booking_location">
+        <div class="form-group" id="startDate">
+          <label for="startDate">Start Date</label>
+          <br>
+          <%= date_field(:booking, :start_date) %>
         </div>
 
-        <div class="form-group">
-                <label for="startDate">Start Date and Time</label>
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar" id="startDate"></span>
-                    </span>
-                </div>
+        <div class="form-group" id="timeIn">
+          <label for="startDate">Time In (HH:MM AM/PM) </label>
+          <br>
+          <%= time_field(:booking, :time_in) %>
         </div>
 
-        <div class="form-group">
-                <label for="endDate">End Date and Time</label>
-                <div class='input-group date' id='datetimepicker2'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar" id="endDate"></span>
-                    </span>
-                </div>
+        <div class="form-group" id="endDate">
+          <label for="endDate">End Date</label>
+          <br>
+          <%= date_field(:booking, :end_date) %>
+        </div>
+
+        <div class="form-group" id="timeOut">
+          <label for="startDate">Time Out (HH:MM AM/PM) </label>
+          <br>
+          <%= time_field(:booking, :time_out) %>
         </div>
 
         <div class="form-group">

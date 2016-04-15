@@ -32,12 +32,18 @@ class BookingsController < ApplicationController
 	end
 
 	def create
-	  booking = Booking.new(params.require(:booking).permit(:name, :location,:start_date,:end_date,:gen_type))
+	  booking = Booking.new(params.require(:booking).permit(:start_date, :end_date, :gen_type, :time_in, :time_out))
+
 	  booking.status = "pending"
     booking.user = current_user
     booking.client = Client.find(params[:booking][:client_id])
+    booking.name = "#{booking.client.name}_#{booking.user.name}"
+    booking.location = client.location
 	  booking.save
-    UserMailer.booking_create(booking).deliver
+    booking.name = "#{booking.name}_#{booking.id}"
+    booking.save
+    
+    #UserMailer.booking_create(booking).deliver
 
 	  render json: Booking.where(:status => "pending").to_json, status: 201
 	end

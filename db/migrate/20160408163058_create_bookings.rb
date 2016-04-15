@@ -4,8 +4,8 @@ class CreateBookings < ActiveRecord::Migration
     	t.string :name
     	t.string :location
     	t.integer :days
-    	t.datetime :start_date
-    	t.datetime :end_date
+    	t.date :start_date
+    	t.date :end_date
     	t.string :status
 
     	t.timestamps

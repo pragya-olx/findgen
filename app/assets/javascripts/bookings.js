@@ -69,17 +69,23 @@ Booking.load = function() {
 
 	$("#" + qs["booking_status"]).addClass('active')
 
-	  $('#datetimepicker1').datetimepicker();
-	  $('#datetimepicker2').datetimepicker();
+	$('#datetimepicker1').datetimepicker({
+	  	dateFormat: "yyyy-mm-dd",
+    	timeFormat:  "hh:mm:ss"
+    });
+	$('#datetimepicker2').datetimepicker({
+	  	dateFormat: "yyyy-mm-dd",
+    	timeFormat:  "hh:mm:ss"
+    });
 
 	 $("#save_bookings").click(function(){
 
 	 	formData = {
 	 		booking: {
-    	 		name: $('#booking_name').val(),
-    	 		location: $('#booking_location').val(),
-    	 		start_date: $("#datetimepicker1 input").val(),
-    	 		end_date: $("#datetimepicker2 input").val(),
+    	 		start_date: $("#startDate input").val(),
+    	 		end_date: $("#endDate input").val(),
+    	 		time_in: $("#timeIn input").val(),
+    	 		time_out: $("#timeOut input").val(),
     	 		gen_type: $('#type').val(),
     	 		client_id: clientId
     	 	}
