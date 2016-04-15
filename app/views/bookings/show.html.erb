@@ -2,25 +2,29 @@
   <div class="booking-edit">
     <div class="info">
       <div class="personal-info">
+
+        <h3> Booking Data </h3>
         <%= f.label :first_name %>
-        <%= f.text_field :name %>
+        <%= f.text_field :name, :readonly=>true %>
         <br>
 
         <%= f.label :location %>
-        <%= f.text_field :location %>
+        <%= f.text_field :location, :readonly=>true %>
         <br>
         <%= f.label :from_date %>
-        <%= f.date_field :start_date %>
+        <%= f.date_field :start_date,:readonly=>true %>
         <br>
         <%= f.label :till_date %>
-        <%= f.date_field :end_date %>
+        <%= f.date_field :end_date,:readonly=>true %>
         <br>
         <%= f.label :time_in %>
-        <%= f.date_field :time_in %>
+        <%= f.text_field :time_in,:readonly=>true %>
         <br>
         <%= f.label :time_out %>
-        <%= f.date_field :time_out %>
+        <%= f.text_field :time_out,:readonly=>true %>
         <br>
+
+        <h3> Update Booking </h3>
 
         <%= f.label :status %>
         <%= f.select(:status, ['approver_approved', 'approved', 'rejected']) %>

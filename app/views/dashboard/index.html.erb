@@ -8,8 +8,10 @@
 			            <th>Id</th>
 			            <th>Name</th>
 			            <th>Office Location</th>
-			            <th>Required from</th>
-			            <th>Required Till</th>
+			            <th>From Date</th>
+			            <th>Time In</th>
+			            <th>Till Date</th>
+			            <th>Time Out</th>
 			            <th>Generator Type</th>
 			            <th>Status</th>
 			            <th>Client Id</th>
@@ -22,7 +24,9 @@
 			            <td><%= booking.name %></td>
 			            <td><%= booking.location %></td>
 			            <td><%= booking.start_date %></td>
+			            <td><%= booking.time_in %></td>
 			            <td><%= booking.end_date %></td>
+			            <td><%= booking.time_out %></td>
 			            <td><%= booking.gen_type %></td>
 			            <td><%= booking.status %></td>
 			            <td><%= booking.client.name %></td>
