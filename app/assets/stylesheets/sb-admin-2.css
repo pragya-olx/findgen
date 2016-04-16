@@ -10,6 +10,10 @@ tr {
 	width: 1370px !important;
 }
 
+.balance {
+  color: red;
+}
+
 
 aside {
   section.user_info {

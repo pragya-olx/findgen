@@ -49,7 +49,7 @@ class BookingsController < ApplicationController
     
     #UserMailer.booking_create(booking).deliver
 
-	  render json: Booking.where(:status => "pending").to_json, status: 201
+	  render json: {}, status: 201
 	end
 
   def update
