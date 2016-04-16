@@ -60,7 +60,7 @@ Booking.load = function() {
 	$('#' + 'pending').click(function(){
 		window.location = url + "?booking_status=pending"
 	});
-	$('#' + 'previous').click(function(){
+	$('#' + 'completed').click(function(){
 		window.location = url + "?booking_status=completed"
 	});
 	$('#' + 'approver_approved').click(function(){
@@ -68,15 +68,6 @@ Booking.load = function() {
 	});
 
 	$("#" + qs["booking_status"]).addClass('active')
-
-	$('#datetimepicker1').datetimepicker({
-	  	dateFormat: "yyyy-mm-dd",
-    	timeFormat:  "hh:mm:ss"
-    });
-	$('#datetimepicker2').datetimepicker({
-	  	dateFormat: "yyyy-mm-dd",
-    	timeFormat:  "hh:mm:ss"
-    });
 
 	 $("#save_bookings").click(function(){
 
