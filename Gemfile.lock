@@ -43,6 +43,11 @@ GEM
       momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     byebug (8.2.3)
+    carrierwave (0.11.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     city-state (0.0.13)
       rubyzip (~> 1.1)
     coffee-rails (4.1.1)
@@ -157,6 +162,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap3-datetimepicker-rails (~> 4.14.30)
   byebug
+  carrierwave
   city-state
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)

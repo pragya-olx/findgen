@@ -29,6 +29,14 @@
         <%= f.label :status %>
         <%= f.select(:status, ['approver_approved', 'approved', 'rejected']) %>
         <br>
+        <% if @booking.slip.present? %>
+          <div><%= link_to "Download Duty Slip", @booking.slip_url %></div>
+        <% else %>
+        <%= f.label :duty_slip %>
+        <%= f.file_field(:slip, accept: 'image/png,image/gif,image/jpeg') %>
+        <% end %>
+
+        <br>
         <%= f.label :vendor %>
         <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
         <br>

@@ -12,6 +12,7 @@
             <th>Status</th>
             <th>Client</th>
             <th>Vendor Id</th>
+            <th>Duty Slip</th>
             <% if current_user.is_approver? %>
             <th>Actions</th>
             <% end %>
@@ -29,7 +30,19 @@
             <td><%= booking.gen_type %></td>
             <td><%= booking.status %></td>
             <td><%= booking.client.name %></td>
-            <td>NULL </td>
+            <td>
+            <% if booking.vendor.present? %>
+                <%= booking.vendor.name %>
+            <% end %>
+            </td>
+            <td>
+            <% if booking.slip.present? %>
+                <%= link_to "Download", booking.slip_url %>
+            <% else %>
+                No Duty Slip
+            <% end %>
+            </td>
+
             <% if current_user.is_approver? and booking.status == "pending" %>
             <td><button class="approve_btn">Approve</button></td>
             <% end %>
@@ -39,3 +52,10 @@
     <tbody>
     </tbody>
 </table>
+
+<script type="text/javascript">
+    $('#bookings tbody').on('click','tr', function(event) {
+        id = $(this).find('td').first().text()
+        location = '/bookings/' + id;
+    });
+</script>

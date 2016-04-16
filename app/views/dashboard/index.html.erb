@@ -16,6 +16,7 @@
 			            <th>Status</th>
 			            <th>Client Id</th>
 			            <th>Vendor Id</th>
+			            <th>Duty Slip</th>
 			        </tr>
 			    </thead>
 			        <% @bookings.each do |booking| %>
@@ -35,6 +36,13 @@
 			            <% else %>
 			            	<td> NULL </td>
 			            <%end %>
+			            <td>
+				            <% if booking.slip.present? %>
+				        	    <%= link_to "Download Duty Slip", booking.attachment_url %>
+				        	<% else %>
+				        		No Duty Slip
+			            	<%end %>
+			            </td>
 			          </tr>
 			        <% end %>
 

@@ -30,6 +30,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 
 gem 'json'
 gem 'city-state'
+gem 'carrierwave'
 
 
 # Use ActiveModel has_secure_password
