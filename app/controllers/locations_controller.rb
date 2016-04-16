@@ -2,7 +2,6 @@ class LocationsController < ApplicationController
 	def index
 		@locations = Location.all
 		@states = CS.states(:IN)
-		@cities = Location.pluck(:city)
 		respond_to do |format|
 			format.json {render :json => Location.all, :status => 200}
 			format.html
@@ -11,13 +10,11 @@ class LocationsController < ApplicationController
 	end
 
 	def create
-		@location = Location.where(:state => params[:state], :city => params[:city]).first
+		@location = Location.where(:state => params[:state]).first
 		if @location.nil?
-	    	@location = Location.new(params.permit(:state,:city,:fixed))
-	    else
-	    	@location.fixed = params[:fixed]
+	    	@location = Location.new(params.permit(:state, :kva_30_day, :kva_70_day, :kva_130_day, :kva_250_day, :kva_30_hour, :kva_70_hour, :kva_130_hour, :kva_250_hour))
 	    end
 	    @location.save
 	    render json: {}, status: 201 
-  end
+    end
 end

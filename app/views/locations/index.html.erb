@@ -15,21 +15,51 @@
 				<% end %>
 			  </select>
 	        </div>
-	        <div class="form-group">
-	          <label for="location">City</label>
-	          <select name="city">
-			  </select>
-	        </div>
 
-	        <div class="form-group">
-	          <label for="location">Rate</label>
-	          <input type="text" class="form-control" id="rate">
-	        </div>
+				<div class="form-group">
+	        		<label>1-30 KVA Fixed</label>
+	        		<input id="kva_30_day"></input>
+	        		</div>
+
+		           <div class="form-group">
+		            <label>1-30 KVA Per Hour</label>
+		            <input id="kva_30_hour"></input>
+		            </div>
+
+		           <div class="form-group">
+		            <label>31-70 KVA Fixed</label>
+		            <input id="kva_70_day"></input>
+		            </div>
+
+		           <div class="form-group">
+		            <label>31-70 KVA Per Hour</label>
+		            <input id="kva_70_hour"></input>
+		            </div>
+
+		           <div class="form-group">
+		            <label>71-130 KVA Fixed</label>
+		            <input id="kva_130_day"></input>
+		            </div>
+
+		           <div class="form-group">
+		            <label>71-130 KVA Per Hour</label>
+		            <input id="kva_130_hour"></input>
+		            </div>
+
+		           <div class="form-group">
+		            <label>131-250 KVA Fixed</label>
+		            <input id="kva_250_day"></input>
+		            </div>
+
+		           <div class="form-group">
+		            <label>131-250 KVA Per Hour</label>	
+		            <input id="kva_250_hour"></input>
+		            </div>
 
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="save_location">Save changes</button>
+	        <button type="button" class="btn btn-primary" id="save_location">Submit</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
@@ -50,15 +80,27 @@
 			  <thead>
 		        <tr>
 		            <th>State</th>
-		            <th>City</th>
-		            <th>Rate</th>
+		            <th>1-30 KVA Fixed</th>
+		            <th>1-30 KVA Per Hour</th>
+		            <th>31-70 KVA Fixed</th>
+		            <th>31-70 KVA Per Hour</th>
+		            <th>71-130 KVA Fixed</th>
+		            <th>71-130 KVA Per Hour</th>
+		            <th>131-250 KVA Fixed</th>
+		            <th>131-250 KVA Per Hour</th>		           		            		           		      
 		        </tr>
 			  </thead>
 				<% @locations.each do |location| %>
 				  <tr>
 				    <td><%= location.state %></td>
-				    <td><%= location.city %></td>
-				    <td><%= location.fixed %></td>
+				    <td><%= location.kva_30_day %></td>
+				    <td><%= location.kva_30_hour %></td>
+				    <td><%= location.kva_70_day %></td>
+				    <td><%= location.kva_70_hour %></td>
+				    <td><%= location.kva_130_day %></td>
+				    <td><%= location.kva_130_hour %></td>
+				    <td><%= location.kva_250_day %></td>
+				    <td><%= location.kva_250_hour %></td>				    				    				    
 				  </tr>
 				<% end %>
 			</table> 
@@ -68,22 +110,29 @@
 </div>
 
 <script>
-	$('select[name="state"]').change(function () {
-	  var input_state = $('select[name="city"]');
-	  $.getJSON('/cities/' + $(this).val(), function (data) {
-	    input_state.empty();
-	    $.each(data, function (i) {
-	      var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
-	      input_state.append(opt);
-	    });
-	  });
-	});
+	// $('select[name="state"]').change(function () {
+	//   var input_state = $('select[name="city"]');
+	//   $.getJSON('/cities/' + $(this).val(), function (data) {
+	//     input_state.empty();
+	//     $.each(data, function (i) {
+	//       var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
+	//       input_state.append(opt);
+	//     });
+	//   });
+	// });
 
 	$('#save_location').click(function(){
 	  formData = {
 	    state: $("select[name='state']").find("option:selected").text(),
-	    city: $('select[name="city"]').val(),
-	    fixed: $('#rate').val()
+	    fixed: $('#rate').val(),
+	    kva_30_day: $("#kva_30_day").val(),
+	    kva_30_hour: $("#kva_30_hour").val(),
+	    kva_70_day: $("#kva_70_day").val(),
+	    kva_70_hour: $("#kva_70_hour").val(),
+	    kva_130_day: $("#kva_130_day").val(),
+	    kva_130_hour: $("#kva_130_hour").val(),
+	    kva_250_day: $("#kva_250_day").val(),
+	    kva_250_hour: $("#kva_250_hour").val()
 	  }
 
 	  $.post({

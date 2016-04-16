@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416091442) do
+ActiveRecord::Schema.define(version: 20160416094036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,10 +54,18 @@ ActiveRecord::Schema.define(version: 20160416091442) do
     t.string   "state"
     t.string   "city"
     t.string   "kv"
-    t.integer  "fixed",      default: 0
-    t.integer  "variable",   default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "fixed",        default: 0
+    t.integer  "variable",     default: 0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.decimal  "kva_30_day"
+    t.decimal  "kva_30_hour"
+    t.decimal  "kva_70_day"
+    t.decimal  "kva_70_hour"
+    t.decimal  "kva_130_day"
+    t.decimal  "kva_130_hour"
+    t.decimal  "kva_250_day"
+    t.decimal  "kva_250_hour"
   end
 
   create_table "rates", force: :cascade do |t|
