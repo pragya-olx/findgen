@@ -9,7 +9,7 @@
         <br>
 
         <%= f.label :location %>
-        <%= f.text_field :location, :readonly=>true %>
+        <%= @booking.location %>
         <br>
         <%= f.label :from_date %>
         <%= f.date_field :start_date,:readonly=>true %>
@@ -18,16 +18,34 @@
         <%= f.date_field :end_date,:readonly=>true %>
         <br>
         <%= f.label :time_in %>
-        <%= f.text_field :time_in,:readonly=>true %>
+        <%= @booking.time_in %>
         <br>
         <%= f.label :time_out %>
-        <%= f.text_field :time_out,:readonly=>true %>
+        <%= @booking.time_out %>
+
+        <br>
+        <span> Spoc ID </span>
+        <%= @booking.user_id %>
+
+        <br>
+        <%= f.label :spoc_name %>
+        <%= @booking.user.name %>
+        <br>
+
+        <%= f.label :total_cost %>
+        <%= @booking.cost %>
         <br>
 
         <h3> Update Booking </h3>
 
         <%= f.label :status %>
-        <%= f.select(:status, ['approver_approved', 'approved', 'rejected']) %>
+
+        <% if current_user.is_owner? %>
+        <%= f.select(:status, ['approver_approved', 'approved', 'rejected', 'completed']) %>
+        <% else %>
+          <%= @booking.status %>
+        <%end%>
+
         <br>
         <% if @booking.slip.present? %>
           <div><%= link_to "Download Duty Slip", @booking.slip_url %></div>
@@ -37,8 +55,17 @@
         <% end %>
 
         <br>
+
         <%= f.label :vendor %>
-        <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
+        <% if current_user.is_owner? %>
+            <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
+        <% else %>
+            <% if @booking.vendor.present? %>
+                <%= @booking.vendor.name %>
+            <% end %>
+
+        <%end%>
+
         <br>
 
       </div>

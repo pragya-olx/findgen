@@ -1,5 +1,7 @@
 class BookingsController < ApplicationController
 
+  include CostCalculator
+
 	def show
       @booking = Booking.find(params[:id])
   end
@@ -32,7 +34,7 @@ class BookingsController < ApplicationController
 	end
 
 	def create
-	  booking = Booking.new(params.require(:booking).permit(:start_date, :end_date, :gen_type, :time_in, :time_out))
+	  booking = Booking.new(params.require(:booking).permit(:start_date, :end_date, :gen_type, :time_in, :time_out, :lisp, :kva))
 
 	  booking.status = "pending"
     booking.user = current_user
@@ -41,6 +43,8 @@ class BookingsController < ApplicationController
     booking.location = booking.client.location
 	  booking.save
     booking.name = "#{booking.name}_#{booking.id}"
+    booking.cost = booking.days*per_day_cost(booking.lisp, booking.kva) + booking.hours*per_hour_cost(booking.lisp, booking.kva)
+    booking.cost += 1500 if booking.is_mobile?
     booking.save
     
     #UserMailer.booking_create(booking).deliver

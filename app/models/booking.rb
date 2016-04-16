@@ -5,6 +5,21 @@ class Booking < ActiveRecord::Base
 	belongs_to :client
 
 	mount_uploader :slip, AttachmentUploader # Tells rails to use this uploader for this model.
-   	validates :name, presence: true # Make sure the owner's name is present.
+	validates :name, presence: true # Make sure the owner's name is present.
+
+	def days
+		(self.end_date - self.start_date + 1).to_i
+	end
+
+	def hours
+		start_hours = self.time_in.split(':').first
+		end_hours = self.time_out.split(':').first
+		total_hours = 24*days - start_hours.to_i - (24 - end_hours.to_i)
+		total_hours
+	end
+
+   def is_mobile?
+      self.gen_type == "Mobile"
+   end
 
 end

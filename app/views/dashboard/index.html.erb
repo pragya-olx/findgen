@@ -14,6 +14,8 @@
 			            <th>Time Out</th>
 			            <th>Generator Type</th>
 			            <th>Status</th>
+			            <th>KVA</th>
+			            <th>LISP</th>
 			            <th>Client Id</th>
 			            <th>Vendor Id</th>
 			            <th>Duty Slip</th>
@@ -30,6 +32,8 @@
 			            <td><%= booking.time_out %></td>
 			            <td><%= booking.gen_type %></td>
 			            <td><%= booking.status %></td>
+			            <td><%= booking.kva %></td>
+			            <td><%= booking.lisp %></td>
 			            <td><%= booking.client.name %></td>
 			            <% if booking.vendor.present? %>
 			            	<td><%= booking.vendor.name %> </td>
@@ -38,7 +42,7 @@
 			            <%end %>
 			            <td>
 				            <% if booking.slip.present? %>
-				        	    <%= link_to "Download Duty Slip", booking.attachment_url %>
+				        	    <%= link_to "Download Duty Slip", booking.slip_url %>
 				        	<% else %>
 				        		No Duty Slip
 			            	<%end %>

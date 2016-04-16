@@ -61,7 +61,7 @@ Booking.load = function() {
 		window.location = url + "?booking_status=pending"
 	});
 	$('#' + 'previous').click(function(){
-		window.location = url + "?booking_status=previous"
+		window.location = url + "?booking_status=completed"
 	});
 	$('#' + 'approver_approved').click(function(){
 		window.location = url + "?booking_status=approver_approved"
@@ -86,7 +86,9 @@ Booking.load = function() {
     	 		end_date: $("#endDate input").val(),
     	 		time_in: $("#timeIn input").val(),
     	 		time_out: $("#timeOut input").val(),
-    	 		gen_type: $('#type').val(),
+    	 		gen_type: $('#gen_type').val(),
+    	 		lisp: $('#lisp').val(),
+    	 		kva: $('#kva').val(),
     	 		client_id: clientId
     	 	}
 	 	};

@@ -32,8 +32,22 @@
 
         <div class="form-group">
           <label for="sel1">Select Generator Type</label>
-          <input type="text" class="form-control" id="type">
+          <select class="form-control" id="gen_type">
+            <option>Mobile</option>
+            <option>Static</option>
+          </select>
         </div>
+
+        <div class="form-group">
+          <label for="sel1">KVA required</label>
+          <input id="kva"></input>
+        </div>
+
+        <div class="form-group">
+          <label for="sel1">LISP</label>
+          <input id="lisp"></input>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
