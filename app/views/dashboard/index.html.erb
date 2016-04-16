@@ -1,5 +1,10 @@
+<div class="container main-content">
+	<ul class="nav nav-tabs" id="navTabs">
+		<li role="presentation" id="owner_pending"><a onclick="window.location = '?status=pending' ">Pending Approval Bookings</a></li>
+	    <li role="presentation" id="owner_approved"><a onclick="window.location = '?status=approved' ">Active Bookings</a></li>
+	    <li role="presentation" id="owner_previous"><a onclick="window.location = '/' " >Previous Bookings</a></li>
+	</ul>
 
-<div class="container main-content pending">
     <div class="row">
         <div class="col-md-12">
 			<table id="dashboard_bookings" class="table hover table-bordered hover" cellspacing="0" width="100%">
@@ -57,3 +62,12 @@
     </div>
     </div>
 </div>
+
+<script type="text/javascript">
+	if (qs['status'] != null) {
+		console.log(qs['status'])
+		$("#owner_" + qs['status']).addClass('active')
+	} else {
+		$("#owner_previous").addClass('active')
+	}
+</script>

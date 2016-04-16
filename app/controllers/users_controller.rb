@@ -8,6 +8,10 @@ class UsersController < ApplicationController
       users = User.where(:role_type => "spoc")
     elsif params[:role_type] == "vendor"
       users = User.where(:role_type => "vendor")
+    elsif params[:role_type] == "approver"
+      users = User.where(:role_type => "approver")
+    elsif params[:role_type] == "general"
+      users = User.where(:role_type => "general")
     else
       users = User.where(:role_type => "owner")
     end

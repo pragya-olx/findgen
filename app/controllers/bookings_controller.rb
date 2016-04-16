@@ -4,6 +4,10 @@ class BookingsController < ApplicationController
 
 	def show
       @booking = Booking.find(params[:id])
+      if @booking.lisp.present? and @booking.kva.present?
+        @per_day = per_day_cost(@booking.lisp, @booking.kva)
+        @per_hour = per_hour_cost(@booking.lisp, @booking.kva)
+      end
   end
 
 	def index
@@ -39,12 +43,11 @@ class BookingsController < ApplicationController
 	  booking.status = "pending"
     booking.user = current_user
     booking.client = Client.find(params[:booking][:client_id])
+    booking.rep = User.find(params[:booking][:rep_id])
     booking.name = "#{booking.client.name}_#{booking.user.name}"
     booking.location = booking.client.location
 	  booking.save
     booking.name = "#{booking.name}_#{booking.id}"
-    booking.cost = booking.days*per_day_cost(booking.lisp, booking.kva) + booking.hours*per_hour_cost(booking.lisp, booking.kva)
-    booking.cost += 1500 if booking.is_mobile?
     booking.save
     
     #UserMailer.booking_create(booking).deliver
@@ -55,6 +58,20 @@ class BookingsController < ApplicationController
   def update
     booking = Booking.find(params[:id])
     booking.update!(booking_params)
+    if booking.status == "approver_approved" and booking.vendor_id.present?
+      booking.status = "approved"
+      booking.save
+    end
+    if booking.status == "approved" and booking.slip.present?
+      booking.status = "completed"
+      booking.save
+    end
+    if booking_params[:actual_days].present?
+      booking.cost = booking_params[:actual_days].to_i*per_day_cost(booking.lisp, booking.kva) + booking_params[:actual_hours].to_i*per_hour_cost(booking.lisp, booking.kva)
+      booking.cost += 1500 if booking.is_mobile?
+      booking.save
+    end
+
     #UserMailer.booking_update(booking).deliver
     redirect_to booking
   end
@@ -62,7 +79,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:name, :email,:start_date,:end_date,:status, :user_id, :vendor_id, :slip)
+    params.require(:booking).permit(:name, :email,:start_date,:end_date,:status, :user_id, :vendor_id, :slip, :actual_days, :actual_hours)
   end
 
 end

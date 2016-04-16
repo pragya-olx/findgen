@@ -9,6 +9,7 @@ window.User.load = ->
 	  i = 0
 	  while i < data.length
 	    t.row.add([
+	      data[i].id
 	      data[i].name
 	      data[i].location
 	      data[i].email
@@ -23,14 +24,13 @@ window.User.load = ->
 	    data: {role_type: user, client_id: clientId}
 	    datatype: 'json').done((data) ->
 	    refreshUsers data
-	    return
 	  ).fail (data) ->
 	    console.log 'error'
 	  types = [
 	    'admin',
 	    'spoc',
-	    'vendor',
-	    'owner'
+	    'approver',
+	    'general'
 	  ]
 	  for type in types
 	    if type == user
@@ -44,10 +44,12 @@ window.User.load = ->
 	  showUsers 'admin'
 	$('#spoc').click ->
 	  showUsers 'spoc'
-	$('#vendor').click ->
-	  showUsers 'vendor'
-	$('#owner').click ->
-	  showUsers 'owner'
+	$('#general').click ->
+	  showUsers 'general'
+	$('#approver').click ->
+	  showUsers 'approver'
+
+
 	$('#save_user').click ->
 	  formData = user:
 	    name: $('#user_name').val()

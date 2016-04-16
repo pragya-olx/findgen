@@ -32,8 +32,12 @@
         <%= @booking.user.name %>
         <br>
 
-        <%= f.label :total_cost %>
-        <%= @booking.cost %>
+        <span> Rep ID </span>
+        <%= @booking.rep_id %>
+
+        <br>
+        <%= f.label :rep_name %>
+        <%= @booking.rep.name %>
         <br>
 
         <h3> Update Booking </h3>
@@ -49,9 +53,34 @@
         <br>
         <% if @booking.slip.present? %>
           <div><%= link_to "Download Duty Slip", @booking.slip_url %></div>
+            <br>
+            <%= f.label :actual_days %>
+            <%= @booking.actual_days %>
+            <br>
+            <%= f.label :actual_hours %>
+            <%= @booking.actual_hours %>
+
+            <br>
+            <%= f.label :total_cost %>
+            <%= @booking.cost %>
+            <br>
+            <div>Details</div>
+            <%= @booking.actual_days %> x  <%= @per_day %> +
+            <%= @booking.actual_hours %> x <%= @per_hour %>
+            <% if @booking.is_mobile? %>
+             + 1500
+            <%end%>
+            = <%= @booking.cost %>
+
         <% else %>
-        <%= f.label :duty_slip %>
-        <%= f.file_field(:slip, accept: 'image/png,image/gif,image/jpeg') %>
+            <%= f.label :duty_slip %>
+            <%= f.file_field(:slip, accept: 'image/png,image/gif,image/jpeg') %>
+            <br>
+            <%= f.label :actual_days %>
+            <%= f.text_field :actual_days %>
+            <br>
+            <%= f.label :actual_hours %>
+            <%= f.text_field :actual_hours %>
         <% end %>
 
         <br>

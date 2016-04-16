@@ -80,7 +80,8 @@ Booking.load = function() {
     	 		gen_type: $('#gen_type').val(),
     	 		lisp: $('#lisp').val(),
     	 		kva: $('#kva').val(),
-    	 		client_id: clientId
+    	 		client_id: clientId,
+    	 		rep_id: $('#rep_id').val()
     	 	}
 	 	};
 

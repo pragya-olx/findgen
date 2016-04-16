@@ -7,7 +7,15 @@ class DashboardController < ApplicationController
 			if !current_user.is_owner?
 				redirect_to "/clients/#{current_user.client_id}"
 			end
-		    @bookings = Booking.where(:status => "approver_approved")
+			if params[:status].nil?
+				@bookings = Booking.where(:status => ["completed", "rejected", "cancelled", "paid"])	
+			else
+				if params[:status] == "pending"
+					@bookings = Booking.where(:status => "approver_approved")
+				elsif params[:status] == "approved"
+					@bookings = Booking.where(:status => "approved")
+				end
+			end
 		end
 
 	end
