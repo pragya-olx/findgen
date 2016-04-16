@@ -17,7 +17,11 @@ class ClientsController < ApplicationController
 
     unpaid_bookings = Booking.where(:client_id => params[:id], :status => "completed")
     cost = 0
-    unpaid_bookings.each {|x| cost += x.cost}
+    unpaid_bookings.each {|x| 
+      if x.cost?
+        cost += x.cost
+      end
+    }
     @current_client.balance = cost
     @current_client.save
 
