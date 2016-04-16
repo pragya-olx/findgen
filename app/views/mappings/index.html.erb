@@ -1,0 +1,24 @@
+<div class="container main-content">
+
+    <div class="row">
+		<table class="table hover table-bordered" cellspacing="0" width="100%">                         
+		  <thead>
+	        <tr>
+	        	<th>Id</th>
+	            <th>Spoc</th>
+	            <th>Approver1</th>
+	            <th>Approver2</th>
+	        </tr>
+		  </thead>
+			<% @mappings.each do |mapping| %>
+			  <tr>
+			  	<td><%= mapping.id %></td>
+			    <td><%= mapping.spoc.name %></td>
+			    <td><%= mapping.approver1.name %></td>
+			    <td><%= mapping.approver2.name %></td>
+			  </tr>
+			<% end %>
+		</table> 
+    </div>
+
+</div>

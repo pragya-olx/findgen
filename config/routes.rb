@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :owners
   resources :vendors
   resources :locations
+  resources :mappings
 
   resources :bookings do
     member do
