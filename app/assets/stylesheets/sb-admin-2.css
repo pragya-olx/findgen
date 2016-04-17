@@ -89,3 +89,7 @@ aside {
 nav li {
   cursor: pointer;
 }
+
+.booking_update {
+  width: 50% !important;
+}

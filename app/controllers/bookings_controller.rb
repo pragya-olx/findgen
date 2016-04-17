@@ -7,15 +7,15 @@ class BookingsController < ApplicationController
       if @booking.lisp.present? and @booking.kva.present?
         @per_day = per_day_cost(@booking.lisp, @booking.kva)
         @per_hour = per_hour_cost(@booking.lisp, @booking.kva)
+        if @booking.actual_days.present? and @booking.actual_hours.present?
+          total = @booking.actual_days.to_i*@per_day + @booking.actual_hours.to_i*@per_hour
+          total += 1500 if @booking.is_mobile?
+          @management_charges = total * 0.1
+          @booking.cost = total + @management_charges
+          @booking.save
+        end
       end
-
-      if @booking.actual_days.present? and @booking.actual_hours.present?
-        total = @booking.actual_days.to_i*@per_day + @booking.actual_hours*@per_hour
-        total += 1500 if @booking.is_mobile?
-        @management_charges = total * 0.1
-        @booking.cost = total + @management_charges
-        @booking.save
-      end
+      @booking_updates = BookingUpdate.where(:booking_id => @booking.id)
   end
 
 	def index
@@ -37,14 +37,19 @@ class BookingsController < ApplicationController
 
   def approve
     booking = Booking.find(params[:id])
+    from_status = booking.status
     booking.status = "approver_approved"
     booking.save
+    add_update_track_record(booking, from_status, "approver_approved")
     render json: {}, status: 201
   end
 
   def cancel
     booking = Booking.find(params[:id])
+    from_status = booking.status
     booking.status = "cancelled"
+    booking.save
+    add_update_track_record(booking, from_status, "cancelled")
     #d = DateTime.parse(booking.start_date + "T" + booking.time_in + "+05:30")
     #next_day = 1.day.from_now
     render json: {}, status: 201
@@ -73,7 +78,13 @@ class BookingsController < ApplicationController
 
   def update
     booking = Booking.find(params[:id])
+
+    from_status = booking.status
     booking.update!(booking_params)
+    to_status = booking.status
+
+    add_update_track_record(booking, from_status, to_status)
+
     if booking.status == "approver_approved" and booking.vendor_id.present?
       booking.status = "approved"
       booking.save
@@ -94,6 +105,15 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def add_update_track_record(booking, from_status, to_status)
+    if from_status != to_status
+      booking_update = BookingUpdate.new(:from_status => from_status, :to_status => to_status)
+      booking_update.user = current_user
+      booking_update.booking = booking
+      booking_update.save
+    end
+  end
 
   def booking_params
     params.require(:booking).permit(:name, :email,:start_date,:end_date,:status, :user_id, :vendor_id, :slip, :actual_days, :actual_hours)

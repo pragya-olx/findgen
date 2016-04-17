@@ -50,6 +50,27 @@
         <%end%>
         <br>
 
+        <h3> Status Tracking </h3>
+        <table class="table hover booking_update table-bordered hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Previous Status</th>
+                    <th>New Status</th>
+                    <th>Changed on</th>
+                </tr>
+            </thead>
+        <% @booking_updates.each do |booking_update| %>
+            <tr>
+                <td><%= booking_update.user.name %></td>
+                <td><%= booking_update.from_status %></td>
+                <td><%= booking_update.to_status %></td>
+                <td><%= booking_update.created_at %></td>
+            </tr>
+        <%end%>
+        </table>
+
+
         <h3> Update Booking </h3>
 
         <%= f.label :status %>
