@@ -1,0 +1,36 @@
+<%= form_for @lisp do |f| %>
+  <div class="booking-edit">
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <br>
+
+  	<%= f.label :state %>
+    <%= f.text_field :state %>
+
+    <br>
+
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+
+    <br>
+
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+
+    <br>
+
+    <%= f.label :zone %>
+    <%= f.text_field :zone %>
+
+    <br>
+
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+
+    <br>
+
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>

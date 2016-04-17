@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :vendors
   resources :locations
   resources :mappings
+  resources :lisps
 
   resources :bookings do
     member do

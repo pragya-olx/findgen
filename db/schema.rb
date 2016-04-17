@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416174049) do
+ActiveRecord::Schema.define(version: 20160417202004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 20160416174049) do
     t.datetime "updated_at",  null: false
     t.integer  "location_id"
   end
+
+  create_table "lisps", force: :cascade do |t|
+    t.string   "state"
+    t.string   "city"
+    t.string   "zone"
+    t.string   "name"
+    t.string   "address"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lisps", ["code"], name: "index_lisps_on_code", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "state"

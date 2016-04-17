@@ -31,6 +31,11 @@
             <a onclick="location.href = '/locations' ">Rates</a>
             </li>
           <% end %>
+          <% if current_user.present? and ( current_user.is_owner? or current_user.admin? )%>
+            <li>
+              <a onclick="location.href = '/lisps' ">LISP</a>
+            </li>
+          <%end%>
 
           <% if current_user.present? %>
             <li class="dropdown user">
