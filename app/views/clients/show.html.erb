@@ -11,8 +11,8 @@
 	<ul class="nav nav-tabs" id="navTabs">
 	  <li role="presentation" class="active"><a href="#">Bookings</a></li>
 	  <li role="presentation"><a href="#">Details</a></li>
-	  <% if current_user.is_admin_or_owner? %>
 	  <li role="presentation"><a href="#">Users</a></li>
+	  <% if current_user.is_admin_or_owner? %>
 	  <li role="presentation"><a onclick="window.location = '/mappings?client_id=' + window.clientId ">Manage</a></li>
 	  <% end %>
 	</ul>

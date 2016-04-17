@@ -15,7 +15,7 @@ class ClientsController < ApplicationController
   def show
     @current_client = Client.find(params[:id])
 
-    unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed", "cancelled"])
+    unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"])
     cost = 0
     unpaid_bookings.each {|x| 
       if x.cost?
@@ -27,7 +27,7 @@ class ClientsController < ApplicationController
 
     @bookings = Booking.where(:client_id => params[:id])
 
-    status = params[:booking_status].nil? ? "approved" : params[:booking_status]
+    status = params[:booking_status].nil? ? "accepted" : params[:booking_status]
 
     if current_user.is_approver?
       spoc_ids = SpocToApproverMapping.where("approver1_id = ? or approver2_id = ?", current_user.id,current_user.id).pluck(:spoc_id)

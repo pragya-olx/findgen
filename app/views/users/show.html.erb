@@ -2,10 +2,30 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
+      <div>
+      	<label>Name</label>
         <%= @user.name %>
-      </h1>
+
+        <br>
+
+        <label>Email</label>
+        <%= @user.email %>
+
+        <br>
+        
+        <label>Password</label>
+        <%= @user.encrypted_password %>
+
+		<br>
+        <label>Client Name</label>
+        <%= @user.client.name %>
+
+        <br>
+
+        <label>Role</label>
+        <%= @user.role_type %>
+
+      </div>
     </section>
   </aside>
 </div>

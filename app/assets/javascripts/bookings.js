@@ -2,14 +2,9 @@ window.Booking = function() {};
 
 Booking.load = function() {
 
-	$('#dashboard_bookings tbody').on('click', 'tr', function(){
-      id = $(this).find('td').first().text();
-      window.location = "/bookings/" + id;
-    });
-
  	var url = window.location.href.split('?')[0];
-	$('#' + 'approved').click(function(){
-		window.location = url + "?booking_status=approved"
+	$('#' + 'accepted').click(function(){
+		window.location = url + "?booking_status=accepted"
 	});
 	$('#' + 'pending').click(function(){
 		window.location = url + "?booking_status=pending"
@@ -20,8 +15,8 @@ Booking.load = function() {
 	$('#' + 'cancelled').click(function(){
 		window.location = url + "?booking_status=cancelled"
 	});
-	$('#' + 'approver_approved').click(function(){
-		window.location = url + "?booking_status=approver_approved"
+	$('#' + 'client_approved').click(function(){
+		window.location = url + "?booking_status=client_approved"
 	});
 
 	$("#" + qs["booking_status"]).addClass('active')

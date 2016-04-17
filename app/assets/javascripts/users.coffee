@@ -15,6 +15,7 @@ window.User.load = ->
 	      data[i].email
 	      data[i].phone_number
 	      data[i].role_type
+	      data[i].employee_id
 	    ]).draw()
 	    i++
 
@@ -30,7 +31,7 @@ window.User.load = ->
 	    'admin',
 	    'spoc',
 	    'approver',
-	    'general'
+	    'employee'
 	  ]
 	  for type in types
 	    if type == user
@@ -44,8 +45,8 @@ window.User.load = ->
 	  showUsers 'admin'
 	$('#spoc').click ->
 	  showUsers 'spoc'
-	$('#general').click ->
-	  showUsers 'general'
+	$('#employee').click ->
+	  showUsers 'employee'
 	$('#approver').click ->
 	  showUsers 'approver'
 
@@ -58,6 +59,7 @@ window.User.load = ->
 	    phone_number: $('#user_phone_number').val()
 	    role_type: $('#role_type').val()
 	    client_id: clientId
+	    employee_id: $('#user_employee_id').val()
 	  $.post(
 	    url: '/users'
 	    data: formData).done((data) ->

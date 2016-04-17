@@ -11,9 +11,9 @@ class DashboardController < ApplicationController
 				@bookings = Booking.where(:status => ["completed", "rejected", "cancelled", "paid"])	
 			else
 				if params[:status] == "pending"
-					@bookings = Booking.where(:status => "approver_approved")
-				elsif params[:status] == "approved"
-					@bookings = Booking.where(:status => "approved")
+					@bookings = Booking.where(:status => "client_approved")
+				elsif params[:status] == "accepted"
+					@bookings = Booking.where(:status => "accepted")
 				end
 			end
 		end

@@ -14,6 +14,7 @@
             <th>Status</th>
             <th>Client</th>
             <th>Vendor Id</th>
+            <th>Rep Id</th>
             <th>Duty Slip</th>
             <% if current_user.is_approver? or current_user.is_spoc? %>
             <th>Actions</th>
@@ -22,7 +23,7 @@
     </thead>
         <% @bookings.each do |booking| %>
           <tr>
-            <td><%= booking.id %></td>
+            <td><a class="booking_id"> <%= booking.id %> </a></td>
             <td><%= booking.name %></td>
             <td><%= booking.location %></td>
             <td><%= booking.start_date %></td>
@@ -31,12 +32,17 @@
             <td><%= booking.time_out %></td>
             <td><%= booking.gen_type %></td>
             <td><%= booking.kva %></td>
-            <td><%= booking.lisp %></td>
+            <td><a class="lisp_id"><%= booking.lisp %></a></td>
             <td><%= booking.status %></td>
             <td><%= booking.client.name %></td>
             <td>
             <% if booking.vendor.present? %>
                 <%= booking.vendor.name %>
+            <% end %>
+            </td>
+            <td>
+            <% if booking.rep.present? %>
+                <a class="rep_id"><%= booking.rep.id %></a>
             <% end %>
             </td>
             <td>
@@ -62,10 +68,21 @@
 </table>
 
 <script type="text/javascript">
-    $('#bookings tbody').on('click','tr', function(event) {
-        id = $(this).find('td').first().text()
-        location = '/bookings/' + id;
-    });
+
+    $(".booking_id").on('click', function(event) {
+        id = $(this).text()
+        location = '/bookings/' + id.trim();
+    })
+
+    $(".lisp_id").on('click', function(event) {
+        id = $(this).text()
+        location = '/lisps/unknown?code=' + id.trim();
+    })
+
+    $(".rep_id").on('click', function(event) {
+        id = $(this).text()
+        location = '/users/' + id.trim();
+    })
 
     $(".cancel_btn").on('click', function(){
       id = $(this).parent().parent().find('td').first().text()

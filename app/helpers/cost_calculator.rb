@@ -8,32 +8,41 @@ module CostCalculator
 	}
 
 	def per_day_cost(lisp,kva)
-		ret = 0
-		if PER_DAY_COST[lisp].present?
-			ret = PER_DAY_COST[lisp][kva_index(kva)]
+		location = get_location(lisp)
+		if location.nil?
+			return 0
 		end
-		ret
+		kva_index(location, kva, "day")
 	end
 
 	def per_hour_cost(lisp,kva)
-		ret = 0
-		if PER_HOUR_COST[lisp].present?
-			ret = PER_HOUR_COST[lisp][kva_index(kva)]
-		end
-		ret
-	end
-
-	def kva_index(kva)
-		kvai = kva.to_i
-		if(kvai > 130)
-			return 3
-		elsif(kvai > 70)
-			return 2
-		elsif kvai > 30
-			return 1
-		else
+		location = get_location(lisp)
+		if location.nil?
 			return 0
 		end
+		kva_index(location, kva, "hour")
+	end
+
+	def kva_index(location, kva, rate_type)
+		kvai = kva.to_i
+		if(kvai > 130)
+			return rate_type == "day" ? location.kva_250_day : location.kva_250_hour
+		elsif(kvai > 70)
+			return rate_type == "day" ? location.kva_130_day : location.kva_130_hour
+		elsif kvai > 30
+			return rate_type == "day" ? location.kva_70_day : location.kva_70_hour
+		else
+			return rate_type == "day" ? location.kva_30_day : location.kva_30_hour
+		end
+	end
+
+	def get_location(lisp_code)
+		lisp = Lisp.find_by_code(lisp_code)
+		if lisp.present?
+			location = Location.find_by_state(lisp.state)
+			return location
+		end
+		nil
 	end
 
 end

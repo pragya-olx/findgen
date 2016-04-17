@@ -10,8 +10,8 @@ class UsersController < ApplicationController
       users = User.where(:role_type => "vendor")
     elsif params[:role_type] == "approver"
       users = User.where(:role_type => "approver")
-    elsif params[:role_type] == "general"
-      users = User.where(:role_type => "general")
+    elsif params[:role_type] == "employee"
+      users = User.where(:role_type => "employee")
     else
       users = User.where(:role_type => "owner")
     end
@@ -28,8 +28,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type,:state,:city))
+    @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type,:state,:city, :employee_id))
     @user.role_type = @user.role_type.downcase
+    @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
     if !params[:user][:client_id].blank?
       @user.client = Client.find(params[:user][:client_id])
     end

@@ -38,9 +38,9 @@ class BookingsController < ApplicationController
   def approve
     booking = Booking.find(params[:id])
     from_status = booking.status
-    booking.status = "approver_approved"
+    booking.status = "client_approved"
     booking.save
-    add_update_track_record(booking, from_status, "approver_approved")
+    add_update_track_record(booking, from_status, "client_approved")
     render json: {}, status: 201
   end
 
@@ -85,11 +85,11 @@ class BookingsController < ApplicationController
 
     add_update_track_record(booking, from_status, to_status)
 
-    if booking.status == "approver_approved" and booking.vendor_id.present?
-      booking.status = "approved"
+    if booking.status == "client_approved" and booking.vendor_id.present?
+      booking.status = "accepted"
       booking.save
     end
-    if booking.status == "approved" and booking.slip.present?
+    if booking.status == "accepted" and booking.slip.present?
       booking.status = "completed"
       booking.save
     end
@@ -101,7 +101,7 @@ class BookingsController < ApplicationController
     end
 
     #UserMailer.booking_update(booking).deliver
-    redirect_to booking
+    redirect_to '/'
   end
 
   private

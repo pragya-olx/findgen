@@ -10,9 +10,15 @@ class LispsController < ApplicationController
 	    render json: {}, status: 201 
 	end
 
-
 	def show
-		@lisp = Lisp.find(params[:id])
+		if params[:id] != 'unknown'
+			@lisp = Lisp.find(params[:id])
+		else
+			@lisp = Lisp.find_by_code(params[:code])
+			if @lisp.nil?
+				redirect_to '/lisps'
+			end
+		end
 	end
 
 	def update

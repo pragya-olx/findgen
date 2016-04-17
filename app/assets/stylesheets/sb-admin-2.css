@@ -93,3 +93,11 @@ nav li {
 .booking_update {
   width: 50% !important;
 }
+
+tr a {
+  text-decoration: underline !important;
+}
+
+.user_info {
+  margin-left: 30px;
+}

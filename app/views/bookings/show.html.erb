@@ -76,7 +76,7 @@
         <%= f.label :status %>
 
         <% if current_user.is_owner? %>
-        <%= f.select(:status, ['approver_approved', 'approved', 'rejected', 'completed', 'paid']) %>
+        <%= f.select(:status, ['client_approved', 'accepted', 'rejected', 'completed', 'paid']) %>
         <% else %>
           <%= @booking.status %>
         <%end%>

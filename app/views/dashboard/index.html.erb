@@ -1,7 +1,7 @@
 <div class="container main-content">
 	<ul class="nav nav-tabs" id="navTabs">
 		<li role="presentation" id="owner_pending"><a onclick="window.location = '?status=pending' ">Pending Approval Bookings</a></li>
-	    <li role="presentation" id="owner_approved"><a onclick="window.location = '?status=approved' ">Active Bookings</a></li>
+	    <li role="presentation" id="owner_approved"><a onclick="window.location = '?status=accepted' ">Active Bookings</a></li>
 	    <li role="presentation" id="owner_previous"><a onclick="window.location = '/' " >Previous Bookings</a></li>
 	</ul>
 
@@ -23,12 +23,13 @@
 			            <th>LISP</th>
 			            <th>Client Id</th>
 			            <th>Vendor Id</th>
+			            <th>Rep Id</th>
 			            <th>Duty Slip</th>
 			        </tr>
 			    </thead>
 			        <% @bookings.each do |booking| %>
 			          <tr>
-			            <td><%= booking.id %></td>
+			            <td><a class="booking_id"> <%= booking.id %> </a></td>
 			            <td><%= booking.name %></td>
 			            <td><%= booking.location %></td>
 			            <td><%= booking.start_date %></td>
@@ -38,10 +39,15 @@
 			            <td><%= booking.gen_type %></td>
 			            <td><%= booking.status %></td>
 			            <td><%= booking.kva %></td>
-			            <td><%= booking.lisp %></td>
+			            <td><a class="lisp_id"> <%= booking.lisp %> </a></td>
 			            <td><%= booking.client.name %></td>
 			            <% if booking.vendor.present? %>
 			            	<td><%= booking.vendor.name %> </td>
+			            <% else %>
+			            	<td> NULL </td>
+			            <%end %>
+			            <% if booking.rep.present? %>
+			            	<td><%= booking.rep.name %> </td>
 			            <% else %>
 			            	<td> NULL </td>
 			            <%end %>
@@ -70,4 +76,14 @@
 	} else {
 		$("#owner_previous").addClass('active')
 	}
+
+	$(".booking_id").on('click', function(event) {
+        id = $(this).text()
+        location = '/bookings/' + id.trim();
+    })
+
+    $(".lisp_id").on('click', function(event) {
+        id = $(this).text()
+        location = '/lisps/unknown?code=' + id.trim();
+    })
 </script>
