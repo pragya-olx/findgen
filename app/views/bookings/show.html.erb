@@ -24,6 +24,14 @@
         <%= @booking.time_out %>
 
         <br>
+        <%= f.label :kva %>
+        <%= @booking.kva %>
+
+        <br>
+        <%= f.label :lisp %>
+        <%= @booking.lisp %>
+
+        <br>
         <span> Spoc ID </span>
         <%= @booking.user_id %>
 
@@ -37,7 +45,9 @@
 
         <br>
         <%= f.label :rep_name %>
+        <% if @booking.rep.present? %>
         <%= @booking.rep.name %>
+        <%end%>
         <br>
 
         <h3> Update Booking </h3>
@@ -64,13 +74,20 @@
             <%= f.label :total_cost %>
             <%= @booking.cost %>
             <br>
-            <div>Details</div>
-            <%= @booking.actual_days %> x  <%= @per_day %> +
-            <%= @booking.actual_hours %> x <%= @per_hour %>
-            <% if @booking.is_mobile? %>
-             + 1500
-            <%end%>
-            = <%= @booking.cost %>
+
+            <% if @booking.actual_days.present? %>
+                <div>Details</div>
+                <div> A) Amount for Total Days = <%= @booking.actual_days %> x  <%= @per_day %> </div>
+                <div> B) Amount for Total Hours = <%= @booking.actual_hours %> x <%= @per_hour %> </div>
+                <div> C) Amount for Generator Type = 
+                <% if @booking.is_mobile? %>
+                  1500
+                <%else%>
+                  0
+                <%end%>
+                <div>D) Management Charges = 10 % (A+B+C) = <%= @management_charges %></div>
+                <div>Total (A+B+C+D) = <%= @booking.cost %> </div>
+            <% end %>
 
         <% else %>
             <%= f.label :duty_slip %>

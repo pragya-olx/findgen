@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :bookings do
     member do
       get 'approve'
+      get 'cancel'
     end
   end
 

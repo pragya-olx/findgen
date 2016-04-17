@@ -1,0 +1,52 @@
+<%= form_for @location do |f| %>
+  <div class="booking-edit">
+
+  	<%= f.label :state %>
+    <%= @location.state %>
+
+    <br>
+
+    <h3>Rates</h3>
+    <%= f.label :kva_30_day %>
+    <%= f.text_field :kva_30_day %>
+
+    <br>
+
+    <%= f.label :kva_30_hour %>
+    <%= f.text_field :kva_30_hour %>
+
+    <br>
+
+    <%= f.label :kva_70_day %>
+    <%= f.text_field :kva_70_day %>
+
+    <br>
+
+    <%= f.label :kva_70_hour %>
+    <%= f.text_field :kva_70_hour %>
+
+    <br>
+
+    <%= f.label :kva_130_day %>
+    <%= f.text_field :kva_130_day %>
+
+    <br>
+
+    <%= f.label :kva_130_hour %>
+    <%= f.text_field :kva_130_hour %>
+
+    <br>
+
+    <%= f.label :kva_250_day %>
+    <%= f.text_field :kva_250_day %>
+
+    <br>
+
+    <%= f.label :kva_250_hour %>
+    <%= f.text_field :kva_250_hour %>
+
+    <br><br>
+
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>

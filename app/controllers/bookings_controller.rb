@@ -8,6 +8,14 @@ class BookingsController < ApplicationController
         @per_day = per_day_cost(@booking.lisp, @booking.kva)
         @per_hour = per_hour_cost(@booking.lisp, @booking.kva)
       end
+
+      if @booking.actual_days.present? and @booking.actual_hours.present?
+        total = @booking.actual_days.to_i*@per_day + @booking.actual_hours*@per_hour
+        total += 1500 if @booking.is_mobile?
+        @management_charges = total * 0.1
+        @booking.cost = total + @management_charges
+        @booking.save
+      end
   end
 
 	def index
@@ -31,6 +39,14 @@ class BookingsController < ApplicationController
     booking = Booking.find(params[:id])
     booking.status = "approver_approved"
     booking.save
+    render json: {}, status: 201
+  end
+
+  def cancel
+    booking = Booking.find(params[:id])
+    booking.status = "cancelled"
+    #d = DateTime.parse(booking.start_date + "T" + booking.time_in + "+05:30")
+    #next_day = 1.day.from_now
     render json: {}, status: 201
   end
 
@@ -69,6 +85,7 @@ class BookingsController < ApplicationController
     if booking_params[:actual_days].present?
       booking.cost = booking_params[:actual_days].to_i*per_day_cost(booking.lisp, booking.kva) + booking_params[:actual_hours].to_i*per_hour_cost(booking.lisp, booking.kva)
       booking.cost += 1500 if booking.is_mobile?
+      booking.cost += 0.1*booking.cost
       booking.save
     end
 

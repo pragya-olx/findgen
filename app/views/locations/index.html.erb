@@ -79,6 +79,7 @@
 			<table class="table hover table-bordered" cellspacing="0" width="100%">                         
 			  <thead>
 		        <tr>
+		        	<th>Id</th>
 		            <th>State</th>
 		            <th>1-30 KVA Fixed</th>
 		            <th>1-30 KVA Per Hour</th>
@@ -92,6 +93,7 @@
 			  </thead>
 				<% @locations.each do |location| %>
 				  <tr>
+				  	<td><%= location.id %></td>
 				    <td><%= location.state %></td>
 				    <td><%= location.kva_30_day %></td>
 				    <td><%= location.kva_30_hour %></td>
@@ -110,16 +112,6 @@
 </div>
 
 <script>
-	// $('select[name="state"]').change(function () {
-	//   var input_state = $('select[name="city"]');
-	//   $.getJSON('/cities/' + $(this).val(), function (data) {
-	//     input_state.empty();
-	//     $.each(data, function (i) {
-	//       var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
-	//       input_state.append(opt);
-	//     });
-	//   });
-	// });
 
 	$('#save_location').click(function(){
 	  formData = {
@@ -144,5 +136,10 @@
 	    console.log('error');
 	  });
 	});
+
+	$('table').on('click','tr', function(event) {
+        id = $(this).find('td').first().text()
+        location = '/locations/' + id;
+    });
 
 </script>

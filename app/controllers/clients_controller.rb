@@ -15,7 +15,7 @@ class ClientsController < ApplicationController
   def show
     @current_client = Client.find(params[:id])
 
-    unpaid_bookings = Booking.where(:client_id => params[:id], :status => "completed")
+    unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed", "cancelled"])
     cost = 0
     unpaid_bookings.each {|x| 
       if x.cost?
