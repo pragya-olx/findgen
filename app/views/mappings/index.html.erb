@@ -1,6 +1,21 @@
 <div class="container main-content">
 
     <div class="row">
+    	<h3>Update Mapping</h3>
+    	<%= form_for :spoc_to_approver_mapping , url: mappings_path do |f| %>
+			<label>Spoc</label>
+			<%= select(:user, :id, @spocs, :prompt => "Select Spoc" ) %>
+			<label>Approver1</label>
+			<%= select(:approver1, :id, @approvers, :prompt => "Select Approver" ) %>
+			<label>Approver2</label>
+			<%= select(:approver2, :id, @approvers,:prompt => "Select Approver" ) %>
+			<%= hidden_field(:current_client_id, @client_id) %>
+			<%= f.submit(:value => 'Save') %>
+		<%end%>
+    </div>
+
+    <div class="row">
+    	<h3> Current Mappings </h3>
 		<table class="table hover table-bordered" cellspacing="0" width="100%">                         
 		  <thead>
 	        <tr>

@@ -29,7 +29,12 @@ class ClientsController < ApplicationController
 
     status = params[:booking_status].nil? ? "approved" : params[:booking_status]
 
-    @bookings = @bookings.where(:status => status)
+    if current_user.is_approver?
+      spoc_ids = SpocToApproverMapping.where("approver1_id = ? or approver2_id = ?", current_user.id,current_user.id).pluck(:spoc_id)
+      @bookings = Booking.where(:status => params[:booking_status]).where(:user_id => spoc_ids.uniq)
+    else
+      @bookings = Booking.where(:status => params[:booking_status])
+    end
 
     if current_user.is_spoc?
       @bookings = @bookings.where(:user_id => current_user.id)
