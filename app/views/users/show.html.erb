@@ -12,11 +12,16 @@
         <%= @user.email %>
 
         <br>
+        <label>Phone number</label>
+        <%= @user.phone_number %>
         
+        <% if current_user.is_admin_or_owner? %>
+        <br>
         <label>Password</label>
         <%= @user.encrypted_password %>
+        <% end %>
 
-		<br>
+		    <br>
         <label>Client Name</label>
         <%= @user.client.name %>
 

@@ -48,10 +48,9 @@ class BookingsController < ApplicationController
     booking = Booking.find(params[:id])
     from_status = booking.status
     booking.status = "cancelled"
+    booking.cost = add_cancellation_charges(booking)
     booking.save
     add_update_track_record(booking, from_status, "cancelled")
-    #d = DateTime.parse(booking.start_date + "T" + booking.time_in + "+05:30")
-    #next_day = 1.day.from_now
     render json: {}, status: 201
   end
 
@@ -67,12 +66,10 @@ class BookingsController < ApplicationController
     booking.rep = User.find(params[:booking][:rep_id])
     booking.name = "#{booking.client.name}_#{booking.user.name}"
     booking.location = booking.client.location
-	  booking.save
     booking.name = "#{booking.name}_#{booking.id}"
+    
     booking.save
     
-    #UserMailer.booking_create(booking).deliver
-
 	  render json: {}, status: 201
 	end
 
@@ -105,6 +102,20 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def add_cancellation_charges(booking)
+    d = DateTime.parse(booking.start_date.to_s + "T" + booking.time_in + "+05:30")
+    next_day = 1.day.from_now
+    next_half_day = 0.5.day.from_now
+
+    if next_half_day > d
+      return (booking.end_date - booking.start_date + 1).to_i * per_day_cost(booking.lisp, booking.kva)
+    elsif next_day > d
+      return 0.5 * (booking.end_date - booking.start_date + 1).to_i * per_day_cost(booking.lisp, booking.kva)
+    else
+      return 0
+    end
+  end
 
   def add_update_track_record(booking, from_status, to_status)
     if from_status != to_status

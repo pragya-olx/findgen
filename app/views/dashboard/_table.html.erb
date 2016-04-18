@@ -55,7 +55,7 @@
 
             <% if current_user.is_approver? and booking.status == "pending" %>
             <td><button class="approve_btn">Approve</button></td>
-            <% elsif current_user.is_spoc? and booking.status == "pending" %>
+            <% elsif current_user.is_spoc? and booking.is_cancelable? %>
             <td><button class="cancel_btn">Cancel</button></td>
             <%elsif current_user.is_approver? or current_user.is_spoc? %>
             <td>N/A</td>

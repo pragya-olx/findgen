@@ -23,6 +23,10 @@ class Booking < ActiveRecord::Base
 		total_hours
 	end
 
+	def is_cancelable?
+		status == "pending" or status == "accepted" or status == "client_approved"
+	end
+
    def is_mobile?
       self.gen_type == "Mobile"
    end
