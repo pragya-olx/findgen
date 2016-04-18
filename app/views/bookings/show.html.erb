@@ -4,7 +4,7 @@
       <div class="personal-info">
 
         <h3> Booking Data </h3>
-        <table  class="table hover booking_update table-bordered hover" cellspacing="0" width="100%">
+        <table  class="table hover table-bordered hover" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th> Name </th>
@@ -92,7 +92,7 @@
             <br>
 
             <% if @booking.actual_days.present? %>
-                <div>Details</div>
+                <label>Cost Calculation Details</label>
                 <div> A) Amount for Total Days = <%= @booking.actual_days %> x  <%= @per_day %> </div>
                 <div> B) Amount for Total Hours = <%= @booking.actual_hours %> x <%= @per_hour %> </div>
                 <div> C) Amount for Generator Type = 
@@ -117,7 +117,6 @@
         <% end %>
 
         <br>
-
 
         <%= f.label :vendor %>
         <% if current_user.is_owner? %>
