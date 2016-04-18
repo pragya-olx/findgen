@@ -31,6 +31,8 @@
 
     <br>
 
+    <% if current_user.is_admin_or_owner? %>
     <%= f.submit 'Save' %>
+    <%end%>
   </div>
 <% end %>
