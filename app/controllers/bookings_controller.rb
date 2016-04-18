@@ -66,8 +66,9 @@ class BookingsController < ApplicationController
     booking.rep = User.find(params[:booking][:rep_id])
     booking.name = "#{booking.client.name}_#{booking.user.name}"
     booking.location = booking.client.location
-    booking.name = "#{booking.name}_#{booking.id}"
     
+    booking.save
+    booking.name = "#{booking.name}_#{booking.id}"
     booking.save
     
 	  render json: {}, status: 201
