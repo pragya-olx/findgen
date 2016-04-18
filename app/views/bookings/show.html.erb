@@ -4,56 +4,46 @@
       <div class="personal-info">
 
         <h3> Booking Data </h3>
-        <%= f.label :first_name %>
-        <%= f.text_field :name, :readonly=>true %>
-        <br>
-
-        <%= f.label :location %>
-        <%= @booking.location %>
-        <br>
-        <%= f.label :from_date %>
-        <%= f.date_field :start_date,:readonly=>true %>
-        <br>
-        <%= f.label :till_date %>
-        <%= f.date_field :end_date,:readonly=>true %>
-        <br>
-        <%= f.label :time_in %>
-        <%= @booking.time_in %>
-        <br>
-        <%= f.label :time_out %>
-        <%= @booking.time_out %>
-
-        <br>
-        <%= f.label :kva %>
-        <%= @booking.kva %>
-
-        <br>
-        <%= f.label :lisp %>
-        <%= @booking.lisp %>
-
-        <br>
-        <span> Spoc ID </span>
-        <%= @booking.user_id %>
-
-        <br>
-        <%= f.label :spoc_name %>
-        <%= @booking.user.name %>
-        <br>
-
-        <span> Rep ID </span>
-        <%= @booking.rep_id %>
-
-        <br>
-        <%= f.label :rep_name %>
-        <% if @booking.rep.present? %>
-        <%= @booking.rep.name %>
-        <%end%>
-        <br>
-
-        <br>
-        <%= f.label :cost %>
-        <div class="balance"><%= @booking.cost %></div>
-        <br>
+        <table  class="table hover booking_update table-bordered hover" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th> Name </th>
+                <th> Location </th>
+                <th> From Date </th>
+                <th> Till Date </th>
+                <th> Time In </th>
+                <th> Time Out </th>
+                <th> Kva </th>
+                <th> LISP </th>
+                <th> Spoc ID </th>
+                <th> Spoc Name </th>
+                <th> Rep ID </th>
+                <th> Rep Name </th>
+                <th> Cost </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> <%= @booking.name %> </td>
+                <td> <%= @booking.location %> </td>
+                <td> <%= @booking.start_date %> </td>
+                <td> <%= @booking.end_date %> </td>
+                <td> <%= @booking.time_in %> </td>
+                <td> <%= @booking.time_out %> </td>
+                <td> <%= @booking.kva %> </td>
+                <td> <%= @booking.lisp %> </td>
+                <td> <%= @booking.user.id %> </td>
+                <td> <%= @booking.user.name %> </td>
+                <td> <%= @booking.rep_id %> </td>
+                <td> 
+                    <% if @booking.rep.present? %>
+                        <%= @booking.rep.name %> 
+                    <%end%>
+                </td>
+                <td class="balance"> <%= @booking.cost %> </td>
+            </tr>
+        </tbody>
+        </table>
 
         <h3> Status Tracking </h3>
         <table class="table hover booking_update table-bordered hover" cellspacing="0" width="100%">
@@ -128,6 +118,7 @@
 
         <br>
 
+
         <%= f.label :vendor %>
         <% if current_user.is_owner? %>
             <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
@@ -135,10 +126,15 @@
             <% if @booking.vendor.present? %>
                 <%= @booking.vendor.name %>
             <% end %>
-
         <%end%>
-
         <br>
+        <% if @booking.operator.present? %>
+            <%= f.label :operator_name %>
+            <span> <%= @booking.operator.name %></span>
+            <br>
+            <%= f.label :operator_phone_number %>
+            <span> <%= @booking.operator.phone_number %></span>
+        <%end%>
 
       </div>
     </div>
@@ -146,6 +142,8 @@
     <div class="actions">
       <%= f.submit 'Save' %>
     </div>
+
+    <br><br><br><br>
 
   </div>
 <% end %>

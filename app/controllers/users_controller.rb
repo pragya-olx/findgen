@@ -48,4 +48,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def add_operator
+    @user = User.find(params[:id])
+    Operator.create(:name => params[:name],
+      :phone_number => params[:phone_number],
+      :vendor_id => @user.id
+    )
+    render json: {}, status: 200
+  end
+
 end

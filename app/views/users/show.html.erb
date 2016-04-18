@@ -15,22 +15,68 @@
         <label>Phone number</label>
         <%= @user.phone_number %>
         
-        <% if current_user.is_admin_or_owner? %>
+        <% if current_user.is_admin_or_owner? and !@user.is_vendor? %>
         <br>
         <label>Password</label>
         <%= @user.encrypted_password %>
         <% end %>
 
+        <% if @user.client.present? %>
 		    <br>
         <label>Client Name</label>
         <%= @user.client.name %>
+        <%end%>
 
         <br>
 
         <label>Role</label>
         <%= @user.role_type %>
 
+
+        <% if @user.is_vendor? %>
+          <br>
+          <table class="table hover table-bordered booking_update" cellspacing="0" >
+          <thead>
+          <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Phone number</th>
+          </tr>
+          </thead>
+          <% @user.operators.each do |op| %>
+            <tr>
+              <td><%= op.id %></td>
+              <td><%= op.name %></td>
+              <td><%= op.phone_number %></td>
+            </tr>
+          <%end%>
+          </table>
+
+          <h4> Add new operator </h4>
+          <label>Name</label>
+          <input id="op_name"></input>
+          <br>
+          <label>Phone number</label>
+          <input id="op_phone_number"></input>
+          <br>
+          <button id="add_op">Add</button>
+        <%end%>
       </div>
     </section>
   </aside>
 </div>
+
+<script type="text/javascript">
+    $("#add_op").click(function(){
+      $.ajax({
+        url: '/users/' + <%= @user.id %> + '/add_operator',
+        data: {
+          name: $("#op_name").val(),
+          phone_number: $("#op_phone_number").val()
+        }
+      }).done(function(){
+        location.reload()
+      })
+    })
+
+</script>

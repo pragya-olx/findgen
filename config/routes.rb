@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users do
+    member do
+      get 'add_operator'
+    end
+  end
+
   get 'cities/:state', to: 'application#cities'
 
   get    'login'   => 'sessions#new'

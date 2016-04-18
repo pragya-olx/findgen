@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417230551) do
+ActiveRecord::Schema.define(version: 20160418043243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20160417230551) do
     t.decimal  "actual_days"
     t.decimal  "actual_hours"
     t.integer  "rep_id"
+    t.integer  "operator_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -88,6 +89,15 @@ ActiveRecord::Schema.define(version: 20160417230551) do
     t.decimal  "kva_130_hour"
     t.decimal  "kva_250_day"
     t.decimal  "kva_250_hour"
+  end
+
+  create_table "operators", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone_number"
+    t.string   "email"
+    t.integer  "vendor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rates", force: :cascade do |t|

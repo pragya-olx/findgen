@@ -84,20 +84,18 @@ class BookingsController < ApplicationController
 
     if booking.status == "client_approved" and booking.vendor_id.present?
       booking.status = "accepted"
-      booking.save
     end
     if booking.status == "accepted" and booking.slip.present?
       booking.status = "completed"
-      booking.save
     end
     if booking_params[:actual_days].present?
       booking.cost = booking_params[:actual_days].to_i*per_day_cost(booking.lisp, booking.kva) + booking_params[:actual_hours].to_i*per_hour_cost(booking.lisp, booking.kva)
       booking.cost += 1500 if booking.is_mobile?
       booking.cost += 0.1*booking.cost
-      booking.save
     end
+    booking.operator = Operator.where(:vendor_id => booking.vendor_id).sample
+    booking.save
 
-    #UserMailer.booking_update(booking).deliver
     redirect_to '/'
   end
 

@@ -56,6 +56,7 @@
 			<table class="table hover table-bordered" cellspacing="0" width="100%">                         
 			  <thead>
 		        <tr>
+		        	<th>Id</th>
 		            <th>Name</th>
 		            <th>State</th>
 		            <th>City</th>
@@ -66,6 +67,7 @@
 			  </thead>
 				<% @vendors.each do |vendor| %>
 				  <tr>
+				  	<td><a class="vendor_id"><%= vendor.id %></a></td>
 				    <td><%= vendor.name %></td>
 				    <td><%= vendor.state %></td>
 				    <td><%= vendor.city %></td>
@@ -91,6 +93,11 @@
 	    });
 	  });
 	});
+
+	$(".vendor_id").on('click', function(){
+		id = $(this).text()
+		window.location = "/users/" + id
+	})
 
 	$('#save_vendor').click(function(){
 	  formData = {
