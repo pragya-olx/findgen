@@ -8,12 +8,11 @@
             <a class="list-group-item " id="spoc">SPOC</a>
             <a class="list-group-item " id="approver">Approver</a>
             <a class="list-group-item " id="employee">Employee</a>
-            <!-- <a href="#" class="list-group-item " id="owner">Owners</a> -->
         </div>
         <div>
         <% if current_user.is_admin? %>
             <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createUser">
-                Create New User
+                Add Employee
             </button>
         <% end %>
         </div>

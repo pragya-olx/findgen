@@ -33,7 +33,7 @@ Booking.load = function() {
     	 		lisp: $('#lisp').val(),
     	 		kva: $('#kva').val(),
     	 		client_id: clientId,
-    	 		rep_id: $('#rep_id').val()
+    	 		employee_id: $('#employee_id').val()
     	 	}
 	 	};
 

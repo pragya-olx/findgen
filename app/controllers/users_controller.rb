@@ -57,4 +57,12 @@ class UsersController < ApplicationController
     render json: {}, status: 200
   end
 
+  def update_password
+    @user = User.find(params[:id])
+    @user.encrypted_password = params[:password]
+    @user.save
+    render json: {}, status: 200
+
+  end
+
 end

@@ -23,7 +23,7 @@
 			            <th>LISP</th>
 			            <th>Client Id</th>
 			            <th>Vendor Id</th>
-			            <th>Rep Id</th>
+			            <th>Rep</th>
 			            <th>Duty Slip</th>
 			        </tr>
 			    </thead>
@@ -47,7 +47,7 @@
 			            	<td> NULL </td>
 			            <%end %>
 			            <% if booking.rep.present? %>
-			            	<td><%= booking.rep.name %> </td>
+			            	<td><a onclick="window.location = '/users/' + <%= booking.rep.id %>"><%= booking.rep.name %> </a></td>
 			            <% else %>
 			            	<td> NULL </td>
 			            <%end %>

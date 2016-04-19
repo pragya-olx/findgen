@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get 'add_operator'
+      get 'update_password'
     end
   end
 

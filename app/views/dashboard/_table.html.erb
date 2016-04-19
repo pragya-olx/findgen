@@ -42,7 +42,7 @@
             </td>
             <td>
             <% if booking.rep.present? %>
-                <a class="rep_id"><%= booking.rep.id %></a>
+                <a class="rep_id" onclick="window.location = '/users/' + <%= booking.rep.id %> " ><%= booking.rep.employee_id %></a>
             <% end %>
             </td>
             <td>
@@ -79,10 +79,10 @@
         location = '/lisps/unknown?code=' + id.trim();
     })
 
-    $(".rep_id").on('click', function(event) {
-        id = $(this).text()
-        location = '/users/' + id.trim();
-    })
+    // $(".rep_id").on('click', function(event) {
+    //     id = $(this).text()
+    //     location = '/users/employee?employee_id=' + id.trim();
+    // })
 
     $(".cancel_btn").on('click', function(){
       id = $(this).parent().parent().find('td').first().text()

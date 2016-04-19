@@ -14,13 +14,18 @@
         <br>
         <label>Phone number</label>
         <%= @user.phone_number %>
-        
-        <% if current_user.is_admin_or_owner? and !@user.is_vendor? %>
-        <br>
-        <label>Password</label>
-        <%= @user.encrypted_password %>
-        <% end %>
 
+        <br>
+
+        <% if current_user.id == @user.id %>
+          <label>Password</label>
+          <input id="password" value=<%= @user.encrypted_password %> > </input>
+          <button id="update_password">Update</button>
+        <%elsif current_user.is_admin_or_owner? and !@user.is_vendor? %>
+          <label>Password</label>
+          <%= @user.encrypted_password %>
+        <%end%>
+        
         <% if @user.client.present? %>
 		    <br>
         <label>Client Name</label>
@@ -31,6 +36,10 @@
 
         <label>Role</label>
         <%= @user.role_type %>
+
+        <br>
+        <label>Employee Id</label>
+        <%= @user.employee_id %>
 
 
         <% if @user.is_vendor? %>
@@ -78,5 +87,16 @@
         location.reload()
       })
     })
+
+    $("#update_password").click(function () {
+      $.ajax({
+        url: '/users/' + <%= @user.id %> + '/update_password',
+        data: {
+          password: $("#password").val()
+        }
+      }).done(function(){
+        location.reload()
+      })
+    });
 
 </script>
