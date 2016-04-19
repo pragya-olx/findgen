@@ -41,7 +41,7 @@ window.Client.load = ->
         $(".users_content").hide()
         $(".bookings_content").show()
         $(".details").hide()
-      else
+      else if $(this).text() == "Details"
         $(".users_content").hide()
         $(".bookings_content").hide()
         $(".details").show()
