@@ -63,7 +63,6 @@ class BookingsController < ApplicationController
 	  booking.status = "pending"
     booking.user = current_user
     booking.client = Client.find(params[:booking][:client_id])
-    debugger
     booking.rep = User.find_by_employee_id(params[:booking][:employee_id])
     booking.name = "#{booking.client.name}_#{booking.user.name}"
     booking.location = booking.client.location
