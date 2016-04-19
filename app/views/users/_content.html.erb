@@ -15,6 +15,9 @@
                 Add Employee
             </button>
         <% end %>
+        <% if current_user.is_admin_or_owner? %>
+          <button class="btn btn-primary" style="width: 100%" onclick="window.location = '/mappings?client_id=' + window.clientId ">Manage Mappings</button>
+        <% end %>
         </div>
     </div>
     
