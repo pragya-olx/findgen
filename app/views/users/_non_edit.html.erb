@@ -1,0 +1,50 @@
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <div>
+      	<label>Name</label>
+        <%= @user.name %>
+
+        <br>
+
+        <label>Email</label>
+        <%= @user.email %>
+
+        <br>
+        <label>Phone number</label>
+        <%= @user.phone_number %>
+
+        <br>
+
+        <% if current_user.id == @user.id %>
+          <label>Password</label>
+          <input id="password" value=<%= @user.encrypted_password %> > </input>
+          <button id="update_password">Update</button>
+        <%elsif current_user.is_admin_or_owner? and !@user.is_vendor? %>
+          <label>Password</label>
+          <%= @user.encrypted_password %>
+        <%end%>
+        
+        <% if @user.client.present? %>
+		    <br>
+        <label>Client Name</label>
+        <%= @user.client.name %>
+        <%end%>
+
+        <br>
+
+        <label>Role</label>
+        <%= @user.role_type %>
+
+        <br>
+        <label>Employee Id</label>
+        <%= @user.employee_id %>
+
+        <% if current_user.is_admin_or_owner? %>
+          <%= f.submit 'Save' %>
+        <%end%>
+
+      </div>
+    </section>
+  </aside>
+</div>

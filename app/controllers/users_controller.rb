@@ -48,6 +48,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def update
+    @user = User.find(params[:id])
+    @user.update!(params.require(:user).permit(:name, :email, :phone_number, :password, :employee_id, :role_type))
+    redirect_to "/users/#{@user.id}"
+  end
+
   def add_operator
     @user = User.find(params[:id])
     Operator.create(:name => params[:name],
