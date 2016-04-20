@@ -58,18 +58,23 @@ class BookingsController < ApplicationController
 	end
 
 	def create
-	  booking = Booking.new(params.require(:booking).permit(:start_date, :gen_type, :time_in, :time_out, :lisp, :kva))
+    begin
+  	  booking = Booking.new(params.require(:booking).permit(:start_date, :gen_type, :time_in, :time_out, :lisp, :kva))
 
-	  booking.status = "pending"
-    booking.user = current_user
-    booking.client = Client.find(params[:booking][:client_id])
-    booking.rep = User.find_by_employee_id(params[:booking][:employee_id])
-    booking.name = "#{booking.client.name}_#{booking.user.name}"
-    booking.location = booking.client.location
-    
-    booking.save
-    booking.name = "#{booking.name}_#{booking.id}"
-    booking.save
+  	  booking.status = "pending"
+      booking.user = current_user
+      booking.client = Client.find(params[:booking][:client_id])
+      booking.rep = User.find_by_employee_id(params[:booking][:employee_id])
+      booking.name = "#{booking.client.name}_#{booking.user.name}"
+      booking.location = booking.client.location
+      
+      booking.save
+      booking.name = "#{booking.name}_#{booking.id}"
+      booking.save
+    rescue => error
+      render json: "Unable to create booking - #{error.message}", status: 500
+      return
+    end
     
 	  render json: {}, status: 201
 	end
@@ -94,7 +99,7 @@ class BookingsController < ApplicationController
       booking.cost += 1500 if booking.is_mobile?
       booking.cost += 0.1*booking.cost
     end
-    booking.operator = Operator.where(:vendor_id => booking.vendor_id).sample
+    booking.operator = Operator.find(params[:booking][:operator_id])
     booking.save
 
     redirect_to '/'

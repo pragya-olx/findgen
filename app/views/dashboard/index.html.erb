@@ -23,6 +23,9 @@
 			            <th>Client Id</th>
 			            <th>Vendor Id</th>
 			            <th>Rep</th>
+			            <% if @show_cost.present? %>
+			            	<th>Cost</th>
+			            <%end%>
 			            <th>Duty Slip</th>
 			        </tr>
 			    </thead>
@@ -49,6 +52,11 @@
 			            <% else %>
 			            	<td> NULL </td>
 			            <%end %>
+
+			            <% if @show_cost.present? %>
+			            	<td><%= booking.cost %></td>
+			            <%end%>
+
 			            <td>
 				            <% if booking.slip.present? %>
 				        	    <%= link_to "Download Duty Slip", booking.slip_url %>

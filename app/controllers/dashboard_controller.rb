@@ -8,7 +8,8 @@ class DashboardController < ApplicationController
 				redirect_to "/clients/#{current_user.client_id}"
 			end
 			if params[:status].nil?
-				@bookings = Booking.where(:status => ["completed", "rejected", "cancelled", "paid"])	
+				@bookings = Booking.where(:status => ["completed", "rejected", "cancelled", "paid"])
+				@show_cost = true
 			else
 				if params[:status] == "pending"
 					@bookings = Booking.where(:status => "client_approved")

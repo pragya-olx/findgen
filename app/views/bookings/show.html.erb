@@ -110,9 +110,14 @@
 
         <br>
 
+        <h3> Vendor Details </h3>
+
         <%= f.label :vendor %>
         <% if current_user.is_owner? %>
             <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
+            <br>
+            <%= f.label :choose_operator %>
+            <select name="booking[operator_id]" id="operators"></select>
         <% else %>
             <% if @booking.vendor.present? %>
                 <%= @booking.vendor.name %>
@@ -120,10 +125,12 @@
         <%end%>
         <br>
         <% if @booking.operator.present? %>
-            <%= f.label :operator_name %>
+            <%= f.label :current_operator_details %>
+            <br>
+            <%= f.label :name %>
             <span> <%= @booking.operator.name %></span>
             <br>
-            <%= f.label :operator_phone_number %>
+            <%= f.label :phone_number %>
             <span> <%= @booking.operator.phone_number %></span>
         <%end%>
 
@@ -131,10 +138,38 @@
     </div>
 
     <div class="actions">
-      <%= f.submit 'Save' %>
+        <br>
+      <%= f.submit 'Save', :class => "btn btn-primary" %>
     </div>
 
     <br><br><br><br>
 
   </div>
 <% end %>
+
+<script type="text/javascript">
+    var input_vendor = $('#operators');
+    if ($('#booking_vendor_id').val() != "") {
+        $.getJSON('/operators/' + $('#booking_vendor_id').val(), function (data) {
+            input_vendor.empty();
+            $.each(data, function (i) {
+              var opt = '<option value='+ data[i].id +'>' + data[i].name + '</option>';
+              input_vendor.append(opt);
+            });
+            $("#operators option[value=" + <%= @booking.operator.id %> + "]").prop("selected", true)
+        });
+    }
+
+    $('#booking_vendor_id').change(function () {
+      var input_vendor = $('#operators');
+      $.getJSON('/operators/' + $(this).val(), function (data) {
+        input_vendor.empty();
+        $.each(data, function (i) {
+          var opt = '<option value='+ data[i].id +'>' + data[i].name + '</option>';
+          input_vendor.append(opt);
+        });
+      });
+    });
+
+
+</script>

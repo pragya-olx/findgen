@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   end
 
   get 'cities/:state', to: 'application#cities'
+  get 'operators/:vendor_id', to: 'application#operators'
 
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'

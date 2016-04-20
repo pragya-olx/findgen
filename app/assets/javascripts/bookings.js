@@ -41,9 +41,8 @@ Booking.load = function() {
     		data: formData
     	}).done(function(data){
     		location.reload()
-    		
     	}).fail(function(data){
-    		console.log("error")
+    		alert(data.error().responseText)
     	});
 
 	 });
