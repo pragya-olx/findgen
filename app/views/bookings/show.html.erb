@@ -156,7 +156,9 @@
               var opt = '<option value='+ data[i].id +'>' + data[i].name + '</option>';
               input_vendor.append(opt);
             });
-            $("#operators option[value=" + <%= @booking.operator.id %> + "]").prop("selected", true)
+            <% if @booking.operator.present? %>
+                $("#operators option[value=" + <%= @booking.operator.id %> + "]").prop("selected", true)
+            <%end%>
         });
     }
 
