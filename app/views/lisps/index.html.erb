@@ -8,14 +8,15 @@
 	      </div>
 	      <div class="modal-body">
 	        <div class="form-group">
-
-	           <div class="form-group">
 	            <label>Name</label>
-	            <input id="name"></input>
-	            </div>
+	            <br>
+	            <input type="text" class="form-control" id="name"></input>
+	         </div>
 
+
+	        <div class="form-group">
 	          <label for="name">State</label>
-	          <select name="state">
+	          <select class="form-control" name="state">
 				<% @states.each do |key, value| %>
 					<option value="<%= key %>"><%= value%></option>
 				<% end %>
@@ -24,22 +25,26 @@
 
 			<div class="form-group">
         		<label>City</label>
-        		<input id="city"></input>
+        		<br>
+        		<input type="text" class="form-control" id="city"></input>
         	</div>
 
-	           <div class="form-group">
+	         <div class="form-group">
 	            <label>Zone</label>
-	            <input id="zone"></input>
-	            </div>
+	            <br>
+	            <input type="text" class="form-control" id="zone"></input>
+	        </div>
 
 	           <div class="form-group">
 	            <label>Address</label>
-	            <input id="address"></input>
+	            <br>
+	            <input type="text" class="form-control" id="address"></input>
 	            </div>
 
 	           <div class="form-group">
 	            <label>Code</label>
-	            <input id="code"></input>
+	            <br>
+	            <input type="text" class="form-control" id="code"></input>
 	            </div>
 
 	      </div>

@@ -34,12 +34,12 @@
 
         <div class="form-group">
           <label for="sel1">KVA required</label>
-          <input id="kva"></input>
+          <input class="form-control" id="kva"></input>
         </div>
 
         <div class="form-group">
           <label for="sel1">LISP</label>
-          <select id="lisp">
+          <select  class="form-control" id="lisp">
           <% @lisps.each do |lisp| %>
             <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
           <% end %>
@@ -48,7 +48,7 @@
 
         <div class="form-group">
           <label for="sel1">Representative</label>
-          <select id="employee_id">
+          <select  class="form-control" id="employee_id">
           <% @employees.each do |employee| %>
             <option value=<%=employee.employee_id%> > <%=employee.employee_id%>, <%=employee.name%> </option>
           <% end %>

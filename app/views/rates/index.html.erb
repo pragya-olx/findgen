@@ -9,7 +9,7 @@
 	      <div class="modal-body">
 	        <div class="form-group">
 	          <label for="name">State</label>
-	          <select name="state">
+	          <select class="form-control" name="state">
 				<% @states.each |key, value| %>
 				<option value="<%= key %>"><%= value%></option>
 				<% end %>
@@ -17,7 +17,7 @@
 	        </div>
 	        <div class="form-group">
 	          <label for="location">City</label>
-	          <select name="city">
+	          <select class="form-control" name="city">
 				<% @cities.each |key, value| %>
 				<option value="<%= key %>"><%= value%></option>
 				<% end %>
