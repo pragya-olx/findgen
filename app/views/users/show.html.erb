@@ -1,3 +1,7 @@
+<% if current_user.client.present? and @user.client.id != current_user.client.id %>
+  Invalid access
+<%else%>
+
 <div class="container main-content">
   <% if current_user.is_admin_or_owner? %>
     <%= render 'edit.html.erb' %>
@@ -36,6 +40,8 @@
   <%end%>
 
 </div>
+
+<%end%>
 
 <script type="text/javascript">
     $("#add_op").click(function(){

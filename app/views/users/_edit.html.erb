@@ -25,12 +25,16 @@
       <br>
 
       <label>Role</label>
+      <% if current_user.is_owner? %>
       <%= f.select(:role_type, ['owner', 'vendor', 'admin', 'approver', 'spoc']) %>
+      <%else%>
+      <%= f.select(:role_type, ['admin', 'approver', 'spoc']) %>
+      <%end%>
 
       <br>
       <%= f.label :employee_id %>
       <%= f.text_field :employee_id %>
-      
+
       <br>
       <%= f.submit 'Update' %>
     </div>
