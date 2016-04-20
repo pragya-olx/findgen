@@ -26,7 +26,6 @@ Booking.load = function() {
 	 	formData = {
 	 		booking: {
     	 		start_date: $("#startDate input").val(),
-    	 		end_date: $("#endDate input").val(),
     	 		time_in: $("#timeIn input").val(),
     	 		time_out: $("#timeOut input").val(),
     	 		gen_type: $('#gen_type').val(),

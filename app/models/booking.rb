@@ -10,6 +10,7 @@ class Booking < ActiveRecord::Base
 	validates :name, presence: true # Make sure the owner's name is present.
 
 	def days
+		return 1
 		if self.end_date.present? and self.start_date.present?
 			(self.end_date - self.start_date + 1).to_i
 		else

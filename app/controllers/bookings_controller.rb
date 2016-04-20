@@ -7,8 +7,8 @@ class BookingsController < ApplicationController
       if @booking.lisp.present? and @booking.kva.present?
         @per_day = per_day_cost(@booking.lisp, @booking.kva)
         @per_hour = per_hour_cost(@booking.lisp, @booking.kva)
-        if @booking.actual_days.present? and @booking.actual_hours.present?
-          total = @booking.actual_days.to_i*@per_day + @booking.actual_hours.to_i*@per_hour
+        if @booking.actual_hours.present?
+          total = @per_day + @booking.actual_hours.to_i*@per_hour
           total += 1500 if @booking.is_mobile?
           @management_charges = total * 0.1
           @booking.cost = total + @management_charges
@@ -58,7 +58,7 @@ class BookingsController < ApplicationController
 	end
 
 	def create
-	  booking = Booking.new(params.require(:booking).permit(:start_date, :end_date, :gen_type, :time_in, :time_out, :lisp, :kva))
+	  booking = Booking.new(params.require(:booking).permit(:start_date, :gen_type, :time_in, :time_out, :lisp, :kva))
 
 	  booking.status = "pending"
     booking.user = current_user
@@ -89,8 +89,8 @@ class BookingsController < ApplicationController
     if booking.status == "accepted" and booking.slip.present?
       booking.status = "completed"
     end
-    if booking_params[:actual_days].present?
-      booking.cost = booking_params[:actual_days].to_i*per_day_cost(booking.lisp, booking.kva) + booking_params[:actual_hours].to_i*per_hour_cost(booking.lisp, booking.kva)
+    if booking_params[:actual_hours].present?
+      booking.cost = per_day_cost(booking.lisp, booking.kva) + booking_params[:actual_hours].to_i*per_hour_cost(booking.lisp, booking.kva)
       booking.cost += 1500 if booking.is_mobile?
       booking.cost += 0.1*booking.cost
     end
@@ -108,9 +108,9 @@ class BookingsController < ApplicationController
     next_half_day = 0.5.day.from_now
 
     if next_half_day > d
-      return (booking.end_date - booking.start_date + 1).to_i * per_day_cost(booking.lisp, booking.kva)
+      return per_day_cost(booking.lisp, booking.kva)
     elsif next_day > d
-      return 0.5 * (booking.end_date - booking.start_date + 1).to_i * per_day_cost(booking.lisp, booking.kva)
+      return 0.5 * per_day_cost(booking.lisp, booking.kva)
     else
       return 0
     end
@@ -126,7 +126,7 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:name, :email,:start_date,:end_date,:status, :user_id, :vendor_id, :slip, :actual_days, :actual_hours)
+    params.require(:booking).permit(:name, :email,:start_date,:status, :user_id, :vendor_id, :slip, :actual_hours)
   end
 
 end

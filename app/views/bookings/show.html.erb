@@ -9,8 +9,7 @@
             <tr>
                 <th> Name </th>
                 <th> Location </th>
-                <th> From Date </th>
-                <th> Till Date </th>
+                <th> Date </th>
                 <th> Time In </th>
                 <th> Time Out </th>
                 <th> Kva </th>
@@ -27,7 +26,6 @@
                 <td> <%= @booking.name %> </td>
                 <td> <%= @booking.location %> </td>
                 <td> <%= @booking.start_date %> </td>
-                <td> <%= @booking.end_date %> </td>
                 <td> <%= @booking.time_in %> </td>
                 <td> <%= @booking.time_out %> </td>
                 <td> <%= @booking.kva %> </td>
@@ -80,9 +78,6 @@
         <% if @booking.slip.present? %>
           <div><%= link_to "Download Duty Slip", @booking.slip_url %></div>
             <br>
-            <%= f.label :actual_days %>
-            <%= @booking.actual_days %>
-            <br>
             <%= f.label :actual_hours %>
             <%= @booking.actual_hours %>
 
@@ -91,9 +86,9 @@
             <%= @booking.cost %>
             <br>
 
-            <% if @booking.actual_days.present? %>
+            <% if @booking.actual_hours.present? %>
                 <label>Cost Calculation Details</label>
-                <div> A) Amount for Total Days = <%= @booking.actual_days %> x  <%= @per_day %> </div>
+                <div> A) Amount for 1 Day = <%= @per_day %> </div>
                 <div> B) Amount for Total Hours = <%= @booking.actual_hours %> x <%= @per_hour %> </div>
                 <div> C) Amount for Generator Type = 
                 <% if @booking.is_mobile? %>
@@ -108,9 +103,6 @@
         <% else %>
             <%= f.label :duty_slip %>
             <%= f.file_field(:slip, accept: 'image/png,image/gif,image/jpeg') %>
-            <br>
-            <%= f.label :actual_days %>
-            <%= f.text_field :actual_days %>
             <br>
             <%= f.label :actual_hours %>
             <%= f.text_field :actual_hours %>

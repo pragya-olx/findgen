@@ -18,12 +18,6 @@
           <%= time_field(:booking, :time_in) %>
         </div>
 
-        <div class="form-group" id="endDate">
-          <label for="endDate">End Date</label>
-          <br>
-          <%= date_field(:booking, :end_date) %>
-        </div>
-
         <div class="form-group" id="timeOut">
           <label for="startDate">Time Out (HH:MM) </label>
           <br>
@@ -45,12 +39,20 @@
 
         <div class="form-group">
           <label for="sel1">LISP</label>
-          <input id="lisp"></input>
+          <select id="lisp">
+          <% @lisps.each do |lisp| %>
+            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
+          <% end %>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="sel1">Representative ID</label>
-          <input id="employee_id"></input>
+          <label for="sel1">Representative</label>
+          <select id="employee_id">
+          <% @employees.each do |employee| %>
+            <option value=<%=employee.employee_id%> > <%=employee.employee_id%>, <%=employee.name%> </option>
+          <% end %>
+          </select>
         </div>
 
       </div>
