@@ -1,7 +1,6 @@
 <table id="bookings" class="table hover table-bordered hover" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Office Location</th>
             <th>Required On</th>
@@ -22,8 +21,7 @@
     </thead>
         <% @bookings.each do |booking| %>
           <tr>
-            <td><a class="booking_id"> <%= booking.id %> </a></td>
-            <td><%= booking.name %></td>
+            <td><a onclick="window.location='/bookings/' + <%=booking.id%>"><%= booking.name %></a></td>
             <td><%= booking.location %></td>
             <td><%= booking.start_date %></td>
             <td><%= booking.time_in %></td>

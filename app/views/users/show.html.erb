@@ -15,14 +15,12 @@
     <table class="table hover table-bordered booking_update" cellspacing="0" >
     <thead>
     <tr>
-    <th>Id</th>
     <th>Name</th>
     <th>Phone number</th>
     </tr>
     </thead>
     <% @user.operators.each do |op| %>
       <tr>
-        <td><%= op.id %></td>
         <td><%= op.name %></td>
         <td><%= op.phone_number %></td>
       </tr>

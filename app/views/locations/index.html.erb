@@ -79,7 +79,6 @@
 			<table class="table hover table-bordered" cellspacing="0" width="100%">                         
 			  <thead>
 		        <tr>
-		        	<th>Id</th>
 		            <th>State</th>
 		            <th>1-30 KVA Fixed</th>
 		            <th>1-30 KVA Per Hour</th>
@@ -93,8 +92,7 @@
 			  </thead>
 				<% @locations.each do |location| %>
 				  <tr>
-				  	<td><%= location.id %></td>
-				    <td><%= location.state %></td>
+				  	<td><a onclick="window.location='/locations/' + <%=location.id%>"><%= location.state %></a></td>
 				    <td><%= location.kva_30_day %></td>
 				    <td><%= location.kva_30_hour %></td>
 				    <td><%= location.kva_70_day %></td>
@@ -136,10 +134,5 @@
 	    console.log('error');
 	  });
 	});
-
-	$('table').on('click','tr', function(event) {
-        id = $(this).find('td').first().text()
-        location = '/locations/' + id;
-    });
 
 </script>
