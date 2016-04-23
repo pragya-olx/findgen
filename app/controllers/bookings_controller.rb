@@ -48,7 +48,9 @@ class BookingsController < ApplicationController
     booking = Booking.find(params[:id])
     from_status = booking.status
     booking.status = "cancelled"
-    booking.cost = add_cancellation_charges(booking)
+    if from_status == "accepted"
+      booking.cost = add_cancellation_charges(booking)
+    end
     booking.save
     add_update_track_record(booking, from_status, "cancelled")
     render json: {}, status: 201

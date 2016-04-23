@@ -33,7 +33,9 @@
 <script type="text/javascript">
     $("#users").on('click', 'tr', function(){
         id = $(this).find('td').first().text()
-        window.location = '/users/' + id;
+        if(id) {
+            window.location = '/users/' + id;
+        }
     })
 
 </script>

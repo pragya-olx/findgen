@@ -10,15 +10,11 @@
 
 	<ul class="nav nav-tabs" id="navTabs">
 	  <li role="presentation" class="active"><a href="#">Bookings</a></li>
-	  <% if current_user.is_admin_or_owner? %>
-	  <li role="presentation"><a href="#">Details</a></li>
-	  <%end%>
 	  <li role="presentation"><a onclick="window.location = '/lisps' ">LISP</a></li>
 	  <li role="presentation"><a href="#">Users</a></li>
 	</ul>
 
     <div class="row">
-    	<%= render "details" %>
     	<%= render "dashboard/content" %>
     	<%= render "users/content" %>
     </div>
