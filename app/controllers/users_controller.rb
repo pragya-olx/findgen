@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update!(params.require(:user).permit(:name, :email, :phone_number, :password, :employee_id, :role_type))
+    @user.update!(params.require(:user).permit(:name, :email, :phone_number, :encrypted_password, :employee_id, :role_type))
     redirect_to "/users/#{@user.id}"
   end
 
