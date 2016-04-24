@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     member do
       get 'approve'
       get 'cancel'
+      get 'reject'
+      get 'accept'
     end
   end
 

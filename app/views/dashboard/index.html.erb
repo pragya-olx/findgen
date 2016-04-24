@@ -1,3 +1,4 @@
+<%= render "assign_vendor" %>
 <div class="container main-content">
 	<ul class="nav nav-tabs" id="navTabs">
 		<li role="presentation" id="owner_pending"><a onclick="window.location = '/' ">Pending Acceptance</a></li>
@@ -26,10 +27,13 @@
 			            	<th>Cost</th>
 			            <%end%>
 			            <th>Duty Slip</th>
+			            <% if params[:status].nil? %>
+			            <th>Actions</th>
+			            <%end%>
 			        </tr>
 			    </thead>
 			        <% @bookings.each do |booking| %>
-			          <tr>
+			          <tr data-id=<%=booking.id%> >
 			            <td><a onclick="window.location='/bookings/' + <%=booking.id%>"><%= booking.name %></a></td>
 			            <td><%= booking.location %></td>
 			            <td><%= booking.start_date %></td>
@@ -62,6 +66,16 @@
 				        		No Duty Slip
 			            	<%end %>
 			            </td>
+			            <% if params[:status].nil? %>
+			            	<td class="admin_actions">
+			            		<button class="btn btn-default btn-sm accept_btn" data-toggle="modal" data-target="#assignVendor">
+			            			<span class="glyphicon glyphicon-ok"></span>
+			            		</button>
+			            		<button class="btn btn-danger btn-sm reject_btn">
+			            			<span class="glyphicon glyphicon-remove"></span>
+			            		</button>
+			            	</td>
+			            <%end%>
 			          </tr>
 			        <% end %>
 
@@ -81,15 +95,55 @@
 		$("#owner_pending").addClass('active')
 	}
 
-	$(".booking_id").on('click', function(event) {
-        id = $(this).text()
-        location = '/bookings/' + id.trim();
-    })
-
     $(".lisp_id").on('click', function(event) {
         id = $(this).text()
         location = '/lisps/unknown?code=' + id.trim();
     })
+
+    $(".reject_btn").on('click', function(event) {
+    	id = $(this).parent().parent().data('id')
+    	if (id) {
+    		$.ajax({
+    			url: "/bookings/" + id + "/reject"
+    		}).done(function(){
+    			location.reload()
+    		}).fail(function(){
+    			alert("There was an error rejecting the booking")
+    		})
+    	}
+    })
+
+    $(".accept_btn").on('click', function(){
+    	id = $(this).parent().parent().data('id')
+    	if (id) {
+    		window.current_booking_id = id
+    	}
+    })
+
+    $("#accept_booking").on('click', function(){
+    	$.ajax({
+    		url: "/bookings/" + window.current_booking_id + "/accept",
+    		data: {
+    			vendor_id: $("#vendors").val(),
+    			operator_id: $("#operators").val()
+    		}
+    	}).done(function(){
+    		window.location.reload()
+    	}).fail(function(){
+    		alert("There was an error in accepting the booking")
+    	})
+    })
+
+    $('#vendors').change(function () {
+      var input_vendor = $('#operators');
+      $.getJSON('/operators/' + $(this).val(), function (data) {
+        input_vendor.empty();
+        $.each(data, function (i) {
+          var opt = '<option value='+ data[i].id +'>' + data[i].name + '</option>';
+          input_vendor.append(opt);
+        });
+      });
+    });
 
     $("#dashboard_bookings").DataTable( {
 	    scrollX: "100%"

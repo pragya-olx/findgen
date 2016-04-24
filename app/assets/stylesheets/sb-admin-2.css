@@ -131,3 +131,16 @@ tr a {
 #dashboard_bookings_wrapper {
   margin-top: 20px;
 }
+
+.cancel_btn {
+  margin-top: 2px;
+  width: 78px;
+}
+
+.reject_btn {
+  margin-top: 2px;
+}
+
+.admin_actions {
+  width: 80px;
+}

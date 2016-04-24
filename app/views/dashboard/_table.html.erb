@@ -56,7 +56,7 @@
             <% if current_user.is_approver? and booking.status == "pending" %>
                 <td>
                     <button class="btn btn-success approve_btn" data-id=<%=booking.id%> >Approve</button>
-                    <button class="btn btn-default cancel_btn" data-id=<%=booking.id%> >Cancel</button>
+                    <button class="btn btn-danger cancel_btn" data-id=<%=booking.id%> >Cancel</button>
                 </td>
             <% elsif current_user.is_spoc? and booking.is_cancelable? %>
             <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>

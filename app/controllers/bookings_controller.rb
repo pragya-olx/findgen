@@ -44,6 +44,17 @@ class BookingsController < ApplicationController
     render json: {}, status: 201
   end
 
+  def accept
+    booking = Booking.find(params[:id])
+    from_status = booking.status
+    booking.status = "accepted"
+    booking.vendor_id = params[:vendor_id]
+    booking.operator = Operator.find(params[:operator_id])
+    booking.save
+    add_update_track_record(booking, from_status, "accepted")
+    render json: {}, status: 201
+  end
+
   def cancel
     booking = Booking.find(params[:id])
     from_status = booking.status
@@ -102,10 +113,21 @@ class BookingsController < ApplicationController
       booking.cost += 1500 if booking.is_mobile?
       booking.cost += 0.1*booking.cost
     end
-    booking.operator = Operator.find(params[:booking][:operator_id])
+    if params[:booking][:operator_id].present?
+      booking.operator = Operator.find(params[:booking][:operator_id])
+    end
     booking.save
 
     redirect_to '/'
+  end
+
+  def reject
+    booking = Booking.find(params[:id])
+    from_status = booking.status
+    booking.status = "rejected"
+    booking.save
+    add_update_track_record(booking, from_status, "rejected")
+    render json: {}, status: 201
   end
 
   private
