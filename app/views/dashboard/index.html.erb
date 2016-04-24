@@ -1,8 +1,8 @@
 <div class="container main-content">
 	<ul class="nav nav-tabs" id="navTabs">
-		<li role="presentation" id="owner_pending"><a onclick="window.location = '?status=pending' ">Pending Acceptance</a></li>
-	    <li role="presentation" id="owner_approved"><a onclick="window.location = '?status=accepted' ">Active</a></li>
-	    <li role="presentation" id="owner_previous"><a onclick="window.location = '/' " >Previous</a></li>
+		<li role="presentation" id="owner_pending"><a onclick="window.location = '/' ">Pending Acceptance</a></li>
+	    <li role="presentation" id="owner_accepted"><a onclick="window.location = '?status=accepted' ">Active</a></li>
+	    <li role="presentation" id="owner_previous"><a onclick="window.location = '?status=previous' " >Previous</a></li>
 	</ul>
 
     <div class="row">
@@ -78,7 +78,7 @@
 		console.log(qs['status'])
 		$("#owner_" + qs['status']).addClass('active')
 	} else {
-		$("#owner_previous").addClass('active')
+		$("#owner_pending").addClass('active')
 	}
 
 	$(".booking_id").on('click', function(event) {
