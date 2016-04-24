@@ -139,8 +139,10 @@ tr a {
 
 .reject_btn {
   margin-top: 2px;
+  width: 61px;
 }
 
 .admin_actions {
   width: 80px;
 }
+
