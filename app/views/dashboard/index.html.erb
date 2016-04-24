@@ -27,6 +27,7 @@
 			            	<th>Cost</th>
 			            <%end%>
 			            <th>Duty Slip</th>
+			            <th>Submitted On</th>
 			            <% if params[:status].nil? %>
 			            <th>Actions</th>
 			            <%end%>
@@ -66,6 +67,7 @@
 				        		No Duty Slip
 			            	<%end %>
 			            </td>
+			            <td><%= booking.created_at %></td>
 			            <% if params[:status].nil? %>
 			            	<td class="admin_actions">
 			            		<button class="btn btn-default btn-sm accept_btn" data-toggle="modal" data-target="#assignVendor">

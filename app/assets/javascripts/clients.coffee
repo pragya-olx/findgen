@@ -36,15 +36,15 @@ window.Client.load = ->
       if $(this).text() == "Users"
         $(".users_content").show()
         $(".bookings_content").hide()
-        $(".details").hide()
+        $("#lisps_content").hide()
       else if $(this).text() == "Bookings"
         $(".users_content").hide()
         $(".bookings_content").show()
-        $(".details").hide()
-      else if $(this).text() == "Details"
+        $("#lisps_content").hide()
+      else
         $(".users_content").hide()
         $(".bookings_content").hide()
-        $(".details").show()
+        $("#lisps_content").show()
     )
 
     $('#createClient').find('#save').click ->

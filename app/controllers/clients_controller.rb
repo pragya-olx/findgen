@@ -15,6 +15,7 @@ class ClientsController < ApplicationController
   def show
     @current_client = Client.find(params[:id])
     @lisps = Lisp.order(:code)
+    @states = CS.states(:IN)
     @employees = User.where(:client_id => @current_client.id).order(:employee_id)
 
     unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"])
@@ -33,9 +34,9 @@ class ClientsController < ApplicationController
 
     if current_user.is_approver?
       spoc_ids = SpocToApproverMapping.where("approver1_id = ? or approver2_id = ?", current_user.id,current_user.id).pluck(:spoc_id)
-      @bookings = Booking.where(:status => params[:booking_status]).where(:user_id => spoc_ids.uniq)
+      @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
     else
-      @bookings = Booking.where(:status => params[:booking_status])
+      @bookings = Booking.where(:status => status)
     end
 
     if current_user.is_spoc?

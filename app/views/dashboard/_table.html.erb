@@ -16,6 +16,7 @@
             <th>Vendor Id</th>
             <th>Duty Slip</th>
             <%end%>
+            <th>Submitted on</th>
             <% if current_user.is_approver? or current_user.is_spoc? %>
             <th>Actions</th>
             <% end %>
@@ -53,15 +54,17 @@
                 </td>
             <%end%>
 
+            <td><%= booking.created_at %></td>
+
             <% if current_user.is_approver? and booking.status == "pending" %>
                 <td>
                     <button class="btn btn-success approve_btn" data-id=<%=booking.id%> >Approve</button>
                     <button class="btn btn-danger cancel_btn" data-id=<%=booking.id%> >Cancel</button>
                 </td>
             <% elsif current_user.is_spoc? and booking.is_cancelable? %>
-            <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>
+                <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>
             <%elsif current_user.is_approver? or current_user.is_spoc? %>
-            <td>N/A</td>
+                <td>N/A</td>
             <% end %>
           </tr>
         <% end %>

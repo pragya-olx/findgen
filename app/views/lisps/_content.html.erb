@@ -1,0 +1,134 @@
+<div class="modal fade" id="createLisp" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add new LISP</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Name</label>
+            <br>
+            <input type="text" class="form-control" id="name"></input>
+         </div>
+
+
+        <div class="form-group">
+          <label for="name">State</label>
+          <select class="form-control" name="state">
+			<% @states.each do |key, value| %>
+				<option value="<%= key %>"><%= value%></option>
+			<% end %>
+		  </select>
+        </div>
+
+		<div class="form-group">
+    		<label>City</label>
+    		<br>
+    		<input type="text" class="form-control" id="city"></input>
+    	</div>
+
+         <div class="form-group">
+            <label>Zone</label>
+            <br>
+            <input type="text" class="form-control" id="zone"></input>
+        </div>
+
+           <div class="form-group">
+            <label>Address</label>
+            <br>
+            <input type="text" class="form-control" id="address"></input>
+            </div>
+
+           <div class="form-group">
+            <label>Code</label>
+            <br>
+            <input type="text" class="form-control" id="code"></input>
+            </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save_lisp">Submit</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="lisps" id="lisps_content">
+
+    <div class="row">
+    <% if current_user.is_admin_or_owner? %>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createLisp">
+            Create New Lisp
+        </button>
+    </div>
+    <%end%>
+
+    <% if current_user.is_admin_or_owner? %>
+    <div class="col-md-9">
+    <%end%>
+        <div class="row">
+			<table class="table hover table-bordered" cellspacing="0" width="100%">                         
+			  <thead>
+		        <tr>
+		        	<th>Name</th>
+		            <th>State</th>
+		            <th>City</th>
+		            <th>Address</th>
+		            <th>Zone</th>		           		            		           		      
+		            <th>Code</th>		           		            		           		      
+		        </tr>
+			  </thead>
+				<% @lisps.each do |lisp| %>
+				  <tr data-id=<%=lisp.id%> >
+				    <td><%= lisp.name %></td>
+				    <td><%= lisp.state %></td>
+				    <td><%= lisp.city %></td>
+				    <td><%= lisp.address %></td>
+				    <td><%= lisp.zone %></td>
+				    <td><%= lisp.code %></td>
+				  </tr>
+				<% end %>
+			</table> 
+        </div>
+    <% if current_user.is_admin_or_owner? %>
+    </div>
+    <%end%>
+
+</div>
+
+<script>
+
+	$('#save_lisp').click(function(){
+	  formData = {
+	  	lisp: {
+		    state: $("select[name='state']").find("option:selected").text(),
+		    city: $('#city').val(),
+		    zone: $("#zone").val(),
+		    address: $("#address").val(),
+		    name: $("#name").val(),
+		    code: $("#code").val()
+		}
+	  }
+
+	  $.post({
+  		url: "/lisps",
+    	data: formData
+	  }).done(function(data){
+	    window.location = '/lisps'
+	  }).fail(function(data){
+	    console.log('error');
+	  });
+	});
+
+	$('table').on('click','tr', function(event) {
+        id = $(this).data('id')
+        if(id){
+        	location = '/lisps/' + id;
+        }
+    });
+
+    $('table').DataTable();
+
+</script>

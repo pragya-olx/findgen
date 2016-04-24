@@ -18,11 +18,11 @@
                 <th> Spoc Name </th>
                 <th> Rep ID </th>
                 <th> Rep Name </th>
-                <th> Cost </th>
                 <th> Vendor </th>
                 <th> Operator </th>
                 <th> Duty Slip </th>
                 <th> Actual Hours </th>
+                <th> Submitted On </th>
             </tr>
         </thead>
         <tbody>
@@ -42,7 +42,6 @@
                         <%= @booking.rep.name %> 
                     <%end%>
                 </td>
-                <td class="balance"> <%= @booking.cost %> </td>
                 <td>
                     <% if @booking.vendor.present? %>
                     <%= @booking.vendor.name %>
@@ -63,11 +62,12 @@
                         <%= @booking.actual_hours %>
                     <% end %>
                 </td>
+                <td><%= @booking.created_at %></td>
             </tr>
         </tbody>
         </table>
 
-        <% if @booking.actual_hours.present? %>
+        <% if @booking.actual_hours.present? and current_user.is_admin_or_owner? %>
             <h3> Cost Calcualtion Details </h3>
 
             <div> A) Amount for 1 Day = <%= @per_day %> </div>

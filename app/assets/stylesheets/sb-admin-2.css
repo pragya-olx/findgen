@@ -68,12 +68,12 @@ aside {
   display: none;
 }
 
-.details {
+.users_content{
   margin-top: 20px;
-  margin-left: 20px;
+  display: none;
 }
 
-.users_content{
+#lisps_content  {
   margin-top: 20px;
   display: none;
 }
