@@ -11,9 +11,11 @@
             <th>LISP</th>
             <th>Status</th>
             <th>Client</th>
+            <th>Rep</th>
+            <% if params[:booking_status] != "pending" %>
             <th>Vendor Id</th>
-            <th>Rep Id</th>
             <th>Duty Slip</th>
+            <%end%>
             <% if current_user.is_approver? or current_user.is_spoc? %>
             <th>Actions</th>
             <% end %>
@@ -32,25 +34,30 @@
             <td><%= booking.status %></td>
             <td><%= booking.client.name %></td>
             <td>
-            <% if booking.vendor.present? %>
-                <%= booking.vendor.name %>
-            <% end %>
-            </td>
-            <td>
             <% if booking.rep.present? %>
                 <a class="rep_id" onclick="window.location = '/users/' + <%= booking.rep.id %> " ><%= booking.rep.employee_id %></a>
             <% end %>
             </td>
-            <td>
-            <% if booking.slip.present? %>
-                <%= link_to "Download", booking.slip_url %>
-            <% else %>
-                No Duty Slip
-            <% end %>
-            </td>
+            <% if params[:booking_status] != "pending" %>
+                <td>
+                <% if booking.vendor.present? %>
+                    <%= booking.vendor.name %>
+                <% end %>
+                </td>
+                <td>
+                <% if booking.slip.present? %>
+                    <%= link_to "Download", booking.slip_url %>
+                <% else %>
+                    No Duty Slip
+                <% end %>
+                </td>
+            <%end%>
 
             <% if current_user.is_approver? and booking.status == "pending" %>
-            <td><button class="approve_btn" data-id=<%=booking.id%> >Approve</button></td>
+                <td>
+                    <button class="btn btn-success approve_btn" data-id=<%=booking.id%> >Approve</button>
+                    <button class="btn btn-default cancel_btn" data-id=<%=booking.id%> >Cancel</button>
+                </td>
             <% elsif current_user.is_spoc? and booking.is_cancelable? %>
             <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>
             <%elsif current_user.is_approver? or current_user.is_spoc? %>
