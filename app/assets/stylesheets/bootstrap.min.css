@@ -4186,6 +4186,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar {
+    border-radius: 4px;
   }
 }
 @media (min-width: 768px) {
@@ -4603,7 +4604,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
 .navbar-inverse {
-  background-color: darkslategray;
+  background-color: #222;
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand {
