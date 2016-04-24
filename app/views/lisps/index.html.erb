@@ -74,7 +74,6 @@
 			<table class="table hover table-bordered" cellspacing="0" width="100%">                         
 			  <thead>
 		        <tr>
-		        	<th>Id</th>
 		        	<th>Name</th>
 		            <th>State</th>
 		            <th>City</th>
@@ -84,8 +83,7 @@
 		        </tr>
 			  </thead>
 				<% @lisps.each do |lisp| %>
-				  <tr>
-				  	<td><%= lisp.id %></td>
+				  <tr data-id=<%=lisp.id%> >
 				    <td><%= lisp.name %></td>
 				    <td><%= lisp.state %></td>
 				    <td><%= lisp.city %></td>
@@ -127,7 +125,7 @@
 	});
 
 	$('table').on('click','tr', function(event) {
-        id = $(this).find('td').first().text()
+        id = $(this).data('id')
         if(id){
         	location = '/lisps/' + id;
         }
