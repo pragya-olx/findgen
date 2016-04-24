@@ -19,6 +19,10 @@
                 <th> Rep ID </th>
                 <th> Rep Name </th>
                 <th> Cost </th>
+                <th> Vendor </th>
+                <th> Operator </th>
+                <th> Duty Slip </th>
+                <th> Actual Hours </th>
             </tr>
         </thead>
         <tbody>
@@ -39,9 +43,44 @@
                     <%end%>
                 </td>
                 <td class="balance"> <%= @booking.cost %> </td>
+                <td>
+                    <% if @booking.vendor.present? %>
+                    <%= @booking.vendor.name %>
+                    <% end %>
+                </td>
+                <td>
+                    <% if @booking.operator.present? %>
+                        <%= @booking.operator.name %>, <%= @booking.operator.phone_number %>
+                    <% end %>
+                </td>
+                <td>
+                    <% if @booking.slip.present? %>
+                        <%= link_to "Download Duty Slip", @booking.slip_url %>
+                    <% end %>
+                </td>
+                <td>
+                    <% if @booking.actual_hours.present? %>
+                        <%= @booking.actual_hours %>
+                    <% end %>
+                </td>
             </tr>
         </tbody>
         </table>
+
+        <% if @booking.actual_hours.present? %>
+            <h3> Cost Calcualtion Details </h3>
+
+            <div> A) Amount for 1 Day = <%= @per_day %> </div>
+            <div> B) Amount for Total Hours = <%= @booking.actual_hours %> x <%= @per_hour %> </div>
+            <div> C) Amount for Generator Type = 
+            <% if @booking.is_mobile? %>
+              1500
+            <%else%>
+              0
+            <%end%>
+            <div>D) Management Charges = 10 % (A+B+C) = <%= @management_charges %></div>
+            <div>Total (A+B+C+D) = <%= @booking.cost %> </div>
+        <% end %>
 
         <h3> Status Tracking </h3>
         <table class="table hover booking_update table-bordered hover" cellspacing="0" width="100%">
@@ -69,71 +108,35 @@
         <%= f.label :status %>
 
         <% if current_user.is_owner? %>
-        <%= f.select(:status, ['cancelled', 'client_approved', 'accepted', 'rejected', 'completed', 'paid']) %>
+            <% if @booking.is_completed_or_paid? %>
+                <%= f.select(:status, ['completed', 'paid']) %>
+            <%else%>
+                <%= f.select(:status, ['cancelled', 'client_approved', 'accepted', 'rejected', 'completed', 'paid']) %>
+            <%end%>
         <% else %>
           <%= @booking.status %>
         <%end%>
 
         <br>
-        <% if @booking.slip.present? %>
-          <div><%= link_to "Download Duty Slip", @booking.slip_url %></div>
-            <br>
-            <%= f.label :actual_hours %>
-            <%= @booking.actual_hours %>
 
-            <br>
-            <%= f.label :total_cost %>
-            <%= @booking.cost %>
-            <br>
-
-            <% if @booking.actual_hours.present? %>
-                <label>Cost Calculation Details</label>
-                <div> A) Amount for 1 Day = <%= @per_day %> </div>
-                <div> B) Amount for Total Hours = <%= @booking.actual_hours %> x <%= @per_hour %> </div>
-                <div> C) Amount for Generator Type = 
-                <% if @booking.is_mobile? %>
-                  1500
-                <%else%>
-                  0
-                <%end%>
-                <div>D) Management Charges = 10 % (A+B+C) = <%= @management_charges %></div>
-                <div>Total (A+B+C+D) = <%= @booking.cost %> </div>
-            <% end %>
-
-        <% else %>
+        <div class="on_completed_details">
             <%= f.label :duty_slip %>
             <%= f.file_field(:slip, accept: 'image/png,image/gif,image/jpeg') %>
             <br>
             <%= f.label :actual_hours %>
             <%= f.text_field :actual_hours %>
-        <% end %>
+        </div>
 
-        <br>
-
-        <h3> Vendor Details </h3>
-
-        <%= f.label :vendor %>
-        <% if current_user.is_owner? %>
-            <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
+        <div class="on_accepted_details">
             <br>
-            <%= f.label :choose_operator %>
-            <select name="booking[operator_id]" id="operators"></select>
-        <% else %>
-            <% if @booking.vendor.present? %>
-                <%= @booking.vendor.name %>
-            <% end %>
-        <%end%>
-        <br>
-        <% if @booking.operator.present? %>
-            <%= f.label :current_operator_details %>
-            <br>
-            <%= f.label :name %>
-            <span> <%= @booking.operator.name %></span>
-            <br>
-            <%= f.label :phone_number %>
-            <span> <%= @booking.operator.phone_number %></span>
-        <%end%>
-
+            <%= f.label :vendor %>
+            <% if current_user.is_owner? %>
+                <%= select("booking", "vendor_id", User.where(:role_type => "vendor").collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
+                <br>
+                <%= f.label :choose_operator %>
+                <select name="booking[operator_id]" id="operators"></select>
+            <%end%>
+        </div>
       </div>
     </div>
 
@@ -173,5 +176,21 @@
       });
     });
 
+    $("#booking_status").change(function(){
+        var selected = $(this).val()
+        if (selected == "completed"){
+            $(".on_completed_details").show();
+            $(".on_accepted_details").hide();
+        } else if (selected == "accepted") {
+            $(".on_completed_details").hide();
+            $(".on_accepted_details").show();
+        }
+    });
+
+    if($("#booking_status").val() == "accepted") {
+        $(".on_accepted_details").show()
+    } else if ($("#booking_status").val() == "completed") {
+        $(".on_completed_details").show();
+    }
 
 </script>

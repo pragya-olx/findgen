@@ -86,9 +86,6 @@ class BookingsController < ApplicationController
 
     from_status = booking.status
     booking.update!(booking_params)
-    to_status = booking.status
-
-    add_update_track_record(booking, from_status, to_status)
 
     if booking.status == "client_approved" and booking.vendor_id.present?
       booking.status = "accepted"
@@ -96,6 +93,10 @@ class BookingsController < ApplicationController
     if booking.status == "accepted" and booking.slip.present?
       booking.status = "completed"
     end
+    
+    to_status = booking.status
+    add_update_track_record(booking, from_status, to_status)
+
     if booking_params[:actual_hours].present?
       booking.cost = per_day_cost(booking.lisp, booking.kva) + booking_params[:actual_hours].to_i*per_hour_cost(booking.lisp, booking.kva)
       booking.cost += 1500 if booking.is_mobile?

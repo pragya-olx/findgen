@@ -33,4 +33,8 @@ class Booking < ActiveRecord::Base
       self.gen_type == "Mobile"
    end
 
+   def is_completed_or_paid?
+   	  status == "completed" or status == "paid"
+   end
+
 end

@@ -102,3 +102,27 @@ tr a {
 .user_info {
   margin-left: 30px;
 }
+
+.on_completed_details,
+.on_accepted_details {
+  display: none;
+}
+
+  
+.login::after {
+  content: "";
+  background-image: url("http://kazakhstan2050.com/wp-content/uploads/2013/06/shutterstock_120579910.jpg");
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
+
+.login_form {
+  color: white;
+  padding: 20px 20px 20px 20px;
+  border-radius: 5px;
+}
