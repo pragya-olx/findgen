@@ -61,12 +61,3 @@ window.Client.load = ->
       ).fail (data) ->
         console.log 'error'
 
-    $(".approve_btn").on('click', ->
-      id = $(this).parent().parent().find('td').first().text()
-      $.ajax(
-        url: "/bookings/#{id}/approve"
-      ).done(
-        location.reload()
-      )
-    )
-

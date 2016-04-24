@@ -50,9 +50,9 @@
             </td>
 
             <% if current_user.is_approver? and booking.status == "pending" %>
-            <td><button class="approve_btn">Approve</button></td>
+            <td><button class="approve_btn" data-id=<%=booking.id%> >Approve</button></td>
             <% elsif current_user.is_spoc? and booking.is_cancelable? %>
-            <td><button class="cancel_btn">Cancel</button></td>
+            <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>
             <%elsif current_user.is_approver? or current_user.is_spoc? %>
             <td>N/A</td>
             <% end %>
@@ -75,14 +75,22 @@
         location = '/lisps/unknown?code=' + id.trim();
     })
 
-
     $(".cancel_btn").on('click', function(){
-      id = $(this).parent().parent().find('td').first().text()
+      id = $(this).data('id')
       cancel_url = "/bookings/" + id + "/cancel"
       $.ajax({
         url: cancel_url
       }).done( function(){
         location.reload()
       });
+    });
+
+    $(".approve_btn").on('click', function(){
+      id = $(this).data('id')
+      $.ajax({
+        url: "/bookings/" + id + "/approve"
+      }).done( function(){
+        location.reload()
+      })
     });
 </script>
