@@ -20,7 +20,7 @@
                 <th> Rep Name </th>
                 <th> Vendor </th>
                 <th> Operator </th>
-                <th> Duty Slip </th>
+                <th> Invoice </th>
                 <th> Actual Hours </th>
                 <th> Submitted On </th>
             </tr>
@@ -120,7 +120,7 @@
         <br>
 
         <div class="on_completed_details">
-            <%= f.label :duty_slip %>
+            <%= f.label :invoice %>
             <%= f.file_field(:invoice, accept: 'image/png,image/gif,image/jpeg') %>
             <br>
             <%= f.label :actual_hours %>

@@ -26,7 +26,7 @@
 			            <% if @show_cost.present? %>
 			            	<th>Cost</th>
 			            <%end%>
-			            <th>Duty Slip</th>
+			            <th>Invoice</th>
 			            <th>Submitted On</th>
 			            <% if params[:status].nil? %>
 			            <th>Actions</th>
@@ -61,10 +61,10 @@
 			            <%end%>
 
 			            <td>
-				            <% if booking.slip.present? %>
-				        	    <%= link_to "Download Duty Slip", booking.slip_url %>
+				            <% if booking.invoice.present? %>
+				        	    <%= link_to "Download Invoice", booking.invoice.url %>
 				        	<% else %>
-				        		No Duty Slip
+				        		No Invoice
 			            	<%end %>
 			            </td>
 			            <td><%= booking.created_at %></td>

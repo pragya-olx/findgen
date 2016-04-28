@@ -14,7 +14,7 @@
             <th>Rep</th>
             <% if params[:booking_status] != "pending" %>
             <th>Vendor Id</th>
-            <th>Duty Slip</th>
+            <th>Invoice</th>
             <%end%>
             <th>Submitted on</th>
             <% if current_user.is_approver? or current_user.is_spoc? %>
@@ -46,10 +46,10 @@
                 <% end %>
                 </td>
                 <td>
-                <% if booking.slip.present? %>
-                    <%= link_to "Download", booking.slip_url %>
+                <% if booking.invoice.present? %>
+                    <%= link_to "Download", booking.invoice.url %>
                 <% else %>
-                    No Duty Slip
+                    No Invoice
                 <% end %>
                 </td>
             <%end%>

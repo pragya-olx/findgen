@@ -101,7 +101,7 @@ class BookingsController < ApplicationController
     if booking.status == "client_approved" and booking.vendor_id.present?
       booking.status = "accepted"
     end
-    if booking.status == "accepted" and booking.slip.present?
+    if booking.status == "accepted" and booking.invoice.present?
       booking.status = "completed"
     end
     
