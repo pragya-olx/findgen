@@ -10,7 +10,7 @@ class Booking < ActiveRecord::Base
 	:s3_region => 'us-east-1',
 	:path => "/image/:id/invoice.jpg",
 	:s3_credentials => {
-		:bucket => "findgen-dev",
+		:bucket => ENV['S3_BUCKET_NAME'],
 	},
 	:default_url => "/images/:style/missing.png"
 
@@ -48,7 +48,7 @@ class Booking < ActiveRecord::Base
    end
 
    def invoice_url
-   	"http://s3.amazonaws.com/findgen-dev/image/#{self.id}/invoice.jpg"
+      "http://s3.amazonaws.com/#{ENV['S3_BUCKET_NAME']}/image/#{self.id}/invoice.jpg"
    end
 
 end
