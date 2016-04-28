@@ -46,8 +46,8 @@
                 <% end %>
                 </td>
                 <td>
-                <% if booking.invoice.present? %>
-                    <%= link_to "Download", booking.invoice.url %>
+                <% if booking.actual_hours.present? %>
+                    <%= link_to "Download", booking.invoice_url %>
                 <% else %>
                     No Invoice
                 <% end %>

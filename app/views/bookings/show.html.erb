@@ -53,8 +53,8 @@
                     <% end %>
                 </td>
                 <td>
-                    <% if @booking.invoice.present? %>
-                        <%= link_to "Invoice", @booking.invoice.url %>
+                    <% if @booking.actual_hours.present? %>
+                        <%= link_to "Invoice", @booking.invoice_url %>
                     <% end %>
                 </td>
                 <td>

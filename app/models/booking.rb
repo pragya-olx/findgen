@@ -8,6 +8,7 @@ class Booking < ActiveRecord::Base
 	has_attached_file :invoice,
 	:storage => :s3,
 	:s3_region => 'us-east-1',
+	:path => "/image/:id/invoice.jpg",
 	:s3_credentials => {
 		:bucket => "findgen-dev",
 	},
@@ -44,6 +45,10 @@ class Booking < ActiveRecord::Base
 
    def is_completed_or_paid?
    	  status == "completed" or status == "paid"
+   end
+
+   def invoice_url
+   	"http://s3.amazonaws.com/findgen-dev/image/#{self.id}/invoice.jpg"
    end
 
 end

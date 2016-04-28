@@ -61,8 +61,8 @@
 			            <%end%>
 
 			            <td>
-				            <% if booking.invoice.present? %>
-				        	    <%= link_to "Download Invoice", booking.invoice.url %>
+				            <% if booking.actual_hours.present? %>
+				        	    <%= link_to "Download Invoice", booking.invoice_url %>
 				        	<% else %>
 				        		No Invoice
 			            	<%end %>
