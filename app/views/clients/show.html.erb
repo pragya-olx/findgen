@@ -9,9 +9,17 @@
 <div class="container main-content">
 
 	<ul class="nav nav-tabs" id="navTabs">
-	  <li role="presentation" class="active"><a href="#">Bookings</a></li>
-	  <li role="presentation"><a  href="#">LISP</a></li>
-	  <li role="presentation"><a href="#">Users</a></li>
+	  <li class="active dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Bookings<b class="caret"></b></a>
+	    <ul class="dropdown-menu">
+            <li> <a id="accepted">Active Bookings</a> </li>
+            <li> <a id="completed">Completed Bookings</a> </li>
+            <li> <a id="cancelled">Cancelled Bookings</a> </li>
+            <li> <a id="pending">Pending Approval</a> </li>
+            <li> <a id="client_approved">Pending Acceptance</a> </li>
+	    </ul>
+	  </li>
+	  <li><a  href="#">LISP</a></li>
+	  <li><a href="#">Users</a></li>
 	</ul>
 
     <div class="row">

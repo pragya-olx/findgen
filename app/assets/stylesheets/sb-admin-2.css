@@ -146,3 +146,7 @@ tr a {
   width: 80px;
 }
 
+
+ul.nav li:hover > ul.dropdown-menu {
+  display: block;
+}

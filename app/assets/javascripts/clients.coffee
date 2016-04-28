@@ -30,6 +30,11 @@ window.Client.load = ->
       window.location = "/clients/#{id}"
     )
 
+    $("#" + qs["booking_status"]).parent().addClass('active')
+
+    if !qs["booking_status"]?
+      $("#accepted").parent().addClass('active')
+
     $('#navTabs a').click((e) ->
       e.preventDefault()
       $(this).tab('show')
@@ -41,7 +46,7 @@ window.Client.load = ->
         $(".users_content").hide()
         $(".bookings_content").show()
         $("#lisps_content").hide()
-      else
+      else if $(this).text() == "LISP"
         $(".users_content").hide()
         $(".bookings_content").hide()
         $("#lisps_content").show()
