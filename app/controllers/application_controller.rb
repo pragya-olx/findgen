@@ -5,12 +5,12 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def states
-  	CS.states(:IN)
+    CS.states(:IN)
   end
 
-	def cities
-	  render json: CS.cities(params[:state], :IN).to_json
-	end
+  def cities
+    render json: CS.cities(params[:state], :IN).to_json
+  end
 
   def operators
     render json: Operator.where(:vendor_id => params[:vendor_id]).to_json

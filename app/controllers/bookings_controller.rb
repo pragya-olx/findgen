@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
 
   include CostCalculator
 
-	def show
+  def show
       @booking = Booking.find(params[:id])
       if @booking.lisp.present? and @booking.kva.present?
         @per_day = per_day_cost(@booking.lisp, @booking.kva)
@@ -18,11 +18,11 @@ class BookingsController < ApplicationController
       @booking_updates = BookingUpdate.where(:booking_id => @booking.id)
   end
 
-	def index
-		if params[:status].nil?
-			render json: Booking.where(:status => "completed").to_json, status: 201	
-			return
-		end
+  def index
+    if params[:status].nil?
+      render json: Booking.where(:status => "completed").to_json, status: 201 
+      return
+    end
 
     bookings = nil
 
@@ -33,7 +33,7 @@ class BookingsController < ApplicationController
     end
 
     render json: bookings, status: 201
-	end
+  end
 
   def approve
     booking = Booking.find(params[:id])
@@ -67,14 +67,14 @@ class BookingsController < ApplicationController
     render json: {}, status: 201
   end
 
-	def new
-	end
+  def new
+  end
 
-	def create
+  def create
     begin
-  	  booking = Booking.new(params.require(:booking).permit(:start_date, :gen_type, :time_in, :time_out, :lisp, :kva))
+      booking = Booking.new(params.require(:booking).permit(:start_date, :gen_type, :time_in, :time_out, :lisp, :kva))
 
-  	  booking.status = "pending"
+      booking.status = "pending"
       booking.user = current_user
       booking.client = Client.find(params[:booking][:client_id])
       booking.rep = User.find_by_employee_id(params[:booking][:employee_id])
@@ -89,8 +89,8 @@ class BookingsController < ApplicationController
       return
     end
     
-	  render json: {}, status: 201
-	end
+    render json: {}, status: 201
+  end
 
   def update
     booking = Booking.find(params[:id])
