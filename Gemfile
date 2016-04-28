@@ -13,6 +13,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+gem 'aws-sdk', '~> 2'
+gem "paperclip", "~> 5.0.0.beta1"
 
 gem 'rails_12factor', group: :production
 
@@ -55,4 +57,3 @@ group :development do
   gem 'spring'
 end
 
-ruby "2.0.0"

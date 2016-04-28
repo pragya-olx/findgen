@@ -5,8 +5,17 @@ class Booking < ActiveRecord::Base
   	belongs_to :operator
   	belongs_to :rep, :class_name => "User"
 	belongs_to :client
+	has_attached_file :invoice,
+	:storage => :s3,
+	:s3_region => 'us-east-1',
+	:s3_credentials => {
+		:bucket => "findgen-dev",
+	},
+	:default_url => "/images/:style/missing.png"
 
-	mount_uploader :slip, AttachmentUploader # Tells rails to use this uploader for this model.
+  	validates_attachment_content_type :invoice, content_type: /\Aimage\/.*\Z/
+
+	# mount_uploader :slip, AttachmentUploader # Tells rails to use this uploader for this model.
 	validates :name, presence: true # Make sure the owner's name is present.
 
 	def days

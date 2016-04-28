@@ -53,8 +53,8 @@
                     <% end %>
                 </td>
                 <td>
-                    <% if @booking.slip.present? %>
-                        <%= link_to "Download Duty Slip", @booking.slip_url %>
+                    <% if @booking.invoice.present? %>
+                        <%= link_to "Invoice", @booking.invoice.url %>
                     <% end %>
                 </td>
                 <td>
@@ -121,7 +121,7 @@
 
         <div class="on_completed_details">
             <%= f.label :duty_slip %>
-            <%= f.file_field(:slip, accept: 'image/png,image/gif,image/jpeg') %>
+            <%= f.file_field(:invoice, accept: 'image/png,image/gif,image/jpeg') %>
             <br>
             <%= f.label :actual_hours %>
             <%= f.text_field :actual_hours %>
