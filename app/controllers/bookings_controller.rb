@@ -41,7 +41,13 @@ class BookingsController < ApplicationController
     booking.status = "client_approved"
     booking.save
     add_update_track_record(booking, from_status, "client_approved")
+    post_approve(booking)
     render json: {}, status: 201
+  end
+
+  def post_approve(booking)
+    booking.notify("Approved booking #{booking.name}", 
+          [booking.user.email, booking.rep.email])
   end
 
   def accept
@@ -51,8 +57,14 @@ class BookingsController < ApplicationController
     booking.vendor_id = params[:vendor_id]
     booking.operator = Operator.find(params[:operator_id])
     booking.save
+    post_accept(booking)
     add_update_track_record(booking, from_status, "accepted")
     render json: {}, status: 201
+  end
+
+  def post_accept(booking)
+    booking.notify("Vendor Details #{booking.name}", 
+          [booking.user.email, booking.rep.email])
   end
 
   def cancel
@@ -63,8 +75,14 @@ class BookingsController < ApplicationController
       booking.cost = add_cancellation_charges(booking)
     end
     booking.save
+
     add_update_track_record(booking, from_status, "cancelled")
     render json: {}, status: 201
+  end
+
+  def post_complete(booking)
+    booking.notify("Verify running hours #{booking.name}", 
+          [booking.user.email])
   end
 
   def new
@@ -83,6 +101,11 @@ class BookingsController < ApplicationController
       
       booking.save
       booking.name = "#{booking.name}_#{booking.id}"
+      mapping = SpocToApproverMapping.find_by_spoc_id(current_user.id)
+      if mapping.present?
+        booking.notify("New booking #{booking.name} added by #{booking.user.name}", 
+          [mapping.approver1.email, mapping.approver2.email])
+      end
       booking.save
     rescue => error
       render json: "Unable to create booking - #{error.message}", status: 500
@@ -100,9 +123,11 @@ class BookingsController < ApplicationController
 
     if booking.status == "client_approved" and booking.vendor_id.present?
       booking.status = "accepted"
+      post_accept(booking)
     end
     if booking.status == "accepted" and booking.actual_hours.present?
       booking.status = "completed"
+      post_complete(booking)
     end
     
     to_status = booking.status
