@@ -36,7 +36,9 @@ Booking.load = function() {
     	 		lisp: $('#lisp').val(),
     	 		kva: $('#kva').val(),
     	 		client_id: clientId,
-    	 		employee_id: $('#employee_id').val()
+    	 		employee_id: $('#employee_id').val(),
+          assessment: $('#assessment').val(),
+          spoc_remarks: $('#spoc_remarks').val()
     	 	}
 	 	};
 

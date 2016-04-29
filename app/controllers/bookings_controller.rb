@@ -90,7 +90,18 @@ class BookingsController < ApplicationController
 
   def create
     begin
-      booking = Booking.new(params.require(:booking).permit(:start_date, :gen_type, :time_in, :time_out, :lisp, :kva))
+      create_params = {
+        :start_date => params[:booking][:start_date],
+        :gen_type => params[:booking][:gen_type],
+        :time_in => params[:booking][:time_in],
+        :time_out => params[:booking][:time_out],
+        :lisp => params[:booking][:lisp],
+        :kva => params[:booking][:kva],
+        :assessment => params[:booking][:assessment],
+        :spoc_remarks => params[:booking][:spoc_remarks]
+      }
+      debugger
+      booking = Booking.new create_params
 
       booking.status = "pending"
       booking.user = current_user

@@ -15,6 +15,7 @@ class ClientsController < ApplicationController
   def show
     @current_client = Client.find(params[:id])
     @lisps = Lisp.order(:code)
+    @assessments = Assessment.order(:code)
     @states = CS.states(:IN)
     @employees = User.where(:client_id => @current_client.id).order(:employee_id)
 

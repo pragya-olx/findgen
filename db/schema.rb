@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428063932) do
+ActiveRecord::Schema.define(version: 20160429153750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assessments", force: :cascade do |t|
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "booking_updates", force: :cascade do |t|
     t.integer  "booking_id"
@@ -52,6 +58,11 @@ ActiveRecord::Schema.define(version: 20160428063932) do
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
+    t.string   "assessment"
+    t.string   "spoc_remarks"
+    t.string   "owner_remarks"
+    t.string   "invoice_status"
+    t.string   "hours_status"
   end
 
   create_table "clients", force: :cascade do |t|

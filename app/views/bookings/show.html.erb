@@ -13,6 +13,8 @@
                 <th> Time In </th>
                 <th> Time Out </th>
                 <th> Kva </th>
+                <th> Spoc Remarks </th>
+                <th> Assessment </th>
                 <th> LISP </th>
                 <th> Spoc ID </th>
                 <th> Spoc Name </th>
@@ -33,6 +35,8 @@
                 <td> <%= @booking.time_in %> </td>
                 <td> <%= @booking.time_out %> </td>
                 <td> <%= @booking.kva %> </td>
+                <td> <%= @booking.spoc_remarks %> </td>
+                <td> <%= @booking.assessment %> </td>
                 <td> <%= @booking.lisp %> </td>
                 <td> <%= @booking.user.id %> </td>
                 <td> <%= @booking.user.name %> </td>
@@ -81,6 +85,8 @@
             <div>D) Management Charges = 10 % (A+B+C) = <%= @management_charges %></div>
             <div>Total (A+B+C+D) = <%= @booking.cost %> </div>
         <% end %>
+
+
 
         <h3> Status Tracking </h3>
         <table class="table hover booking_update table-bordered hover" cellspacing="0" width="100%">

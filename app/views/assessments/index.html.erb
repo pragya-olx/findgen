@@ -1,0 +1,86 @@
+<div id="create-modal">
+    <div class="modal fade" id="createAssessment" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add new Assessment</h4>
+        </div>
+        <div class="modal-body">
+             <div class="form-group">
+              <label>Code</label>
+              <br>
+              <input type="text" required class="form-control" id="code"></input>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="save">Submit</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>
+<div class="container main-content assessments">
+
+    <div class="row">
+    <% if current_user.is_admin_or_owner? %>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createAssessment">
+            Create New Assessment
+        </button>
+    </div>
+    <%end%>
+
+    <% if current_user.is_admin_or_owner? %>
+    <div class="col-md-9">
+    <%end%>
+        <div class="row">
+      <table class="table hover table-bordered" cellspacing="0" width="100%">                         
+        <thead>
+            <tr>
+              <th>Code</th>
+            </tr>
+        </thead>
+        <% @assessments.each do |x| %>
+          <tr data-id=<%=x.id%> >
+            <td><%= x.code %></td>
+          </tr>
+        <% end %>
+      </table> 
+        </div>
+    <% if current_user.is_admin_or_owner? %>
+    </div>
+    <%end%>
+
+</div>
+
+<script>
+
+  $('#save').click(function(){
+    formData = {
+      assessment: {
+        code: $("#code").val()
+      }
+    }
+
+    $.post({
+      url: "/assessments",
+      data: formData
+    }).done(function(data){
+      window.location = '/assessments'
+    }).fail(function(data){
+      console.log('error');
+    });
+  });
+
+  $('table').on('click','tr', function(event) {
+        id = $(this).data('id')
+        if(id){
+          location = '/assessments/' + id;
+        }
+    });
+
+    $('table').DataTable();
+
+</script>
