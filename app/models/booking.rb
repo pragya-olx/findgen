@@ -1,10 +1,12 @@
+
 class Booking < ActiveRecord::Base
 
   belongs_to :user, :class_name => "User"
-    belongs_to :vendor, :class_name => "User"
-    belongs_to :operator
-    belongs_to :rep, :class_name => "User"
+  belongs_to :vendor, :class_name => "User"
+  belongs_to :operator
+  belongs_to :rep, :class_name => "User"
   belongs_to :client
+
   has_attached_file :invoice,
   :storage => :s3,
   :s3_region => 'us-east-1',
@@ -14,7 +16,7 @@ class Booking < ActiveRecord::Base
   },
   :default_url => "/images/:style/missing.png"
 
-    validates_attachment_content_type :invoice, content_type: /\Aimage\/.*\Z/
+  validates_attachment_content_type :invoice, content_type: /\Aimage\/.*\Z/
 
   # mount_uploader :slip, AttachmentUploader # Tells rails to use this uploader for this model.
   validates :name, presence: true # Make sure the owner's name is present.
@@ -50,5 +52,31 @@ class Booking < ActiveRecord::Base
    def invoice_url
       "http://s3.amazonaws.com/#{ENV['S3_BUCKET_NAME']}/image/#{self.id}/invoice.jpg"
    end
+
+   def email_body
+      body = "<html> Booking #{self.name} :"
+      body += "<a href='http://findgen.herokuapp.com/bookings/#{self.id}'>http://findgen.herokuapp.com/bookings/#{self.id}</a>"
+      body += "<br> Current Status - #{self.status}"
+      if self.vendor.present?
+        body += "<br> Vendor - #{self.vendor.name}"
+        body += "<br> Operator - #{self.operator.name}"
+      end
+      if self.actual_hours.present?
+        body += "<br> Running hours - #{self.actual_hours}"
+      end
+      body += "</html>"
+   end
+
+   def notify(subject, to_list)
+    to_list.each do |to|
+      RestClient.post "https://api:key-ad59eb535febe7c7ff00bc1b64bf2b25"\
+      "@api.mailgun.net/v3/iv-genset.com/messages",
+      :from => "Innovatiview <info@innovatiview.com>",
+      :to => to,
+      :subject => subject,
+      :html => email_body
+    end
+  end
+    
 
 end
