@@ -69,12 +69,16 @@ class Booking < ActiveRecord::Base
 
    def notify(subject, to_list)
     to_list.each do |to|
-      RestClient.post "https://api:key-ad59eb535febe7c7ff00bc1b64bf2b25"\
-      "@api.mailgun.net/v3/iv-genset.com/messages",
-      :from => "Innovatiview <info@innovatiview.com>",
-      :to => to,
-      :subject => subject,
-      :html => email_body
+      begin
+        RestClient.post "https://api:key-ad59eb535febe7c7ff00bc1b64bf2b25"\
+        "@api.mailgun.net/v3/iv-genset.com/messages",
+        :from => "Innovatiview <info@innovatiview.com>",
+        :to => to,
+        :subject => subject,
+        :html => email_body
+      rescue => e
+        Rails.logger.error "There was an error in sending email to #{to} for booking - #{self.name} due to #{e}"
+      end
     end
   end
     
