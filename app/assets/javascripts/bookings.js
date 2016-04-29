@@ -22,7 +22,7 @@ Booking.load = function() {
 	$("#" + qs["booking_status"]).addClass('active')
 
 	if (qs["booking_status"] == undefined) {
-		$("#accepted").addClass('active')
+		$("#pending").addClass('active')
 	}
 
 	 $("#save_bookings").click(function(){
