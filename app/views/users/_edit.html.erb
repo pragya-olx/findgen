@@ -34,8 +34,12 @@
       <br>
       <%= f.label :employee_id %>
       <%= f.text_field :employee_id %>
-
       <br>
+
+      <% if @user.subgroup.present? %>
+        <label>Subgroup</label>
+        <%= @user.subgroup.name %>
+      <%end%>
       <%= f.submit 'Update' %>
     </div>
   <% end %>

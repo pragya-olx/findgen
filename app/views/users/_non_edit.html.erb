@@ -40,6 +40,12 @@
         <label>Employee Id</label>
         <%= @user.employee_id %>
 
+        <% if @user.subgroup.present? %>
+          <br>
+          <label>Subgroup</label>
+          <%= @user.subgroup.name %>
+        <%end%>
+
         <% if current_user.is_admin_or_owner? %>
           <%= f.submit 'Save' %>
         <%end%>
