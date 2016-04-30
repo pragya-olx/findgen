@@ -81,6 +81,57 @@ class Booking < ActiveRecord::Base
       end
     end
   end
+
+  def booking_data
+    [
+      ["Name", self.name],
+      ["Location", self.location],
+      ["Required_on", self.start_date],
+      ["Time In", self.time_in],
+      ["Time Out", self.time_out],
+      ["KVA", self.kva],
+      ["LISP Code", self.lisp],
+      ["Assessment", self.assessment],
+      ["Submitted On", self.created_at.to_formatted_s(:long)]
+    ]
+  end
+
+  def spoc_data
+    [
+      ["Name", self.user.name],
+      ["Email", self.user.email],
+      ["Spoc Remarks", self.spoc_remarks],
+    ]
+
+  end
+
+  def rep_data
+    [
+      ["Name", self.rep.name],
+      ["Email", self.rep.email],
+      ["Phone number", self.rep_phone_number],
+    ]
+  end
+
+  def vendor_data
+    if self.vendor.present? and self.operator.present?
+      [
+        ["Vendor Name", self.vendor.name],
+        ["Operator", self.operator.name],
+        ["Operator Phone number", self.operator.phone_number],
+      ]
+    else
+      []
+    end
+  end
+
+  def cost_data
+    [
+      ["Running hours", self.actual_hours],
+
+    ]
+
+  end
     
 
 end
