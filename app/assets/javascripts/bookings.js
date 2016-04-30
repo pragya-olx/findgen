@@ -27,6 +27,7 @@ Booking.load = function() {
 
 	 $("#save_bookings").click(function(){
 
+    $("#save_bookings").prop('disabled',true)
 	 	formData = {
 	 		booking: {
     	 		start_date: $("#startDate input").val(),
@@ -49,6 +50,7 @@ Booking.load = function() {
     		location.reload()
     	}).fail(function(data){
     		alert(data.error().responseText)
+        $("#save_bookings").prop('disabled',false)
     	});
 
 	 });
