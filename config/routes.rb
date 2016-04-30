@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :locations
   resources :mappings
   resources :lisps
+  resources :groups
+  resources :subgroups
   resources :assessments
 
   resources :bookings do

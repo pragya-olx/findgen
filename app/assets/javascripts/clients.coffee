@@ -48,14 +48,32 @@ window.Client.load = ->
         $(".users_content").show()
         $(".bookings_content").hide()
         $("#lisps_content").hide()
+        $("#groups_content").hide()
+        $("#subgroups_content").hide()
       else if $(this).text() == "Bookings"
         $(".users_content").hide()
         $(".bookings_content").show()
         $("#lisps_content").hide()
+        $("#groups_content").hide()
+        $("#subgroups_content").hide()
       else if $(this).text() == "LISP"
         $(".users_content").hide()
         $(".bookings_content").hide()
         $("#lisps_content").show()
+        $("#groups_content").hide()
+        $("#subgroups_content").hide()
+      else if $(this).text() == "Groups"
+        $(".users_content").hide()
+        $(".bookings_content").hide()
+        $("#lisps_content").hide()
+        $("#groups_content").show()
+        $("#subgroups_content").hide()
+      else if $(this).text() == "Subgroups"
+        $(".users_content").hide()
+        $(".bookings_content").hide()
+        $("#lisps_content").hide()
+        $("#groups_content").hide()
+        $("#subgroups_content").show()
     )
 
     $('#createClient').find('#save').click ->

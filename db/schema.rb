@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430131601) do
+ActiveRecord::Schema.define(version: 20160430193152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 20160430131601) do
     t.integer  "location_id"
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "lisps", force: :cascade do |t|
     t.string   "state"
     t.string   "city"
@@ -129,6 +137,15 @@ ActiveRecord::Schema.define(version: 20160430131601) do
     t.datetime "updated_at"
   end
 
+  create_table "subgroups", force: :cascade do |t|
+    t.integer  "group_id"
+    t.integer  "client_id"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "location"
@@ -144,6 +161,7 @@ ActiveRecord::Schema.define(version: 20160430131601) do
     t.string   "city"
     t.integer  "client_id"
     t.string   "employee_id"
+    t.integer  "subgroup_id"
   end
 
 end

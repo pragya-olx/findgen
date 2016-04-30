@@ -1,0 +1,115 @@
+<div class="modal fade" id="createSubgroup" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add New Subgroup</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label>Name</label>
+            <br>
+            <input type="text" class="form-control" id="subgroup_name"></input>
+         </div>
+
+          <div class="form-group">
+            <label for="sel1">Auth Employee</label>
+            <select  class="selectdd" id="subgroup_employee_id">
+            <option selected disabled>Select Auth Employee</option>
+            <% @employees.each do |user| %>
+              <option value=<%=user.employee_id%> data-phone=<%=user.phone_number%> > <%=user.employee_id%>, <%=user.name%> </option>
+            <% end %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Group</label>
+            <select  class="selectdd" id="subgroup_group_id">
+            <option selected disabled>Select Group</option>
+            <% @groups.each do |group| %>
+              <option value=<%=group.id%> > <%=group.name%> </option>
+            <% end %>
+            </select>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save_subgroup">Submit</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="subgroups" id="subgroups_content">
+
+    <div class="row">
+    <% if current_user.is_admin_or_owner? %>
+    <div class="col-md-3">
+        <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createSubgroup">
+            Create New Subgroup
+        </button>
+    </div>
+    <%end%>
+
+    <% if current_user.is_admin_or_owner? %>
+    <div class="col-md-9">
+    <%end%>
+        <div class="row">
+      <table class="table hover table-bordered" cellspacing="0" width="100%">                         
+        <thead>
+            <tr>
+              <th>Name</th>
+              <th>Group</th>
+              <th>Auth Employee Name</th>
+              <th>Auth Employee Id</th>
+            </tr>
+        </thead>
+        <% @subgroups.each do |subgroup| %>
+          <tr data-id=<%=subgroup.id%> >
+            <td><%= subgroup.name %></td>
+            <td><%= subgroup.group.name %></td>
+            <td><%= subgroup.user.name %></td>
+            <td><%= subgroup.user.employee_id %></td>
+          </tr>
+        <% end %>
+      </table> 
+        </div>
+    <% if current_user.is_admin_or_owner? %>
+    </div>
+    <%end%>
+  </div>
+</div>
+
+<script>
+
+  $('#save_subgroup').click(function(){
+    formData = {
+      subgroup: {
+        user_id: $("#subgroup_employee_id").val(),
+        name: $("#subgroup_name").val(),
+        group_id: $("#subgroup_group_id").val(),
+        client_id: <%=@current_client.id%>
+      }
+    }
+
+    $.post({
+      url: "/subgroups",
+      data: formData
+    }).done(function(data){
+      window.location.reload()
+    }).fail(function(data){
+      console.log('error');
+    });
+  });
+
+  // $('table').on('click','tr', function(event) {
+  //       id = $(this).data('id')
+  //       if(id){
+  //         location = '/subgroups/' + id;
+  //       }
+  //   });
+
+    $('table').DataTable();
+    $('.selectdd').select2();
+
+</script>

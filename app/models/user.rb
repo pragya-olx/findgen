@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   belongs_to :client
+  belongs_to :subgroup
 
   def authenticate(val)
     self.encrypted_password == val
