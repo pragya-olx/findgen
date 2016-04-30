@@ -150,3 +150,8 @@ tr a {
 ul.nav li:hover > ul.dropdown-menu {
   display: block;
 }
+
+.invoice {
+  height: 500px;
+  width: 500px;
+}

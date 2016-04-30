@@ -100,7 +100,6 @@ class BookingsController < ApplicationController
         :assessment => params[:booking][:assessment],
         :spoc_remarks => params[:booking][:spoc_remarks]
       }
-      debugger
       booking = Booking.new create_params
 
       booking.status = "pending"

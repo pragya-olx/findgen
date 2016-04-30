@@ -1,3 +1,5 @@
+<%= render "invoice" %>
+
 <%= form_for @booking do |f| %>
   <div class="booking-edit">
     <div class="info">
@@ -58,7 +60,9 @@
                 </td>
                 <td>
                     <% if @booking.actual_hours.present? %>
-                        <%= link_to "Invoice", @booking.invoice_url %>
+                        <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#updateInvoice">
+                            Invoice
+                        </button>
                     <% end %>
                 </td>
                 <td>
