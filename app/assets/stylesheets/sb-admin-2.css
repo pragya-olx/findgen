@@ -152,6 +152,6 @@ ul.nav li:hover > ul.dropdown-menu {
 }
 
 .invoice {
-  height: 500px;
-  width: 500px;
+  height: auto;
+  width: 570px;
 }

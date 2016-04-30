@@ -7,14 +7,56 @@
       </div>
       <div class="modal-body">
         <img class="invoice" src=<%=@booking.invoice_url%> >
+        <br><br>
+        <%= link_to "Download", @booking.invoice_url %>
+        <br><br>
 
         <div class="form-group">
-          <label for="sel1">SPOC accept/reject</label>
+          <label for="sel1">Invoice Status</label>
+          <div class="form-control-static">
+          <%if @booking.invoice_status.present? %>
+            <%=@booking.invoice_status%>
+          <%else%>
+            None
+          <%end%>
+          </div>
+        </div>
+
+        <% if current_user.is_admin? %>
+        <div class="form-group">
+          <label for="sel1">Accept/Reject Invoice</label>
           <select class="form-control" id="invoice_status">
             <option>Accept</option>
             <option>Reject</option>
           </select>
         </div>
+        <% end %>
+
+        <div class="form-group">
+          <label for="sel1">Running Hours</label>
+          <div class="form-control-static"><%=@booking.actual_hours%></div>
+        </div>
+
+        <div class="form-group">
+          <label for="sel1">Running Hours Status</label>
+          <div class="form-control-static">
+          <%if @booking.hours_status.present? %>
+            <%=@booking.hours_status%>
+          <%else%>
+            None
+          <%end%>
+          </div>
+        </div>
+
+        <% if current_user.is_spoc? %>
+        <div class="form-group">
+          <label for="sel1">Accept/Reject Hours</label>
+          <select class="form-control" id="hours_status">
+            <option>Accept</option>
+            <option>Reject</option>
+          </select>
+        </div>
+        <%end%>
 
       </div>
       <div class="modal-footer">
@@ -24,3 +66,23 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<script type="text/javascript">
+  
+  $("#update_status").click(function(event){
+    $.ajax({
+      url: '/bookings/' + <%=@booking.id%> + "/invoice",
+      data: {
+        invoice_status: $("#invoice_status").val(),
+        hours_status: $("#hours_status").val()
+      }
+    }).done(function(){
+      location.reload();
+    }).fail(function(){
+      alert("There was an error updating the invoice status");
+    })
+  });
+
+
+</script>
