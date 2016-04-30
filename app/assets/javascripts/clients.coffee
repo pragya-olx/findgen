@@ -5,6 +5,7 @@ window.Client.load = ->
     t = $('#clients').DataTable();
     $("#lisp").select2()
     $("#employee_id").select2()
+    $("#secondary_lisp").select2()
 
     refreshClients = (data) ->
       t.clear().draw()

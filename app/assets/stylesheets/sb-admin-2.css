@@ -159,3 +159,7 @@ ul.nav li:hover > ul.dropdown-menu {
 .selectdd {
   width: 570px;
 }
+
+#s_lisps {
+  display: none;
+}

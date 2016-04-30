@@ -27,8 +27,8 @@
         <div class="form-group">
           <label for="sel1">Select Generator Type</label>
           <select class="form-control" id="gen_type">
-            <option>Mobile</option>
             <option>Static</option>
+            <option>Mobile</option>
           </select>
         </div>
 
@@ -61,6 +61,16 @@
           <label for="lisp">LISP</label>
           <br>
           <select  class="selectdd" id="lisp">
+          <% @lisps.each do |lisp| %>
+            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
+          <% end %>
+          </select>
+        </div>
+
+        <div class="form-group" id="s_lisps">
+          <label for="lisp">Secondary Lisps</label>
+          <br>
+          <select multiple class="selectdd" id="secondary_lisp">
           <% @lisps.each do |lisp| %>
             <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
           <% end %>
@@ -100,3 +110,18 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<script type="text/javascript">
+    $("#gen_type").change(function(event){
+      if($("#gen_type").val() == "Mobile") {
+        $("#s_lisps").show()
+      } else {
+        $("#s_lisps").hide()
+      }
+    })
+
+    $("#secondary_lisp").change(function(){
+      $("#spoc_remarks").val("Secondary Lisps :" + $("#secondary_lisp").val().toString())
+    })
+
+
+</script>
