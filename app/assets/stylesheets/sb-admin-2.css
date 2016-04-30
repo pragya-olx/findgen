@@ -101,8 +101,8 @@ nav li {
   cursor: pointer;
 }
 
-.booking_update {
-  width: 50% !important;
+.booking_update td{
+  width: auto !important;
 }
 
 tr a {
@@ -198,3 +198,6 @@ ul.nav li:hover > ul.dropdown-menu {
 }
 
 
+.booking-edit td {
+  width: 50%
+}
