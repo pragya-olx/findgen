@@ -95,7 +95,7 @@
     <% if current_user.is_admin_or_owner? %>
     </div>
     <%end%>
-
+  </div>
 </div>
 
 <script>
@@ -116,7 +116,7 @@
   		url: "/lisps",
     	data: formData
 	  }).done(function(data){
-	    window.location = '/lisps'
+	    window.location.reload()
 	  }).fail(function(data){
 	    console.log('error');
 	  });

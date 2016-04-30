@@ -38,6 +38,17 @@
             <option>Approver</option>
           </select>
         </div>
+
+        <div class="form-group" id="subgroup_select">
+            <label for="sel1">Group</label>
+            <select  class="selectdd" id="user_subgroup_id">
+            <option selected disabled>Select Group</option>
+            <% @subgroups.each do |subgroup| %>
+              <option value=<%=subgroup.id%> > <%=subgroup.name%> </option>
+            <% end %>
+            </select>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -46,3 +57,14 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script type="text/javascript">
+  $(".selectdd").select2();
+  $("#role_type").change(function(){
+    if($("#role_type").val() == "SPOC") {
+      $("#subgroup_select").show()
+    } else {
+      $("#subgroup_select").hide()
+    }
+  })
+  $("#subgroup_select").hide()
+</script>

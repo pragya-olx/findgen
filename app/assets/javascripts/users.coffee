@@ -16,6 +16,7 @@ window.User.load = ->
 	      data[i].phone_number
 	      data[i].role_type
 	      data[i].employee_id
+	      data[i].subgroup_id
 	    ]).draw()
 	    i++
 
@@ -60,6 +61,7 @@ window.User.load = ->
 	    role_type: $('#role_type').val()
 	    client_id: clientId
 	    employee_id: $('#user_employee_id').val()
+	    subgroup_id: $('#user_subgroup_id').val()
 	  $.post(
 	    url: '/users'
 	    data: formData).done((data) ->

@@ -122,10 +122,10 @@ class BookingsController < ApplicationController
       
       booking.save
       booking.name = "#{booking.name}_#{booking.id}"
-      mapping = SpocToApproverMapping.find_by_spoc_id(current_user.id)
-      if mapping.present?
+      
+      if current_user.subgroup.present?
         booking.notify("New booking #{booking.name} added by #{booking.user.name}", 
-          [mapping.approver1.email, mapping.approver2.email])
+          [current_user.subgroup.user.email, current_usersubgroup.group.user.email])
       end
       booking.save
     rescue => error

@@ -34,6 +34,9 @@ class UsersController < ApplicationController
     if !params[:user][:client_id].blank?
       @user.client = Client.find(params[:user][:client_id])
     end
+    if params[:user][:subgroup_id].present?
+      @user.subgroup = Subgroup.find(params[:user][:subgroup_id])
+    end
     if @user.save
       flash[:notice] = "You signed up successfully"
       flash[:color]= "valid"
