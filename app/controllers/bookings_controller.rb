@@ -88,6 +88,16 @@ class BookingsController < ApplicationController
   def new
   end
 
+  def invoice
+    booking = Booking.find params[:id]
+    if booking.present?
+      booking.invoice_status = params[:invoice_status] if params[:invoice_status].present?
+      booking.hours_status = params[:hours_status] if params[:hours_status].present?
+    end
+    booking.save
+    render json: {}, status: 201
+  end
+
   def create
     begin
       create_params = {
@@ -100,7 +110,6 @@ class BookingsController < ApplicationController
         :assessment => params[:booking][:assessment],
         :spoc_remarks => params[:booking][:spoc_remarks]
       }
-      debugger
       booking = Booking.new create_params
 
       booking.status = "pending"
