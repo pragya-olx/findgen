@@ -33,6 +33,26 @@
         </div>
 
         <div class="form-group">
+          <label for="lisp">Lisp where Generator is required</label>
+          <br>
+          <select  class="selectdd" id="lisp">
+          <% @lisps.each do |lisp| %>
+            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
+          <% end %>
+          </select>
+        </div>
+
+        <div class="form-group" id="s_lisps">
+          <label for="lisp">Lisps covered by this mobile Generator</label>
+          <br>
+          <select multiple class="selectdd" id="secondary_lisp">
+          <% @lisps.each do |lisp| %>
+            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
+          <% end %>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label for="sel1">Select KVA</label>
           <select class="form-control" id="kva"> 
              <option>5</option>
@@ -54,26 +74,6 @@
              <option>250</option>
              <option>375</option>
              <option>500</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="lisp">LISP</label>
-          <br>
-          <select  class="selectdd" id="lisp">
-          <% @lisps.each do |lisp| %>
-            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
-          <% end %>
-          </select>
-        </div>
-
-        <div class="form-group" id="s_lisps">
-          <label for="lisp">Secondary Lisps</label>
-          <br>
-          <select multiple class="selectdd" id="secondary_lisp">
-          <% @lisps.each do |lisp| %>
-            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
-          <% end %>
           </select>
         </div>
 
@@ -116,11 +116,12 @@
         $("#s_lisps").show()
       } else {
         $("#s_lisps").hide()
+        $("#spoc_remarks").val('')
       }
     })
 
     $("#secondary_lisp").change(function(){
-      $("#spoc_remarks").val("Secondary Lisps :" + $("#secondary_lisp").val().toString())
+      $("#spoc_remarks").val("Lisps covered by this Generator :" + $("#secondary_lisp").val().toString())
     })
 
 
