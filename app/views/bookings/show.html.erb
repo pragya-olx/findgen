@@ -22,6 +22,7 @@
                 <th> Spoc Name </th>
                 <th> Rep ID </th>
                 <th> Rep Name </th>
+                <th> Rep Phone number </th>
                 <th> Vendor </th>
                 <th> Operator </th>
                 <th> Invoice </th>
@@ -48,6 +49,7 @@
                         <%= @booking.rep.name %> 
                     <%end%>
                 </td>
+                <td> <%= @booking.rep_phone_number %> </td>
                 <td>
                     <% if @booking.vendor.present? %>
                     <%= @booking.vendor.name %>

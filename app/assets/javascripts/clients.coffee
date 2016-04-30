@@ -3,7 +3,10 @@ window.Client = ->
 
 window.Client.load = ->
     t = $('#clients').DataTable();
-    $("#lisp").select2()
+    $("#lisp").select2({
+      placeholder: "Select a LISP",
+      allowClear: true
+    })
     $("#employee_id").select2()
     $("#secondary_lisp").select2()
 

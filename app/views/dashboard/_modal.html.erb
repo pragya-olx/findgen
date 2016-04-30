@@ -36,6 +36,7 @@
           <label for="lisp">Lisp where Generator is required</label>
           <br>
           <select  class="selectdd" id="lisp">
+          <option selected disabled>Select LISP</option>
           <% @lisps.each do |lisp| %>
             <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
           <% end %>
@@ -90,10 +91,16 @@
         <div class="form-group">
           <label for="sel1">Representative</label>
           <select  class="selectdd" id="employee_id">
+          <option selected disabled>Select Rep</option>
           <% @employees.each do |employee| %>
-            <option value=<%=employee.employee_id%> > <%=employee.employee_id%>, <%=employee.name%> </option>
+            <option value=<%=employee.employee_id%> data-phone=<%=employee.phone_number%> > <%=employee.employee_id%>, <%=employee.name%> </option>
           <% end %>
           </select>
+        </div>
+
+        <div class="form-group">
+          <label for="sel1">Representative phone number</label>
+          <input class="form-control" id="rep_phone_number"></input>
         </div>
 
         <div class="form-group">
@@ -118,6 +125,11 @@
         $("#s_lisps").hide()
         $("#spoc_remarks").val('')
       }
+    })
+
+    $("#rep_phone_number").val($("#employee_id").find(':selected').data('phone'))
+    $("#employee_id").change(function(){
+      $("#rep_phone_number").val($("#employee_id").find(':selected').data('phone'))
     })
 
     $("#secondary_lisp").change(function(){

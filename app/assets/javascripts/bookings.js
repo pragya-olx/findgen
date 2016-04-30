@@ -39,7 +39,8 @@ Booking.load = function() {
     	 		client_id: clientId,
     	 		employee_id: $('#employee_id').val(),
           assessment: $('#assessment').val(),
-          spoc_remarks: $('#spoc_remarks').val()
+          spoc_remarks: $('#spoc_remarks').val(),
+          rep_phone_number: $("#rep_phone_number").val()
     	 	}
 	 	};
 

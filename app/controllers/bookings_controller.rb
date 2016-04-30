@@ -108,7 +108,8 @@ class BookingsController < ApplicationController
         :lisp => params[:booking][:lisp],
         :kva => params[:booking][:kva],
         :assessment => params[:booking][:assessment],
-        :spoc_remarks => params[:booking][:spoc_remarks]
+        :spoc_remarks => params[:booking][:spoc_remarks],
+        :rep_phone_number => params[:booking][:rep_phone_number]
       }
       booking = Booking.new create_params
 
