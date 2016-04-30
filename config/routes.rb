@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get 'cancel'
       get 'reject'
       get 'accept'
+      get 'invoice'
     end
   end
 
