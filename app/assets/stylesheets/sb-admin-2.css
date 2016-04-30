@@ -155,3 +155,7 @@ ul.nav li:hover > ul.dropdown-menu {
   height: auto;
   width: 570px;
 }
+
+.selectdd {
+  width: 570px;
+}
