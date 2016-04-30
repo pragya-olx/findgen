@@ -40,9 +40,9 @@
         </div>
 
         <div class="form-group" id="subgroup_select">
-            <label for="sel1">Group</label>
+            <label for="sel1">Subgroup</label>
             <select  class="selectdd" id="user_subgroup_id">
-            <option selected disabled>Select Group</option>
+            <option selected disabled>Select Subgroup</option>
             <% @subgroups.each do |subgroup| %>
               <option value=<%=subgroup.id%> > <%=subgroup.name%> </option>
             <% end %>

@@ -125,7 +125,7 @@ class BookingsController < ApplicationController
       
       if current_user.subgroup.present?
         booking.notify("New booking #{booking.name} added by #{booking.user.name}", 
-          [current_user.subgroup.user.email, current_usersubgroup.group.user.email])
+          [current_user.subgroup.user.email, current_user.subgroup.group.user.email])
       end
       booking.save
     rescue => error
