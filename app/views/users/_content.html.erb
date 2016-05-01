@@ -28,6 +28,13 @@
     $('#users').DataTable()
 
     $('#save_user').click(function(){
+        if(!$("#userForm")[0].checkValidity() || $("#user_name").val() == "" || 
+            $("#user_phone_number").val() == "" || $('#role_type').val() == "" ||
+            $('#user_employee_id').val() == "" || $('#user_location').val() == ""
+          ) {
+          $("#user_form_error").show()
+          return
+        }
       formData = {
         user: {
             name: $('#user_name').val(),
@@ -45,7 +52,7 @@
         data: formData}).done(function(data){
         location.reload()
       }).fail(function(){
-        alert("Threre was an error in creating user");
+        alert("There was an error in creating user");
       });
   });
 

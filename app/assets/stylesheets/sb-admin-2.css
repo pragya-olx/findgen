@@ -206,6 +206,12 @@ div#form_error {
   float: left;
 }
 
+div#user_form_error {
+  display: none;
+  float: left;
+}
+
 .red {
   color: red;
 }
+
