@@ -51,20 +51,31 @@ window.User.load = ->
 	  showUsers 'approver'
 
 
-	$('#save_user').click ->
-	  formData = user:
-	    name: $('#user_name').val()
-	    location: $('#user_location').val()
-	    email: $('#user_email').val()
-	    phone_number: $('#user_phone_number').val()
-	    role_type: $('#role_type').val()
-	    client_id: clientId
-	    employee_id: $('#user_employee_id').val()
-	  $.post(
-	    url: '/users'
-	    data: formData).done((data) ->
-	    $('#createUser').modal 'hide'
-	    showUsers 'admin'
-	    return
-	  ).fail (data) ->
-	    console.log 'error'
+	$('#save_user').click -> 
+		if $('#user_name').val() == ''
+	      alert 'Please Enter Employee Name'
+	    else if $('#user_location').val() == ''
+	      alert 'Please Enter Location'
+	    else if $('#user_phone_number').val() == ''
+	      alert 'Please Enter Phone Number'
+	    else if $('#user_email').val() == ''
+	      alert 'Please Enter EMail'
+	    else if $('#user_employee_id').val() == ''
+	      alert 'Please Enter Employee ID'
+	    else 
+		  formData = user:
+		    name: $('#user_name').val()
+		    location: $('#user_location').val()
+		    email: $('#user_email').val()
+		    phone_number: $('#user_phone_number').val()
+		    role_type: $('#role_type').val()
+		    client_id: clientId
+		    employee_id: $('#user_employee_id').val()
+		  $.post(
+		    url: '/users'
+		    data: formData).done((data) ->
+		    $('#createUser').modal 'hide'
+		    showUsers 'admin'
+		    return
+		  ).fail (data) ->
+		    alert data.error().responseText

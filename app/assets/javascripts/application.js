@@ -16,6 +16,7 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .
+
 var qs = (function(a) {
     if (a == "") return {};
     var b = {};

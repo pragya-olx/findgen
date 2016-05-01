@@ -7,14 +7,14 @@
       </div>
       <div class="modal-body">
         <div class="form-group">
-            <label>Name</label>
+            <label>Name*</label>
             <br>
             <input type="text" class="form-control" id="name"></input>
          </div>
 
 
         <div class="form-group">
-          <label for="name">State</label>
+          <label for="name">State*</label>
           <select class="form-control" name="state">
 			<% @states.each do |key, value| %>
 				<option value="<%= key %>"><%= value%></option>
@@ -23,28 +23,30 @@
         </div>
 
 		<div class="form-group">
-    		<label>City</label>
+    		<label>City*</label>
     		<br>
     		<input type="text" class="form-control" id="city"></input>
     	</div>
 
          <div class="form-group">
-            <label>Zone</label>
+            <label>Zone*</label>
             <br>
             <input type="text" class="form-control" id="zone"></input>
         </div>
 
            <div class="form-group">
-            <label>Address</label>
+            <label>Address*</label>
             <br>
             <input type="text" class="form-control" id="address"></input>
             </div>
 
            <div class="form-group">
-            <label>Code</label>
+            <label>Code*</label>
             <br>
             <input type="text" class="form-control" id="code"></input>
             </div>
+
+            <!-- <p id="message"></p> -->
 
       </div>
       <div class="modal-footer">
@@ -100,7 +102,22 @@
 
 <script>
 
+
 	$('#save_lisp').click(function(){
+  if ($('#city').val() === null){
+        alert('Please Enter City')
+    //document.getElementById("message").innerHTML= "Please Enter City"
+  //  return
+  } else if ($('#zone').val() === null){
+    alert('Please Enter Zone')
+  } else if ($('#address').val() === null){
+    alert('Please Enter Address')
+  } else if ($('#name').val() === null){
+    alert('Please Enter Name')
+  } else if ($('#code').val() === null){
+    alert('Please Enter Code')
+  } else
+  {
 	  formData = {
 	  	lisp: {
 		    state: $("select[name='state']").find("option:selected").text(),
@@ -116,10 +133,12 @@
   		url: "/lisps",
     	data: formData
 	  }).done(function(data){
-	    window.location = '/lisps'
+      window.location.reload();
+	   // window.location = '/lisps'
 	  }).fail(function(data){
 	    console.log('error');
 	  });
+  }
 	});
 
 	$('table').on('click','tr', function(event) {

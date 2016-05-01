@@ -28,20 +28,24 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type,:state,:city, :employee_id))
-    @user.role_type = @user.role_type.downcase
-    @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
-    if !params[:user][:client_id].blank?
-      @user.client = Client.find(params[:user][:client_id])
+    if User.find_by_employee_id(params[:user][:employee_id]).present? 
+      render json: {message:"Employee Id already exist"}, status: 500
+      return 
     end
-    if @user.save
-      flash[:notice] = "You signed up successfully"
-      flash[:color]= "valid"
-    else
-      flash[:notice] = "Form is invalid"
-      flash[:color]= "invalid"
-    end
-    render json: {}, status: 201 
+      @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type,:state,:city, :employee_id))
+      @user.role_type = @user.role_type.downcase
+      @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
+      if !params[:user][:client_id].blank?
+        @user.client = Client.find(params[:user][:client_id])
+      end
+      if @user.save
+        flash[:notice] = "You signed up successfully"
+        flash[:color]= "valid"
+      else
+        flash[:notice] = "Form is invalid"
+        flash[:color]= "invalid"
+      end
+      render json: {}, status: 201 
   end
 
   def show
