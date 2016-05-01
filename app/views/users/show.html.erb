@@ -10,31 +10,35 @@
   <% end %>
 
   <% if @user.is_vendor? %>
-    <br>
-    <h3> Operators </h3>
-    <table class="table hover table-bordered booking_update" cellspacing="0" >
-    <thead>
-    <tr>
-    <th>Name</th>
-    <th>Phone number</th>
-    </tr>
-    </thead>
-    <% @user.operators.each do |op| %>
-      <tr>
-        <td><%= op.name %></td>
-        <td><%= op.phone_number %></td>
-      </tr>
-    <%end%>
-    </table>
+    <div class="booking-edit panel panel-default">
+      <div class="panel-heading"> Operators </div>
+          <div class="panel-body">
+            <table class="table table-striped table-bordered booking_update" cellspacing="0" >
+            <thead>
+            <tr>
+            <th>Name</th>
+            <th>Phone number</th>
+            </tr>
+            </thead>
+            <% @user.operators.each do |op| %>
+              <tr>
+                <td><%= op.name %></td>
+                <td><%= op.phone_number %></td>
+              </tr>
+            <%end%>
+            </table>
 
-    <h4> Add new operator </h4>
-    <label>Name</label>
-    <input id="op_name"></input>
-    <br>
-    <label>Phone number</label>
-    <input id="op_phone_number"></input>
-    <br>
-    <button id="add_op">Add</button>
+          <h4> Add new operator </h4>
+          <label>Name</label>
+          <input id="op_name"></input>
+          <br>
+          <label>Phone number</label>
+          <input id="op_phone_number"></input>
+          <br>
+          <button id="add_op">Add</button>
+        </div>
+      </div>
+    </div>
   <%end%>
 
 </div>
