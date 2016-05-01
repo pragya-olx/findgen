@@ -8,13 +8,13 @@
       <div class="modal-body">
         <form id="groupForm">
         <div class="form-group">
-            <label>Name</label>
+            <label>Name <span class="red">*</span></label>
             <br>
             <input required type="text" class="form-control" id="group_name"></input>
          </div>
 
           <div class="form-group">
-            <label for="sel1">Auth Employee</label>
+            <label for="sel1">Auth Employee <span class="red">*</span></label>
             <select required class="selectdd" id="group_employee_id">
             <% @approvers.each do |user| %>
               <option value=<%=user.employee_id%> data-phone=<%=user.phone_number%> > <%=user.employee_id%>, <%=user.name%> </option>
