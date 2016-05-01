@@ -2,37 +2,52 @@
   <%= render "users/modal" %>
 </div>
 <div class="row users_content">
-    <div class="col-md-3">
-        <div class="list-group">
-            <a class="list-group-item active" id="admin">Admin</a>
-            <a class="list-group-item " id="spoc">SPOC</a>
-            <a class="list-group-item " id="approver">Approver</a>
-            <a class="list-group-item " id="employee">Employee</a>
-        </div>
-        <div>
+    <div>
         <% if current_user.is_admin_or_owner? %>
             <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createUser">
                 Add Employee
             </button>
         <% end %>
-        </div>
     </div>
     
 
-    <div class="col-md-9">
-        <div class="row">
-			<%= render "users/table.html.erb" %>
-        </div>
+    <div class="row">
+		<%= render "users/table.html.erb" %>
     </div>
 
 </div>
 
 <script type="text/javascript">
     $("#users").on('click', 'tr', function(){
-        id = $(this).find('td').first().text()
+        id = $(this).data('id')
         if(id) {
             window.location = '/users/' + id;
         }
     })
+
+    $('#users').DataTable()
+
+    $('#save_user').click(function(){
+      formData = {
+        user: {
+            name: $('#user_name').val(),
+            location: $('#user_location').val(),
+            email: $('#user_email').val(),
+            phone_number: $('#user_phone_number').val(),
+            role_type: $('#role_type').val(),
+            client_id: clientId,
+            employee_id: $('#user_employee_id').val(),
+            subgroup_id: $('#user_subgroup_id').val()
+        }
+      }   
+      $.post({
+        url: '/users',
+        data: formData}).done(function(data){
+        location.reload()
+      }).fail(function(){
+        alert("Threre was an error in creating user");
+      });
+  });
+
 
 </script>

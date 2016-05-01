@@ -19,8 +19,9 @@ class UsersController < ApplicationController
     if !params[:client_id].blank?
       users = users.where(:client_id => params[:client_id])
     end
-
-    render json: users, status: 201 
+    users.includes(:subgroup)
+    debugger
+    render json: users.to_json(include: :subgroup), status: 201 
   end
 
   def new

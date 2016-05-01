@@ -1,7 +1,6 @@
-<table id="users" class="table hover table-bordered" cellspacing="0" width="100%">
+<table id="users" class="table hover table-bordered table-striped" cellspacing="0" width="100%">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Office Location</th>
             <th>Email</th>
@@ -11,7 +10,21 @@
             <th>Subgroup</th>
         </tr>
     </thead>
-
     <tbody>
+        <% @employees.each do |user| %>
+          <tr data-id=<%user.id%> >
+            <td><a onclick="window.location='/users/' + <%=user.id%>"><%= user.name %></a></td>
+            <td><%= user.location %></td>
+            <td><%= user.email %></td>
+            <td><%= user.phone_number %></td>
+            <td><%= user.role_type %></td>
+            <td><%= user.employee_id %></td>
+            <td>
+                <%if user.subgroup.present?%>
+                    <%= user.subgroup.name %>
+                <%end%>
+            </td>
+          </tr>
+        <% end %>
     </tbody>
 </table>

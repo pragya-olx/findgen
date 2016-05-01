@@ -34,4 +34,5 @@ class User < ActiveRecord::Base
   def operators
     Operator.where(:vendor_id => id)
   end
+
 end

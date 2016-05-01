@@ -1,38 +1,46 @@
+
 <%= form_for @lisp do |f| %>
-  <div class="booking-edit">
+    <div class="booking-edit panel panel-default">
+        <div class="panel-heading"> LISP Details </div>
+        <div class="panel-body">
 
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th>
+                    <%= f.label :name %>
+                </th>
+                <td>
+                    <%= f.text_field :name %>
+                </td>
+            </tr>
 
-    <br>
+          	<tr>
+                <th><%= f.label :state %></th>
+                <td><%= f.text_field :state %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :city %></th>
+                <td><%= f.text_field :city %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :address %></th>
+                <td><%= f.text_field :address %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :zone %></th>
+                <td><%= f.text_field :zone %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :code %></th>
+                <td><%= f.text_field :code %></td>
+            </tr>
 
-  	<%= f.label :state %>
-    <%= f.text_field :state %>
-
-    <br>
-
-    <%= f.label :city %>
-    <%= f.text_field :city %>
-
-    <br>
-
-    <%= f.label :address %>
-    <%= f.text_field :address %>
-
-    <br>
-
-    <%= f.label :zone %>
-    <%= f.text_field :zone %>
-
-    <br>
-
-    <%= f.label :code %>
-    <%= f.text_field :code %>
-
-    <br>
-
-    <% if current_user.is_admin_or_owner? %>
-    <%= f.submit 'Save' %>
-    <%end%>
-  </div>
+            </tbody>
+        </table>
+        <% if current_user.is_admin_or_owner? %>
+            <%= f.submit 'Save' %>
+        <%end%>
+        </div>
+    </div>
 <% end %>

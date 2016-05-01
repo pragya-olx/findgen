@@ -60,16 +60,11 @@
 
     <div class="row">
     <% if current_user.is_admin_or_owner? %>
-    <div class="col-md-3">
         <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createLisp">
             Create New Lisp
         </button>
     </div>
-    <%end%>
 
-    <% if current_user.is_admin_or_owner? %>
-    <div class="col-md-9">
-    <%end%>
         <div class="row">
 			<table class="table hover table-bordered" cellspacing="0" width="100%">                         
 			  <thead>
@@ -93,8 +88,6 @@
 				  </tr>
 				<% end %>
 			</table> 
-        </div>
-    <% if current_user.is_admin_or_owner? %>
     </div>
     <%end%>
 

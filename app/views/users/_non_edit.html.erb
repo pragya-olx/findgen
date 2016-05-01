@@ -1,56 +1,68 @@
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <div>
-      	<label>Name</label>
-        <%= @user.name %>
 
-        <br>
+<%= form_for @user do |f| %>
+    <div class="booking-edit panel panel-default">
+        <div class="panel-heading"> User Details </div>
+        <div class="panel-body">
 
-        <label>Email</label>
-        <%= @user.email %>
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th>
+                    <%= f.label :name %>
+                </th>
+                <td>
+                    <%= f.text_field :name %>
+                </td>
+            </tr>
 
-        <br>
-        <label>Phone number</label>
-        <%= @user.phone_number %>
+            <tr>
+                <th><%= f.label :email %></th>
+                <td><%= f.text_field :email %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :phone_number %></th>
+                <td><%= f.text_field :phone_number %></td>
+            </tr>
+            <tr>
+            <% if current_user.id == @user.id %>
+                <th><%= f.label :password %></th>
+                <td>
+                  <input id="password" value=<%= @user.encrypted_password %> > </input>
+                  <button id="update_password">Update</button>
+                </td>
+            <%elsif current_user.is_admin_or_owner? and !@user.is_vendor? %>
+                <th><%= f.label :password %></th>
+                <td>
+                  <%= @user.encrypted_password %>
+                </td>
+            </tr>
 
-        <br>
+            <% if current_user.client.present? %>
+              <tr>
+                <th><%= f.label :client %></th>
+                <td>
+                  <%= @user.client.name %>
+                </td>
+              </tr>
+            <%end%>
 
-        <% if current_user.id == @user.id %>
-          <label>Password</label>
-          <input id="password" value=<%= @user.encrypted_password %> > </input>
-          <button id="update_password">Update</button>
-        <%elsif current_user.is_admin_or_owner? and !@user.is_vendor? %>
-          <label>Password</label>
-          <%= @user.encrypted_password %>
-        <%end%>
-        
-        <% if @user.client.present? %>
-		    <br>
-        <label>Client Name</label>
-        <%= @user.client.name %>
-        <%end%>
+            <tr>
+                <th><label>Role</label></th>
+                <td><%= @user.role_type %></td>
+            </tr>
 
-        <br>
+            <tr>
+                <th><label>Employee</label></th>
+                <td><%= @user.employee_id %></td>
+            </tr>
 
-        <label>Role</label>
-        <%= @user.role_type %>
-
-        <br>
-        <label>Employee Id</label>
-        <%= @user.employee_id %>
-
-        <% if @user.subgroup.present? %>
-          <br>
-          <label>Subgroup</label>
-          <%= @user.subgroup.name %>
-        <%end%>
-
+            </tbody>
+        </table>
         <% if current_user.is_admin_or_owner? %>
-          <%= f.submit 'Save' %>
+            <%= f.submit 'Save' %>
         <%end%>
+        </div>
+    </div>
+<% end %>
 
-      </div>
-    </section>
-  </aside>
-</div>
+
