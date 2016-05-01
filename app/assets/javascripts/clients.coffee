@@ -79,6 +79,8 @@ window.Client.load = ->
         $("#lisps_content").hide()
         $("#groups_content").hide()
         $("#subgroups_content").show()
+      else
+        location.hash = ""
     )
 
     $('#createClient').find('#save').click ->

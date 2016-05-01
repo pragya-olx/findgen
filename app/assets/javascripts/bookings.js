@@ -2,20 +2,24 @@ window.Booking = function() {};
 
 Booking.load = function() {
 
- 	var url = window.location.href.split('?')[0];
 	$('#' + 'accepted').click(function(){
+    var url = window.location.href.split('?')[0];
 		window.location = url + "?booking_status=accepted"
 	});
 	$('#' + 'pending').click(function(){
+    var url = window.location.href.split('?')[0];
 		window.location = url + "?booking_status=pending"
 	});
 	$('#' + 'completed').click(function(){
+    var url = window.location.href.split('?')[0];
 		window.location = url + "?booking_status=completed"
 	});
 	$('#' + 'cancelled').click(function(){
+    var url = window.location.href.split('?')[0];
 		window.location = url + "?booking_status=cancelled"
 	});
 	$('#' + 'client_approved').click(function(){
+    var url = window.location.href.split('?')[0];
 		window.location = url + "?booking_status=client_approved"
 	});
 
