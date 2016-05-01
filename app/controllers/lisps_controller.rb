@@ -30,7 +30,7 @@ class LispsController < ApplicationController
     @lisp = Lisp.find(params[:id])
     @lisp.update!(lisp_params)
     if current_user.client.present?
-      redirect_to "/clients/#{@user.client.id}#lisps", :flash => {:notice => "Successfully updated LISP"}
+      redirect_to "/clients/#{current_user.client.id}#lisps", :flash => {:notice => "Successfully updated LISP"}
     else
       redirect_to "/lisps/#{@lisp.id}", :flash => {:notice => "Successfully updated LISP"}
     end
