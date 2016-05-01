@@ -51,8 +51,8 @@
         url: '/users',
         data: formData}).done(function(data){
         location.reload()
-      }).fail(function(){
-        alert("There was an error in creating user");
+      }).fail(function(data){
+        alert(data.error().responseText);
       });
   });
 

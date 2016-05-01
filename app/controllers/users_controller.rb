@@ -20,7 +20,6 @@ class UsersController < ApplicationController
       users = users.where(:client_id => params[:client_id])
     end
     users.includes(:subgroup)
-    debugger
     render json: users.to_json(include: :subgroup), status: 201 
   end
 
@@ -29,6 +28,17 @@ class UsersController < ApplicationController
   end
 
   def create
+    existing_user = User.find_by_email(params[:user][:email])
+    if existing_user.present?
+      render json: "User already exists with this email", status: 500
+      return
+    end
+    existing_user = User.find_by_employee_id(params[:user][:employee])
+    if existing_user.present?
+      render json: "User already exists with this employee id", status: 500
+      return
+    end
+
     @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type,:state,:city, :employee_id))
     @user.role_type = @user.role_type.downcase
     @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
