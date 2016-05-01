@@ -20,6 +20,7 @@ class ClientsController < ApplicationController
     @assessments = Assessment.order(:code)
     @states = CS.states(:IN)
     @employees = User.where(:client_id => @current_client.id).order(:employee_id)
+    @approvers = User.where(:client_id => @current_client.id, :role_type => "approver").order(:employee_id)
 
     unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"])
     cost = 0

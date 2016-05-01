@@ -16,7 +16,7 @@
             <label for="sel1">Auth Employee</label>
             <select  class="selectdd" id="subgroup_employee_id">
             <option selected disabled>Select Auth Employee</option>
-            <% @employees.each do |user| %>
+            <% @approvers.each do |user| %>
               <option value=<%=user.employee_id%> data-phone=<%=user.phone_number%> > <%=user.employee_id%>, <%=user.name%> </option>
             <% end %>
             </select>
