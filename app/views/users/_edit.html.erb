@@ -27,9 +27,9 @@
               <th><%= f.label :Role %></th>
               <td>
                 <% if current_user.is_owner? %>
-                <%= f.select(:role_type, ['owner', 'vendor', 'admin', 'approver', 'spoc']) %>
+                <%= f.select(:role_type, ['owner', 'vendor', 'admin', 'approver', 'spoc', 'employee']) %>
                 <%else%>
-                <%= f.select(:role_type, ['admin', 'approver', 'spoc']) %>
+                <%= f.select(:role_type, ['admin', 'approver', 'spoc', 'employee']) %>
                 <%end%>
               </td>
             </tr>
