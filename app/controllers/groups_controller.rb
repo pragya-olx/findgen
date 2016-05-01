@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     @group.update!(group_params)
-    redirect_to '/groups', , :flash => {:notice => "Successfully updated group"}
+    redirect_to '/groups', :flash => {:notice => "Successfully updated group"}
   end
 
   def group_params
