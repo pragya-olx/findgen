@@ -63,7 +63,11 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update!(params.require(:user).permit(:name, :email, :phone_number, :encrypted_password, :employee_id, :role_type, :subgroup_id))
-    redirect_to "/users/#{@user.id}", :flash => {:notice => "Successfully updated user"}
+    if @user.client.present?
+      redirect_to "/clients/#{@user.client.id}#users", :flash => {:notice => "Successfully updated user"}
+    else
+      redirect_to "/users/#{@user.id}", :flash => {:notice => "Successfully updated user"}
+    end
   end
 
   def add_operator
