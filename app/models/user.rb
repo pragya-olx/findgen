@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
         :html => email_body
       Rails.logger.info "Emailed sent to user #{user.name} successfully"
     rescue => e
-      Rails.logger.error "There was an error in sending email to #{to} for booking - #{self.name} due to #{e}"
+      Rails.logger.error "There was an error in sending email to #{self.email} for booking - #{self.name} due to #{e}"
     end
   end
 
