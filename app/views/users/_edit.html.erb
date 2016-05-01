@@ -67,6 +67,7 @@
                     </td>
                 </tr>
             <%end%>
+            <% if @subgroups.present? %>
             <tr>
                 <th>
                     Change Subgroup
@@ -80,7 +81,7 @@
                     </select>
                 </td>
             </tr>
-
+            <%end%>
             <tr>
                 <th><label>Employee Id</label></th>
                 <td><%= f.text_field :employee_id %></td>
