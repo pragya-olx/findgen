@@ -6,6 +6,10 @@ class GroupsController < ApplicationController
   end
 
   def create
+    if Group.find_by_name(params[:group][:name]).present?
+      render json: "Group with this name already exists", status: 500
+      return
+    end
     @group = Group.new(group_params)
     @group.user = User.find_by_employee_id(params[:group][:user_id])
     @group.client_id = params[:group][:client_id]

@@ -6,6 +6,10 @@ class SubgroupsController < ApplicationController
   end
 
   def create
+    if Subgroup.find_by_name(params[:subgroup][:name]).present?
+      render json: "Subgroup with this name already exists", status: 500
+      return
+    end
     @subgroup = Subgroup.new(subgroup_params)
     @subgroup.user = User.find_by_employee_id(params[:subgroup][:user_id])
     @subgroup.group = Group.find(params[:subgroup][:group_id])
