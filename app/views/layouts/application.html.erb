@@ -52,12 +52,14 @@
       </div>
     </nav>
       <% if flash[:error].present? %>
-        <div class="alert alert-danger">
+        <div class="fade alert alert-danger fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <%= flash[:error] %>
         </div>
       <%end%>
       <% if flash[:notice].present? %>
-        <div class="alert alert-success">
+        <div class="fade alert alert-success fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <%= flash[:notice] %>
         </div>
       <%end%>

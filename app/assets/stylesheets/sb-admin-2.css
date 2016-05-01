@@ -215,3 +215,10 @@ div#user_form_error {
   color: red;
 }
 
+.alert {
+  margin-top: -20px;
+}
+
+.alert {
+  text-align: center;
+}
