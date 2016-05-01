@@ -55,6 +55,7 @@ class BookingsController < ApplicationController
     from_status = booking.status
     booking.status = "accepted"
     booking.vendor_id = params[:vendor_id]
+    booking.owner_remarks = params[:owner_remarks]
     booking.operator = Operator.find(params[:operator_id])
     booking.save
     post_accept(booking)
@@ -202,7 +203,8 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:name, :email,:start_date,:status, :user_id, :vendor_id, :actual_hours, :invoice)
+    params.require(:booking).permit(:name, :email,:start_date,:status, :user_id, 
+      :vendor_id, :actual_hours, :invoice, :owner_remarks)
   end
 
 end

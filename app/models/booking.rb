@@ -119,6 +119,7 @@ class Booking < ActiveRecord::Base
         ["Vendor Name", self.vendor.name],
         ["Operator", self.operator.name],
         ["Operator Phone number", self.operator.phone_number],
+        ["Remarks", self.owner_remarks]
       ]
     else
       []

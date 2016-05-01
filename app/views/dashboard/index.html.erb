@@ -114,7 +114,8 @@
     		url: "/bookings/" + window.current_booking_id + "/accept",
     		data: {
     			vendor_id: $("#vendors").val(),
-    			operator_id: $("#operators").val()
+    			operator_id: $("#operators").val(),
+          owner_remarks: $("#owner_remarks").val()
     		}
     	}).done(function(){
     		window.location.reload()
