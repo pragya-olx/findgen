@@ -68,6 +68,21 @@ class BookingsController < ApplicationController
           [booking.user.email, booking.rep.email])
   end
 
+  def reject
+    booking = Booking.find(params[:id])
+    from_status = booking.status
+    booking.status = "rejected"
+    booking.save
+    post_reject(booking)
+    add_update_track_record(booking, from_status, "rejected")
+    render json: {}, status: 201
+  end
+
+  def post_reject(booking)
+    booking.notify("Booking #{booking.name} Rejected by Innovatiview", 
+          [booking.user.email, booking.rep.email])
+  end
+
   def cancel
     booking = Booking.find(params[:id])
     from_status = booking.status
@@ -166,15 +181,6 @@ class BookingsController < ApplicationController
     booking.save
 
     redirect_to '/', :flash => {:notice => "Successfully updated booking"}
-  end
-
-  def reject
-    booking = Booking.find(params[:id])
-    from_status = booking.status
-    booking.status = "rejected"
-    booking.save
-    add_update_track_record(booking, from_status, "rejected")
-    render json: {}, status: 201
   end
 
   private
