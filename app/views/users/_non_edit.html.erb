@@ -11,17 +11,17 @@
                     <%= f.label :name %>
                 </th>
                 <td>
-                    <%= f.text_field :name %>
+                    <%= @user.name %>
                 </td>
             </tr>
 
             <tr>
                 <th><%= f.label :email %></th>
-                <td><%= f.text_field :email %></td>
+                <td><%= @user.email %></td>
             </tr>
             <tr>
                 <th><%= f.label :phone_number %></th>
-                <td><%= f.text_field :phone_number %></td>
+                <td><%= @user.phone_number %></td>
             </tr>
             <tr>
             <% if current_user.id == @user.id %>
@@ -35,6 +35,7 @@
                 <td>
                   <%= @user.encrypted_password %>
                 </td>
+            <%end%>
             </tr>
 
             <% if current_user.client.present? %>
@@ -52,7 +53,7 @@
             </tr>
 
             <tr>
-                <th><label>Employee</label></th>
+                <th><label>Employee ID</label></th>
                 <td><%= @user.employee_id %></td>
             </tr>
 

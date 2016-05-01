@@ -37,14 +37,14 @@ class ClientsController < ApplicationController
 
     if current_user.is_approver?
       group = Group.find_by_user_id(current_user.id)
+      spoc_ids = []
       if group.present?
-        spoc_ids = User.where(:subgroup_id => group.subgroup.id)
+        subgroups = Subgroup.where(:group_id => group.id)
+        spoc_ids = User.where(:subgroup_id => subgroups)
       else
         subgroup = Subgroup.find_by_user_id(current_user.id)
         if subgroup.present?
           spoc_ids = User.where(:subgroup_id => subgroup.id)
-        else
-          spoc_ids = []
         end
       end
       @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
