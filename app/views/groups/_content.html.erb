@@ -6,22 +6,23 @@
         <h4 class="modal-title">Add New Group</h4>
       </div>
       <div class="modal-body">
+        <form id="groupForm">
         <div class="form-group">
             <label>Name</label>
             <br>
-            <input type="text" class="form-control" id="group_name"></input>
+            <input required type="text" class="form-control" id="group_name"></input>
          </div>
 
           <div class="form-group">
             <label for="sel1">Auth Employee</label>
-            <select  class="selectdd" id="group_employee_id">
-            <option selected disabled>Select Auth Employee</option>
+            <select required class="selectdd" id="group_employee_id">
             <% @approvers.each do |user| %>
               <option value=<%=user.employee_id%> data-phone=<%=user.phone_number%> > <%=user.employee_id%>, <%=user.name%> </option>
             <% end %>
             </select>
           </div>
-
+          <input class="formSubmit" type="submit"></input>
+          </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -63,6 +64,11 @@
 <script>
 
   $('#save_group').click(function(){
+    $("#groupForm").find('input[type=submit]').click();
+  })
+
+  $('#groupForm').on('submit', function(event){
+    event.preventDefault();
     formData = {
       group: {
         user_id: $("#group_employee_id").val(),

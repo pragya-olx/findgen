@@ -28,6 +28,12 @@
     $('#users').DataTable()
 
     $('#save_user').click(function(){
+        $('#userForm').find('input[type=submit]').click()
+    });
+
+    $('#userForm').on('submit', function(event) {
+        event.preventDefault();
+
         if(!$("#userForm")[0].checkValidity() || $("#user_name").val() == "" || 
             $("#user_phone_number").val() == "" || $('#role_type').val() == "" ||
             $('#user_employee_id').val() == "" || $('#user_location').val() == ""

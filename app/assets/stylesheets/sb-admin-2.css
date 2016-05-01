@@ -222,3 +222,7 @@ div#user_form_error {
 .alert {
   text-align: center;
 }
+
+.formSubmit {
+  display: none;
+}

@@ -11,19 +11,19 @@
           <div class="form-group" id="startDate">
             <label for="startDate">Required On<span class="red">*</span></label>
             <br>
-            <%= date_field(:booking, :start_date) %>
+            <%= date_field(:booking, :start_date, {:required => true}) %>
           </div>
 
           <div class="form-group" id="timeIn">
             <label for="startDate">Time In (HH:MM)<span class="red">*</span> </label>
             <br>
-            <%= time_field(:booking, :time_in) %>
+            <%= time_field(:booking, :time_in,{:required => true}) %>
           </div>
 
           <div class="form-group" id="timeOut">
             <label for="startDate">Time Out (HH:MM)<span class="red">*</span> </label>
             <br>
-            <%= time_field(:booking, :time_out) %>
+            <%= time_field(:booking, :time_out,{:required => true}) %>
           </div>
 
           <div class="form-group">
@@ -37,7 +37,7 @@
           <div class="form-group">
             <label for="lisp">Lisp where Generator is required<span class="red">*</span></label>
             <br>
-            <select  class="selectdd" id="lisp">
+            <select class="selectdd" id="lisp">
             <option selected disabled>Select LISP</option>
             <% @lisps.each do |lisp| %>
               <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
@@ -109,7 +109,7 @@
             <label for="sel1">Remarks</label>
             <textarea class="form-control" id="spoc_remarks"></textarea>
           </div>
-
+          <input class="formSubmit" type="submit"></input>
           </form>
 
         </div>

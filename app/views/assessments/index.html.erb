@@ -7,11 +7,14 @@
           <h4 class="modal-title">Add new Assessment</h4>
         </div>
         <div class="modal-body">
+          <form>
              <div class="form-group">
               <label>Code</label>
               <br>
-              <input type="text" required class="form-control" id="code"></input>
+              <input oninvalid="setCustomValidity('Please enter Aphanumeric')" onchange="try{setCustomValidity('')}catch(e){}" required pattern="[a-zA-Z0-9]+" type="text" required class="form-control" id="code"></input>
               </div>
+              <input class="formSubmit" type="submit"></input>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -51,6 +54,11 @@
 <script>
 
   $('#save').click(function(){
+    $('form').find('input[type=submit]').click()
+  });
+
+  $('form').on('submit', function(event){
+    event.preventDefault()
     formData = {
       assessment: {
         code: $("#code").val()

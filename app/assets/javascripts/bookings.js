@@ -32,7 +32,12 @@ Booking.load = function() {
 		$("#accepted").addClass('active')
 	}
 
-	 $("#save_bookings").click(function(){
+	$("#save_bookings").click(function(){
+    $("#bookingForm").find('input[type=submit]').click()
+  });
+
+  $("#bookingForm").on('submit', function(event){
+    event.preventDefault();
 
     if(!$("#bookingForm")[0].checkValidity() || $("#startDate input").val() == "" ||
         $("#timeIn input").val() == "" || $("#timeOut input").val() == "" || $('#lisp').val() =="" ||
