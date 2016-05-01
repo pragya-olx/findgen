@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
         :to => self.email,
         :subject => "Genset account created",
         :html => email_body
-      Rails.logger.info "Emailed sent to user #{user.name} successfully"
+      Rails.logger.info "Emailed sent to user #{self.name} successfully"
     rescue => e
       Rails.logger.error "There was an error in sending email to #{self.email} for booking - #{self.name} due to #{e}"
     end
