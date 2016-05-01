@@ -58,17 +58,18 @@
         </div>
       <%end%>
       <% if flash[:notice].present? %>
-        <div class="fade alert alert-success fade in">
+        <div id="notice" class="fade alert alert-success fade in">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <%= flash[:notice] %>
         </div>
       <%end%>
+      <div id="success_message" class="alert alert-success"></div>          
 <%= yield %>
 
 </body>
 </html>
 <script type="text/javascript">
-  $(".alert-success").delay(2000).slideUp(200, function() {
+  $("#notice.alert-success").delay(2000).slideUp(200, function() {
     $(this).alert('close');
   });
 </script>

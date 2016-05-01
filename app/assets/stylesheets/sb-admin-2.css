@@ -206,9 +206,9 @@ div#form_error {
   float: left;
 }
 
-div#form_success {
+#success_message {
   display: none;
-  float: left;
+  text-align: center;
 }
 
 div#user_form_error {

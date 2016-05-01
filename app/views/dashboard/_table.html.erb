@@ -91,8 +91,11 @@
       $.ajax({
         url: cancel_url
       }).done( function(){
-        location.reload()
-      });
+        $("#success_message").text('Booking cancelled, Refreshing the page!').show()
+        setTimeout("location.reload()",1000)
+      }).fail(function() {
+        alert("There was an error cancelling the booking")
+      })
     });
 
     $(".approve_btn").on('click', function(){
@@ -100,7 +103,10 @@
       $.ajax({
         url: "/bookings/" + id + "/approve"
       }).done( function(){
-        location.reload()
+        $("#success_message").text('Booking approved successfully, Refreshing the page!').show()
+        setTimeout("location.reload()",1000)
+      }).fail(function() {
+        alert("There was an error approving the booking")
       })
     });
 

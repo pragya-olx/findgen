@@ -48,9 +48,17 @@ class ClientsController < ApplicationController
           spoc_ids = User.where(:subgroup_id => subgroup.id)
         end
       end
-      @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
+      if status == "cancelled"
+        @bookings = Booking.where(:status => ["cancelled", "rejected"]).where(:user_id => spoc_ids.uniq)
+      else
+        @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
+      end
     else
-      @bookings = Booking.where(:status => status)
+      if status == "cancelled"
+        @bookings = Booking.where(:status => ["cancelled", "rejected"])
+      else
+        @bookings = Booking.where(:status => status)
+      end
     end
 
     if current_user.is_spoc?

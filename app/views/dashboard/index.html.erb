@@ -95,7 +95,8 @@
     		$.ajax({
     			url: "/bookings/" + id + "/reject"
     		}).done(function(){
-    			location.reload()
+    			$("#success_message").text('Booking rejected, Refreshing the page!').show()
+          setTimeout("location.reload()",1000)
     		}).fail(function(){
     			alert("There was an error rejecting the booking")
     		})
@@ -118,7 +119,9 @@
           owner_remarks: $("#owner_remarks").val()
     		}
     	}).done(function(){
-    		window.location.reload()
+        $('.close').click()
+    		$("#success_message").text('Booking accepted, Refreshing the page!').show()
+        setTimeout("location.reload()",1000)
     	}).fail(function(){
     		alert("There was an error in accepting the booking")
     	})

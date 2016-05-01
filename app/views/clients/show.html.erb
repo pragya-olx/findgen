@@ -3,7 +3,6 @@
     You dont have permissions to view this client's details
 
 <% else %>
-
 <%= render "modal.html.erb" %>
 
 <div class="container main-content">
@@ -13,9 +12,10 @@
 	    <ul class="dropdown-menu">
             <li> <a id="accepted">Active Bookings</a> </li>
             <li> <a id="completed">Completed Bookings</a> </li>
-            <li> <a id="cancelled">Cancelled Bookings</a> </li>
+            <li> <a id="cancelled">Cancelled/Rejected Bookings</a> </li>
             <li> <a id="pending">Pending Approval</a> </li>
             <li> <a id="client_approved">Pending Acceptance</a> </li>
+
 	    </ul>
 	  </li>
 	  <li><a  href="#lisps">LISP</a></li>

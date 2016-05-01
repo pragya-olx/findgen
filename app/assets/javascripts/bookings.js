@@ -68,8 +68,9 @@ Booking.load = function() {
     		url: '/bookings',
     		data: formData
     	}).done(function(data){
-        $("#form_success").show()
-    		location.reload()
+        $(".close").click()
+        $("#success_message").text('Booking created successfully, Refreshing the page!').show()
+        setTimeout("location.reload()",1000)
     	}).fail(function(data){
     		$("#form_error").val(data.error().responseText).show()
         $("#save_bookings").prop('disabled',false)
