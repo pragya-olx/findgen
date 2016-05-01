@@ -164,7 +164,7 @@ class BookingsController < ApplicationController
     end
     booking.save
 
-    redirect_to '/'
+    redirect_to '/', :flash => {:notice => "Successfully updated booking"}
   end
 
   def reject
