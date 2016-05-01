@@ -54,7 +54,7 @@
                 </td>
             <%end%>
 
-            <td><%= booking.created_at %></td>
+            <td><%= booking.created_at.to_formatted_s(:long) %></td>
 
             <% if current_user.is_approver? and booking.status == "pending" %>
                 <td>
