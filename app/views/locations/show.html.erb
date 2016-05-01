@@ -1,52 +1,59 @@
 <%= form_for @location do |f| %>
-  <div class="booking-edit">
+  <div class="booking-edit panel panel-default">
+    <div class="panel-heading"> Rate Details </div>
+    <div class="panel-body">
 
-  	<%= f.label :state %>
-    <%= @location.state %>
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th><%= f.label :state %></th>
+                <td><%= @location.state %></td>
+            </tr>
 
-    <br>
+            <tr>
+                <th><%= f.label :kva_30_day %></th>
+                <td><%= f.text_field :kva_30_day %></td>
+            </tr>
 
-    <h3>Rates</h3>
-    <%= f.label :kva_30_day %>
-    <%= f.text_field :kva_30_day %>
+             <tr>
+                <th><%= f.label :kva_30_hour %></th>
+                <td><%= f.text_field :kva_30_hour %></td>
+            </tr>
 
-    <br>
+             <tr>
+                <th><%= f.label :kva_70_day %></th>
+                <td><%= f.text_field :kva_70_day %></td>
+            </tr>
 
-    <%= f.label :kva_30_hour %>
-    <%= f.text_field :kva_30_hour %>
+            <tr>
+                <th><%= f.label :kva_70_hour %></th>
+                <td><%= f.text_field :kva_70_hour %></td>
+            </tr>
 
-    <br>
+            <tr>
+                <th><%= f.label :kva_130_day %></th>
+                <td><%= f.text_field :kva_130_day %></td>
+            </tr>
 
-    <%= f.label :kva_70_day %>
-    <%= f.text_field :kva_70_day %>
+            <tr>
+                <th><%= f.label :kva_130_hour %></th>
+                <td><%= f.text_field :kva_130_hour %></td>
+            </tr>
 
-    <br>
+            <tr>
+                <th><%= f.label :kva_250_day %></th>
+                <td><%= f.text_field :kva_250_day %></td>
+            </tr>
 
-    <%= f.label :kva_70_hour %>
-    <%= f.text_field :kva_70_hour %>
+            <tr>
+                <th><%= f.label :kva_250_hour %></th>
+                <td><%= f.text_field :kva_250_hour %></td>
+            </tr>
 
-    <br>
-
-    <%= f.label :kva_130_day %>
-    <%= f.text_field :kva_130_day %>
-
-    <br>
-
-    <%= f.label :kva_130_hour %>
-    <%= f.text_field :kva_130_hour %>
-
-    <br>
-
-    <%= f.label :kva_250_day %>
-    <%= f.text_field :kva_250_day %>
-
-    <br>
-
-    <%= f.label :kva_250_hour %>
-    <%= f.text_field :kva_250_hour %>
-
-    <br><br>
-
-    <%= f.submit 'Save' %>
+            </tbody>
+        </table>
+        <%= f.submit 'Save' %>
+        </div>
+    </div>
   </div>
 <% end %>

@@ -7,54 +7,57 @@
 	        <h4 class="modal-title">Add new Rate</h4>
 	      </div>
 	      <div class="modal-body">
+	      	<form>
 	        <div class="form-group">
 	          <label for="name">State</label>
 	          <select class="form-control" name="state">
-				<% @states.each do |key, value| %>
-					<option value="<%= key %>"><%= value%></option>
-				<% end %>
-			  </select>
+						<% @states.each do |key, value| %>
+							<option value="<%= key %>"><%= value%></option>
+						<% end %>
+					  </select>
 	        </div>
 
 				<div class="form-group">
 	        		<label>1-30 KVA Fixed</label>
-	        		<input class="form-control" id="kva_30_day"></input>
+	        		<input required class="form-control" id="kva_30_day"></input>
 	        		</div>
 
 		           <div class="form-group">
 		            <label>1-30 KVA Per Hour</label>
-		            <input class="form-control" id="kva_30_hour"></input>
+		            <input required class="form-control" id="kva_30_hour"></input>
 		            </div>
 
 		           <div class="form-group">
 		            <label>31-70 KVA Fixed</label>
-		            <input class="form-control" id="kva_70_day"></input>
+		            <input required class="form-control" id="kva_70_day"></input>
 		            </div>
 
 		           <div class="form-group">
 		            <label>31-70 KVA Per Hour</label>
-		            <input class="form-control" id="kva_70_hour"></input>
+		            <input required class="form-control" id="kva_70_hour"></input>
 		            </div>
 
 		           <div class="form-group">
 		            <label>71-130 KVA Fixed</label>
-		            <input class="form-control" id="kva_130_day"></input>
+		            <input required class="form-control" id="kva_130_day"></input>
 		            </div>
 
 		           <div class="form-group">
 		            <label>71-130 KVA Per Hour</label>
-		            <input class="form-control" id="kva_130_hour"></input>
+		            <input required class="form-control" id="kva_130_hour"></input>
 		            </div>
 
 		           <div class="form-group">
 		            <label>131-500 KVA Fixed</label>
-		            <input class="form-control" id="kva_250_day"></input>
+		            <input required class="form-control" id="kva_250_day"></input>
 		            </div>
 
 		           <div class="form-group">
 		            <label>131-500 KVA Per Hour</label>	
-		            <input class="form-control" id="kva_250_hour"></input>
+		            <input required class="form-control" id="kva_250_hour"></input>
 		            </div>
+		            <input class="formSubmit" type="submit"></input>
+		            </form>
 
 	      </div>
 	      <div class="modal-footer">
@@ -109,6 +112,11 @@
 <script>
 
 	$('#save_location').click(function(){
+    $('form').find('input[type=submit]').click()
+  });
+
+  $('form').on('submit', function(event) {
+    event.preventDefault();
 	  formData = {
 	    state: $("select[name='state']").find("option:selected").text(),
 	    fixed: $('#rate').val(),
