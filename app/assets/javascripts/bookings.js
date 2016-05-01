@@ -2,25 +2,28 @@ window.Booking = function() {};
 
 Booking.load = function() {
 
-	$('#' + 'accepted').click(function(){
+  getUrl = function() {
     var url = window.location.href.split('?')[0];
-		window.location = url + "?booking_status=accepted"
+    if (url.indexOf('#') !== -1) {
+      url = url.split('#')[0]
+    }
+    return url;
+  }
+
+	$('#' + 'accepted').click(function(){
+		window.location = getUrl() + "?booking_status=accepted"
 	});
 	$('#' + 'pending').click(function(){
-    var url = window.location.href.split('?')[0];
-		window.location = url + "?booking_status=pending"
+		window.location = getUrl() + "?booking_status=pending"
 	});
 	$('#' + 'completed').click(function(){
-    var url = window.location.href.split('?')[0];
-		window.location = url + "?booking_status=completed"
+		window.location = getUrl() + "?booking_status=completed"
 	});
 	$('#' + 'cancelled').click(function(){
-    var url = window.location.href.split('?')[0];
-		window.location = url + "?booking_status=cancelled"
+		window.location = getUrl() + "?booking_status=cancelled"
 	});
 	$('#' + 'client_approved').click(function(){
-    var url = window.location.href.split('?')[0];
-		window.location = url + "?booking_status=client_approved"
+		window.location = getUrl() + "?booking_status=client_approved"
 	});
 
 	$("#" + qs["booking_status"]).addClass('active')
