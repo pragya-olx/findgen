@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       render json: "User already exists with this email", status: 500
       return
     end
-    existing_user = User.find_by_employee_id(params[:user][:employee])
+    existing_user = User.find_by_employee_id(params[:user][:employee_id])
     if existing_user.present?
       render json: "User already exists with this employee id", status: 500
       return
