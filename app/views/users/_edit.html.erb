@@ -34,18 +34,10 @@
               </td>
             </tr>
             <tr>
-            <% if current_user.id == @user.id %>
                 <th><%= f.label :password %></th>
                 <td>
-                  <input id="password" value=<%= @user.encrypted_password %> > </input>
-                  <button id="update_password">Update</button>
+                  <%= f.text_field :encrypted_password %>
                 </td>
-            <%elsif current_user.is_admin_or_owner? and !@user.is_vendor? %>
-                <th><%= f.label :password %></th>
-                <td>
-                  <%= @user.encrypted_password %>
-                </td>
-            <%end%>
             </tr>
 
             <% if @user.client.present? %>

@@ -23,20 +23,15 @@
                 <th><%= f.label :phone_number %></th>
                 <td><%= @user.phone_number %></td>
             </tr>
-            <tr>
             <% if current_user.id == @user.id %>
-                <th><%= f.label :password %></th>
-                <td>
-                  <input id="password" value=<%= @user.encrypted_password %> > </input>
-                  <button id="update_password">Update</button>
-                </td>
-            <%elsif current_user.is_admin_or_owner? and !@user.is_vendor? %>
+            <tr>
+
                 <th><%= f.label :password %></th>
                 <td>
                   <%= @user.encrypted_password %>
                 </td>
-            <%end%>
             </tr>
+            <%end%>
 
             <% if current_user.client.present? %>
               <tr>
@@ -59,9 +54,6 @@
 
             </tbody>
         </table>
-        <% if current_user.is_admin_or_owner? %>
-            <%= f.submit 'Save' %>
-        <%end%>
         </div>
     </div>
 <% end %>
