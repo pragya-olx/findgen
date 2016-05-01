@@ -200,3 +200,12 @@ ul.nav li:hover > ul.dropdown-menu {
 .booking-edit td {
   width: 50%
 }
+
+div#form_error {
+  display: none;
+  float: left;
+}
+
+.red {
+  color: red;
+}
