@@ -35,4 +35,25 @@ class User < ActiveRecord::Base
     Operator.where(:vendor_id => id)
   end
 
+  def email_body
+      body = "<html> User #{self.name} :"
+      body += "<a href='http://findgen.herokuapp.com'>http://findgen.herokuapp.com</a>"
+      body += "<br> Email - #{self.email}"
+      body += "<br> Password - #{self.encrypted_password}"
+      body += "</html>"
+   end
+
+  def notify
+    begin
+      RestClient.post "https://api:key-ad59eb535febe7c7ff00bc1b64bf2b25"\
+      "@api.mailgun.net/v3/iv-genset.com/messages",
+      :from => "Innovatiview <info@innovatiview.com>",
+      :to => self.email,
+      :subject => "Genset account created",
+      :html => email_body
+    rescue => e
+      Rails.logger.error "There was an error in sending email to #{to} for booking - #{self.name} due to #{e}"
+    end
+  end
+
 end

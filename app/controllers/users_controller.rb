@@ -38,13 +38,8 @@ class UsersController < ApplicationController
     if params[:user][:subgroup_id].present?
       @user.subgroup = Subgroup.find(params[:user][:subgroup_id])
     end
-    if @user.save
-      flash[:notice] = "You signed up successfully"
-      flash[:color]= "valid"
-    else
-      flash[:notice] = "Form is invalid"
-      flash[:color]= "invalid"
-    end
+    @user.save
+    @user.notify
     render json: {}, status: 201 
   end
 
