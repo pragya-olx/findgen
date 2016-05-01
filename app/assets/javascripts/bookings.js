@@ -68,6 +68,7 @@ Booking.load = function() {
     		url: '/bookings',
     		data: formData
     	}).done(function(data){
+        $("#form_success").show()
     		location.reload()
     	}).fail(function(data){
     		$("#form_error").val(data.error().responseText).show()

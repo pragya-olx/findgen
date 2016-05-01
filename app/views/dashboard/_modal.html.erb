@@ -38,7 +38,6 @@
             <label for="lisp">Lisp where Generator is required<span class="red">*</span></label>
             <br>
             <select class="selectdd" id="lisp">
-            <option selected disabled>Select LISP</option>
             <% @lisps.each do |lisp| %>
               <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
             <% end %>
@@ -93,7 +92,6 @@
           <div class="form-group">
             <label for="sel1">Representative<span class="red">*</span></label>
             <select class="selectdd" id="employee_id">
-            <option selected disabled>Select Rep</option>
             <% @employees.each do |employee| %>
               <option value=<%=employee.employee_id%> data-phone=<%=employee.phone_number%> > <%=employee.employee_id%>, <%=employee.name%> </option>
             <% end %>
@@ -117,6 +115,9 @@
           <div id="form_error" class="alert-danger">
             Please fill the required fields
           </div>
+          <div id="form_success" class="alert-success">
+            Booking was created successfully
+          </div>          
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary" id="save_bookings">Submit</button>
         </div>

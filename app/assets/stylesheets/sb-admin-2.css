@@ -206,6 +206,11 @@ div#form_error {
   float: left;
 }
 
+div#form_success {
+  display: none;
+  float: left;
+}
+
 div#user_form_error {
   display: none;
   float: left;
