@@ -48,7 +48,7 @@
             <%end%>
             </tr>
 
-            <% if current_user.client.present? %>
+            <% if @user.client.present? %>
               <tr>
                 <th><%= f.label :client %></th>
                 <td>
@@ -56,6 +56,30 @@
                 </td>
               </tr>
             <%end%>
+
+            <% if @user.subgroup.present? %>
+                <tr>
+                    <th>
+                        Subgroup
+                    </th>
+                    <td>
+                        <%= @user.subgroup.name %>
+                    </td>
+                </tr>
+            <%end%>
+            <tr>
+                <th>
+                    Change Subgroup
+                </th>
+                <td>
+                    <select name="user[subgroup_id]"  class="selectdd" id="subgroup_group_id">
+                        <option selected disabled>Change Subgroup</option>
+                        <% @subgroups.each do |subgroup| %>
+                            <option value=<%=subgroup.id%> > <%=subgroup.name%> </option>
+                        <% end %>
+                    </select>
+                </td>
+            </tr>
 
             <tr>
                 <th><label>Employee Id</label></th>
@@ -70,3 +94,7 @@
       </div>
     </div>
 <% end %>
+
+<script type="text/javascript">
+    $(".selectdd").select2()
+</script>

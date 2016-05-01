@@ -50,11 +50,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    if @user.client.present?
+      @subgroups = Subgroup.where(:client_id => @user.client.id)
+    end
   end
 
   def update
     @user = User.find(params[:id])
-    @user.update!(params.require(:user).permit(:name, :email, :phone_number, :encrypted_password, :employee_id, :role_type))
+    @user.update!(params.require(:user).permit(:name, :email, :phone_number, :encrypted_password, :employee_id, :role_type, :subgroup_id))
     redirect_to "/users/#{@user.id}"
   end
 
