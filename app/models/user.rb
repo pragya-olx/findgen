@@ -46,11 +46,12 @@ class User < ActiveRecord::Base
   def notify
     begin
       RestClient.post "https://api:key-ad59eb535febe7c7ff00bc1b64bf2b25"\
-      "@api.mailgun.net/v3/iv-genset.com/messages",
-      :from => "Innovatiview <info@innovatiview.com>",
-      :to => self.email,
-      :subject => "Genset account created",
-      :html => email_body
+        "@api.mailgun.net/v3/iv-genset.com/messages",
+        :from => "Innovatiview <info@innovatiview.com>",
+        :to => self.email,
+        :subject => "Genset account created",
+        :html => email_body
+      Rails.logger.info "Emailed sent to user #{user.name} successfully"
     rescue => e
       Rails.logger.error "There was an error in sending email to #{to} for booking - #{self.name} due to #{e}"
     end
