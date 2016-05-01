@@ -5,114 +5,121 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Add new booking</h4>
       </div>
-      <div class="modal-body">
-        <div class="form-group" id="startDate">
-          <label for="startDate">Required On</label>
-          <br>
-          <%= date_field(:booking, :start_date) %>
+        <div class="modal-body">
+
+        <form id="bookingForm">
+          <div class="form-group" id="startDate">
+            <label for="startDate">Required On<span class="red">*</span></label>
+            <br>
+            <%= date_field(:booking, :start_date) %>
+          </div>
+
+          <div class="form-group" id="timeIn">
+            <label for="startDate">Time In (HH:MM)<span class="red">*</span> </label>
+            <br>
+            <%= time_field(:booking, :time_in) %>
+          </div>
+
+          <div class="form-group" id="timeOut">
+            <label for="startDate">Time Out (HH:MM)<span class="red">*</span> </label>
+            <br>
+            <%= time_field(:booking, :time_out) %>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Select Generator Type</label>
+            <select class="form-control" id="gen_type">
+              <option>Static</option>
+              <option>Mobile</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="lisp">Lisp where Generator is required<span class="red">*</span></label>
+            <br>
+            <select  class="selectdd" id="lisp">
+            <option selected disabled>Select LISP</option>
+            <% @lisps.each do |lisp| %>
+              <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
+            <% end %>
+            </select>
+          </div>
+
+          <div class="form-group" id="s_lisps">
+            <label for="lisp">Lisps covered by this mobile Generator</label>
+            <br>
+            <select multiple class="selectdd" id="secondary_lisp">
+            <% @lisps.each do |lisp| %>
+              <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
+            <% end %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Select KVA</label>
+            <select class="form-control" id="kva"> 
+               <option>5</option>
+               <option>7.5</option>
+               <option>10</option>
+               <option>15</option>
+               <option>20</option>
+               <option>25</option>
+               <option>30</option>
+               <option>35</option>
+               <option>40</option>
+               <option>45</option>
+               <option>62</option>
+               <option>82</option>
+               <option>100</option>
+               <option>125</option>
+               <option>180</option>
+               <option>200</option>
+               <option>250</option>
+               <option>375</option>
+               <option>500</option>
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="sel1">Assessment<span class="red">*</span></label>
+            <select  class="form-control" id="assessment">
+            <% @assessments.each do |assessment| %>
+              <option value=<%=assessment.code%> > <%=assessment.code%> </option>
+            <% end %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Representative<span class="red">*</span></label>
+            <select class="selectdd" id="employee_id">
+            <option selected disabled>Select Rep</option>
+            <% @employees.each do |employee| %>
+              <option value=<%=employee.employee_id%> data-phone=<%=employee.phone_number%> > <%=employee.employee_id%>, <%=employee.name%> </option>
+            <% end %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Representative phone number<span class="red">*</span></label>
+            <input data-error="Rep phone number is required" required name="rep_phone_number" class="form-control" id="rep_phone_number"></input>
+          </div>
+
+          <div class="form-group">
+            <label for="sel1">Remarks</label>
+            <textarea class="form-control" id="spoc_remarks"></textarea>
+          </div>
+
+          </form>
+
         </div>
-
-        <div class="form-group" id="timeIn">
-          <label for="startDate">Time In (HH:MM) </label>
-          <br>
-          <%= time_field(:booking, :time_in) %>
+        <div class="modal-footer">
+          <div id="form_error" class="alert-danger">
+            Please fill the required fields
+          </div>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="save_bookings">Submit</button>
         </div>
-
-        <div class="form-group" id="timeOut">
-          <label for="startDate">Time Out (HH:MM) </label>
-          <br>
-          <%= time_field(:booking, :time_out) %>
-        </div>
-
-        <div class="form-group">
-          <label for="sel1">Select Generator Type</label>
-          <select class="form-control" id="gen_type">
-            <option>Static</option>
-            <option>Mobile</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="lisp">Lisp where Generator is required</label>
-          <br>
-          <select  class="selectdd" id="lisp">
-          <option selected disabled>Select LISP</option>
-          <% @lisps.each do |lisp| %>
-            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
-          <% end %>
-          </select>
-        </div>
-
-        <div class="form-group" id="s_lisps">
-          <label for="lisp">Lisps covered by this mobile Generator</label>
-          <br>
-          <select multiple class="selectdd" id="secondary_lisp">
-          <% @lisps.each do |lisp| %>
-            <option value=<%=lisp.code%> > <%=lisp.code%>, <%=lisp.name%>, <%=lisp.city%> </option>
-          <% end %>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="sel1">Select KVA</label>
-          <select class="form-control" id="kva"> 
-             <option>5</option>
-             <option>7.5</option>
-             <option>10</option>
-             <option>15</option>
-             <option>20</option>
-             <option>25</option>
-             <option>30</option>
-             <option>35</option>
-             <option>40</option>
-             <option>45</option>
-             <option>62</option>
-             <option>82</option>
-             <option>100</option>
-             <option>125</option>
-             <option>180</option>
-             <option>200</option>
-             <option>250</option>
-             <option>375</option>
-             <option>500</option>
-          </select>
-        </div>
-
-
-        <div class="form-group">
-          <label for="sel1">Assessment</label>
-          <select  class="form-control" id="assessment">
-          <% @assessments.each do |assessment| %>
-            <option value=<%=assessment.code%> > <%=assessment.code%> </option>
-          <% end %>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="sel1">Representative</label>
-          <select  class="selectdd" id="employee_id">
-          <option selected disabled>Select Rep</option>
-          <% @employees.each do |employee| %>
-            <option value=<%=employee.employee_id%> data-phone=<%=employee.phone_number%> > <%=employee.employee_id%>, <%=employee.name%> </option>
-          <% end %>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="sel1">Representative phone number</label>
-          <input class="form-control" id="rep_phone_number"></input>
-        </div>
-
-        <div class="form-group">
-          <label for="sel1">Remarks</label>
-          <textarea class="form-control" id="spoc_remarks"></textarea>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="save_bookings">Submit</button>
-      </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

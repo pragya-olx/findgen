@@ -27,6 +27,14 @@ Booking.load = function() {
 
 	 $("#save_bookings").click(function(){
 
+    if(!$("#bookingForm")[0].checkValidity() || $("#startDate input").val() == "" ||
+        $("#timeIn input").val() == "" || $("#timeOut input").val() == "" || $('#lisp').val() =="" ||
+        $('#assessment').val() == ""
+      ) {
+      $("#form_error").show()
+      return
+    }
+
     $("#save_bookings").prop('disabled',true)
 	 	formData = {
 	 		booking: {
@@ -50,7 +58,7 @@ Booking.load = function() {
     	}).done(function(data){
     		location.reload()
     	}).fail(function(data){
-    		alert(data.error().responseText)
+    		$("#form_error").val(data.error().responseText).show()
         $("#save_bookings").prop('disabled',false)
     	});
 
