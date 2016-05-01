@@ -6,6 +6,11 @@ class LispsController < ApplicationController
   end
 
   def create
+    if Lisp.find_by_code(params[:lisp][:code]).present?
+      render json: "LISP code already exists", status: 500
+      return
+    end
+
       @lisp = Lisp.create(lisp_params)
       render json: {}, status: 201 
   end
