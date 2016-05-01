@@ -45,30 +45,35 @@ window.Client.load = ->
       e.preventDefault()
       $(this).tab('show')
       if $(this).text() == "Users"
+        location.hash = "users"
         $(".users_content").show()
         $(".bookings_content").hide()
         $("#lisps_content").hide()
         $("#groups_content").hide()
         $("#subgroups_content").hide()
       else if $(this).text() == "Bookings"
+        location.hash = ""
         $(".users_content").hide()
         $(".bookings_content").show()
         $("#lisps_content").hide()
         $("#groups_content").hide()
         $("#subgroups_content").hide()
       else if $(this).text() == "LISP"
+        location.hash = "lisps"
         $(".users_content").hide()
         $(".bookings_content").hide()
         $("#lisps_content").show()
         $("#groups_content").hide()
         $("#subgroups_content").hide()
       else if $(this).text() == "Groups"
+        location.hash = "groups"
         $(".users_content").hide()
         $(".bookings_content").hide()
         $("#lisps_content").hide()
         $("#groups_content").show()
         $("#subgroups_content").hide()
       else if $(this).text() == "Subgroups"
+        location.hash = "subgroups"
         $(".users_content").hide()
         $(".bookings_content").hide()
         $("#lisps_content").hide()

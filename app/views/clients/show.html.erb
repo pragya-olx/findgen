@@ -18,10 +18,10 @@
             <li> <a id="client_approved">Pending Acceptance</a> </li>
 	    </ul>
 	  </li>
-	  <li><a  href="#">LISP</a></li>
-	  <li><a href="#">Users</a></li>
-      <li><a href="#">Groups</a></li>
-      <li><a href="#">Subgroups</a></li>
+	  <li><a  href="#lisps">LISP</a></li>
+	  <li><a href="#users">Users</a></li>
+      <li><a href="#groups">Groups</a></li>
+      <li><a href="#subgroups">Subgroups</a></li>
 	</ul>
 
     <div class="row">
@@ -36,7 +36,11 @@
 
 <script type="text/javascript">
 	window.clientId = <%= @current_client.id %>
-
+    $(document).ready(function(){
+        if (location.hash != ""){
+            $("#navTabs a[href=\'" + location.hash + "\']").click()
+        }
+    })
 </script>
 
 <% end %>
