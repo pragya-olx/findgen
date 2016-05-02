@@ -233,5 +233,6 @@ div#user_form_error {
 }
 
 #assessments_content {
+  margin-top: 20px;
   display: none;
 }
