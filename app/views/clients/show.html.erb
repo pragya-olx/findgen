@@ -22,6 +22,9 @@
 	  <li><a href="#users">Users</a></li>
       <li><a href="#groups">Groups</a></li>
       <li><a href="#subgroups">Subgroups</a></li>
+      <% if current_user.is_admin_or_owner? %>
+      <li><a href="#assessments">Assessment Codes</a></li>
+      <%end%>
 	</ul>
 
     <div class="row">
@@ -30,6 +33,9 @@
     	<%= render "lisps/content" %>
         <%= render "groups/content" %>
         <%= render "subgroups/content" %>
+        <% if current_user.is_admin_or_owner? %>
+          <%= render "assessments/content" %>
+        <%end%>
     </div>
 
 </div>

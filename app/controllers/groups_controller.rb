@@ -18,20 +18,25 @@ class GroupsController < ApplicationController
   end
 
   def show
-    if params[:id] != 'unknown'
-      @group = Group.find(params[:id])
-    else
-      @group = Group.find_by_code(params[:code])
-      if @group.nil?
-        redirect_to '/groups'
-      end
+    @group = Group.find(params[:id])
+    @approvers = []
+    if @group.user.present?
+      @approvers = User.where(:client_id => @group.user.client.id, :role_type => "approver")
     end
   end
 
   def update
     @group = Group.find(params[:id])
     @group.update!(group_params)
-    redirect_to '/groups', :flash => {:notice => "Successfully updated group"}
+    if params[:group][:user_id].present?
+      @group.user = User.find(params[:group][:user_id])
+      @group.save
+    end
+    if current_user.client.present?
+      redirect_to "/clients/#{current_user.client.id}#groups", :flash => {:notice => "Successfully updated Group"}
+    else
+      redirect_to "/groups/#{@group.id}", :flash => {:notice => "Successfully updated group"}
+    end
   end
 
   def group_params

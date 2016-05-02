@@ -1,0 +1,42 @@
+
+<%= form_for @group do |f| %>
+    <div class="booking-edit panel panel-default">
+        <div class="panel-heading"> Group Details </div>
+        <div class="panel-body">
+
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th>
+                    <%= f.label :name %>
+                </th>
+                <td>
+                    <%= f.text_field :name %>
+                </td>
+            </tr>
+
+            <tr>
+                <th><%= f.label :auth_name %></th>
+                <td><%= @group.user.name %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :change_auth %></th>
+                <td>
+                    <select name="group[user_id]"  class="selectdd" id="group_user_id">
+                        <option selected disabled>Change Auth</option>
+                        <% @approvers.each do |x| %>
+                            <option value=<%=x.id%> > <%=x.name%> </option>
+                        <% end %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            </tr>
+            </tbody>
+        </table>
+        <% if current_user.is_admin_or_owner? %>
+            <%= f.submit 'Save' %>
+        <%end%>
+        </div>
+    </div>
+<% end %>

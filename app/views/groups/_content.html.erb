@@ -51,7 +51,7 @@
         </thead>
         <% @groups.each do |group| %>
           <tr data-id=<%=group.id%> >
-            <td><%= group.name %></td>
+            <td><a onclick="window.location='/groups/' + <%=group.id%>"><%= group.name %></a></td>
             <td><%= group.user.name %></td>
             <td><%= group.user.employee_id %></td>
           </tr>

@@ -24,7 +24,7 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 </div>
-<div class="container main-content assessments">
+<div class="container main-content assessments" id="assessments_content">
 
     <div class="row">
     <% if current_user.is_admin_or_owner? %>
@@ -69,19 +69,12 @@
       url: "/assessments",
       data: formData
     }).done(function(data){
-      window.location = '/assessments'
+      window.location.reload()
     }).fail(function(data){
-      console.log('error');
+      alert("Unable to add assessment")
     });
   });
 
-  $('table').on('click','tr', function(event) {
-        id = $(this).data('id')
-        if(id){
-          location = '/assessments/' + id;
-        }
-    });
-
-    $('table').DataTable();
+  $('table').DataTable();
 
 </script>

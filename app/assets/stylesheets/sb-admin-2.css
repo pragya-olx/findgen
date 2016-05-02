@@ -231,3 +231,7 @@ div#user_form_error {
 .formSubmit {
   display: none;
 }
+
+#assessments_content {
+  display: none;
+}

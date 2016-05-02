@@ -77,6 +77,16 @@
                         </td>
                     </tr>
                     <%end%>
+                    <% if current_user.is_owner? %>
+                    <tr>
+                        <th>
+                            Remarks
+                        </th>
+                        <td>
+                            <%=@booking.owner_remarks%>
+                        </td>
+                    </tr>
+                    <% end %>
                 </tbody>
                 </table>
             </div>

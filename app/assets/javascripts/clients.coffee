@@ -51,6 +51,7 @@ window.Client.load = ->
         $("#lisps_content").hide()
         $("#groups_content").hide()
         $("#subgroups_content").hide()
+        $("#assessments_content").hide()
       else if $(this).text() == "Bookings"
         location.hash = ""
         $(".users_content").hide()
@@ -58,6 +59,7 @@ window.Client.load = ->
         $("#lisps_content").hide()
         $("#groups_content").hide()
         $("#subgroups_content").hide()
+        $("#assessments_content").hide()
       else if $(this).text() == "LISP"
         location.hash = "lisps"
         $(".users_content").hide()
@@ -65,6 +67,7 @@ window.Client.load = ->
         $("#lisps_content").show()
         $("#groups_content").hide()
         $("#subgroups_content").hide()
+        $("#assessments_content").hide()
       else if $(this).text() == "Groups"
         location.hash = "groups"
         $(".users_content").hide()
@@ -72,6 +75,7 @@ window.Client.load = ->
         $("#lisps_content").hide()
         $("#groups_content").show()
         $("#subgroups_content").hide()
+        $("#assessments_content").hide()
       else if $(this).text() == "Subgroups"
         location.hash = "subgroups"
         $(".users_content").hide()
@@ -79,6 +83,15 @@ window.Client.load = ->
         $("#lisps_content").hide()
         $("#groups_content").hide()
         $("#subgroups_content").show()
+        $("#assessments_content").hide()
+      else if $(this).text() == "Assessment Codes"
+        location.hash = "assessments"
+        $(".users_content").hide()
+        $(".bookings_content").hide()
+        $("#lisps_content").hide()
+        $("#groups_content").hide()
+        $("#subgroups_content").hide()
+        $("#assessments_content").show()
       else
         location.hash = ""
     )
