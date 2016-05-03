@@ -241,3 +241,10 @@ div#user_form_error {
   font-size: 12px;
 }
 
+#dashboard_bookings_wrapper {
+  overflow: scroll;
+}
+
+#bookings_wrapper {
+  overflow: scroll;
+}
