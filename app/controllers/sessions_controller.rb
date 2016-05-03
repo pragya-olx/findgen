@@ -15,6 +15,30 @@ class SessionsController < ApplicationController
     end
   end
 
+  def email_body(user)
+      body = "<html> User #{user.name} :"
+      body += "<br> Your password is - #{user.encrypted_password}"
+      body += "</html>"
+   end
+
+def forgot_password
+   debugger
+    user = User.find_by(email: params[:email].downcase)
+    if user
+      to = user.email
+       RestClient.post "https://api:key-ad59eb535febe7c7ff00bc1b64bf2b25@api.mailgun.net/v3/iv-genset.com/messages",
+        :from => "Innovatiview <info@innovatiview.com>",
+        :to => to,
+        :subject => "User Password",
+        :html => email_body(user)
+ 
+     render json: {}, status: 200 
+    else
+      
+     render json: {}, status: 500
+    end 
+  end
+
   def destroy
     reset_session
     redirect_to '/login'

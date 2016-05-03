@@ -14,6 +14,13 @@ Rails.application.routes.draw do
   resources :mappings
   resources :lisps
 
+  resources :sessions do
+   collection do
+    get 'forgot_password'
+   end
+ end
+  
+
   resources :bookings do
     member do
       get 'approve'

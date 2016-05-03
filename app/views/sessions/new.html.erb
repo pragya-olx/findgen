@@ -14,7 +14,44 @@
       <br>
       <%= f.submit "Log in", class: "btn btn-primary" %>
       <br>
-    <% end %>
+      <% end %>
+      <a id="forgot_password">Forgot Password?</a>
+      <p id="p" class="submit_email">
+      <br>
+      <label>Enter Email</label>
+      <br>
+         <input type="email" class="form-control" id="forgot_email"></input>
+         <br>
+         <button id="email_password", class= "btn btn-primary">Send Password</button>
+      </p>
+
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+  $('#forgot_password').click(function(){
+    $('#p').show();
+  }
+    )
+
+  $('#email_password').click(function(){
+    params={
+      url: "/sessions/forgot_password",
+      data: {
+        email: $('#forgot_email').val()
+      }
+    }
+    onSuccess =function(){
+      alert("Emailed password");
+    }
+    onFailure = function(){
+      alert("Email is Invalid");
+    }
+    //AJAX call
+    $.ajax(params).done(onSuccess).fail(onFailure);
+  })
+</script>
 
   </div>
 </div>

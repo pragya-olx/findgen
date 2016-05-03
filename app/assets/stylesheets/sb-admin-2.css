@@ -146,3 +146,6 @@ tr a {
   width: 80px;
 }
 
+.submit_email {
+  display: none;
+}
