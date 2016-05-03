@@ -37,10 +37,10 @@ class BookingsController < ApplicationController
 
   def approve
     booking = Booking.find(params[:id])
-    from_status = booking.status
+    from_status = booking.ui_status
     booking.status = "client_approved"
     booking.save
-    add_update_track_record(booking, from_status, "client_approved")
+    add_update_track_record(booking, from_status, booking.ui_status)
     post_approve(booking)
     render json: {}, status: 201
   end
@@ -52,14 +52,14 @@ class BookingsController < ApplicationController
 
   def accept
     booking = Booking.find(params[:id])
-    from_status = booking.status
+    from_status = booking.ui_status
     booking.status = "accepted"
     booking.vendor_id = params[:vendor_id]
     booking.owner_remarks = params[:owner_remarks]
     booking.operator = Operator.find(params[:operator_id])
     booking.save
     post_accept(booking)
-    add_update_track_record(booking, from_status, "accepted")
+    add_update_track_record(booking, from_status, booking.ui_status)
     render json: {}, status: 201
   end
 
@@ -70,11 +70,11 @@ class BookingsController < ApplicationController
 
   def reject
     booking = Booking.find(params[:id])
-    from_status = booking.status
+    from_status = booking.ui_status
     booking.status = "rejected"
     booking.save
     post_reject(booking)
-    add_update_track_record(booking, from_status, "rejected")
+    add_update_track_record(booking, from_status, booking.ui_status)
     render json: {}, status: 201
   end
 
@@ -85,14 +85,14 @@ class BookingsController < ApplicationController
 
   def cancel
     booking = Booking.find(params[:id])
-    from_status = booking.status
-    booking.status = "cancelled"
-    if from_status == "accepted"
+    from_status = booking.ui_status
+    if booking.status == "accepted"
       booking.cost = add_cancellation_charges(booking)
     end
+    booking.status = "cancelled"
     booking.save
 
-    add_update_track_record(booking, from_status, "cancelled")
+    add_update_track_record(booking, from_status, booking.ui_status)
     render json: {}, status: 201
   end
 
@@ -155,7 +155,7 @@ class BookingsController < ApplicationController
   def update
     booking = Booking.find(params[:id])
 
-    from_status = booking.status
+    from_status = booking.ui_status
     booking.update!(booking_params)
 
     if booking.status == "client_approved" and booking.vendor_id.present?
@@ -167,8 +167,7 @@ class BookingsController < ApplicationController
       post_complete(booking)
     end
     
-    to_status = booking.status
-    add_update_track_record(booking, from_status, to_status)
+    add_update_track_record(booking, from_status, booking.ui_status)
 
     if booking_params[:actual_hours].present?
       booking.cost = per_day_cost(booking.lisp, booking.kva) + booking_params[:actual_hours].to_i*per_hour_cost(booking.lisp, booking.kva)

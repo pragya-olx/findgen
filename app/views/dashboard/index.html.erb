@@ -53,7 +53,7 @@
                       <a class="rep_id" onclick="window.location = '/users/' + <%= booking.rep.id %> " ><%= booking.rep.name %><br> (<%= booking.rep.phone_number %>) </a>
                   <% end %>
                   </td>
-                  <td><%=booking.status%></td>
+                  <td><%=booking.ui_status%></td>
 			            <td><%= booking.client.name %></td>
                   <td>
 			            <% if booking.vendor.present? %>

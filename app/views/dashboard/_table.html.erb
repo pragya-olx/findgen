@@ -41,7 +41,7 @@
             <% if booking.rep.present? %>
                 <a class="rep_id" onclick="window.location = '/users/' + <%= booking.rep.id %> " ><%= booking.rep.name %><br> (<%= booking.rep.phone_number %>) </a>
             <% end %>
-            <td><%= booking.status %></td>
+            <td><%= booking.ui_status %></td>
             </td>
             <% if params[:booking_status] != "pending" %>
                 <td>

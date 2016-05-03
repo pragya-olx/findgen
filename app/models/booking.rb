@@ -132,6 +132,23 @@ class Booking < ActiveRecord::Base
     ]
 
   end
+
+  def ui_status
+    case self.status
+      when "cancelled"
+        "Cancelled"
+      when "rejected"
+        "Rejected"
+      when "client_approved"
+        "Pending IV Accept"
+      when "pending"
+        "Pending Approval"
+      when "accepted"
+        "Accepted"
+      else
+        "Completed"
+      end
+  end
     
 
 end
