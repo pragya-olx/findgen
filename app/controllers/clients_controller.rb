@@ -19,6 +19,11 @@ class ClientsController < ApplicationController
     @subgroups = Subgroup.where(:client_id => @current_client.id)
     @assessments = Assessment.order(:code)
     @states = CS.states(:IN)
+    @rates = Location.all.pluck(:state)
+    @rates_states = @states.select do |k,v|
+      @rates.include? v
+    end
+
     @employees = User.where(:client_id => @current_client.id).order(:employee_id)
     @approvers = User.where(:client_id => @current_client.id, :role_type => "approver").order(:employee_id)
 

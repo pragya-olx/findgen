@@ -236,3 +236,11 @@ div#user_form_error {
   margin-top: 20px;
   display: none;
 }
+
+.bookings-content {
+  font-size: 12px;
+}
+
+.row {
+  overflow: scroll;
+}

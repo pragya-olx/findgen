@@ -1,14 +1,15 @@
-<table id="bookings" class="table hover table-striped table-bordered" cellspacing="0" width="100%">
+<table id="bookings" class="table hover table-striped table-bordered" cellspacing="0" >
     <thead>
         <tr>
             <th>Name</th>
             <th>Submitted on</th>
             <th>Required On</th>
-            <th>Time In</th>
-            <th>Time Out</th>
             <th>Generator Type</th>
             <th>KVA</th>
             <th>LISP</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Zone</th>
             <th>Spoc</th>
             <th>Rep</th>
             <th>Status</th>
@@ -23,15 +24,18 @@
         </tr>
     </thead>
         <% @bookings.each do |booking| %>
+            <% lisp = Lisp.find_by_code(booking.lisp) %>
           <tr>
             <td><a onclick="window.location='/bookings/' + <%=booking.id%>"><%= booking.name %></a></td>
             <td><%= booking.created_at.to_formatted_s(:long) %></td>
-            <td><%= booking.start_date %></td>
-            <td><%= booking.time_in %></td>
-            <td><%= booking.time_out %></td>
+            <td><%= booking.start_date %>
+            <br><%= booking.time_in %> - <%= booking.time_out %></td>
             <td><%= booking.gen_type %></td>
             <td><%= booking.kva %></td>
             <td><a class="lisp_id"><%= booking.lisp %></a></td>
+            <td><%= lisp.state %></td>
+            <td><%= lisp.city %></td>
+            <td><%= lisp.zone %></td>
             <td><a onclick="window.location = '/users/' + <%=booking.user.id%>"><%= booking.user.name %></a></td>
             <td>
             <% if booking.rep.present? %>
@@ -109,7 +113,5 @@
       })
     });
 
-    $("#bookings").DataTable({
-        scrollX: "100%"
-    });
+    $("#bookings").DataTable();
 </script>
