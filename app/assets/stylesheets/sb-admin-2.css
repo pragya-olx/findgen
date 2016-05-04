@@ -248,3 +248,12 @@ div#user_form_error {
 #bookings_wrapper {
   overflow: scroll;
 }
+
+.submit_email {
+  display: none;
+}
+
+#forgot_password {
+  color: white;
+  float: right;
+}

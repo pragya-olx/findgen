@@ -27,6 +27,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sessions do
+    collection do
+      get 'forgot_password'
+    end
+  end
+
   resources :users do
     member do
       get 'add_operator'
