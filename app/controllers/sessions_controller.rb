@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
    end
 
 def forgot_password
-   debugger
     user = User.find_by(email: params[:email].downcase)
     if user
       to = user.email
