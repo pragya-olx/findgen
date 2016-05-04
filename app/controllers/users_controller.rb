@@ -66,7 +66,9 @@ class UsersController < ApplicationController
     @user.update!(params.require(:user).permit(:name, :email, :phone_number, 
       :encrypted_password, :employee_id, :role_type, :subgroup_id,
       :approver_type))
+    Rails.logger.info("Is Approver = #{@user.is_approver?}")
     if !@user.is_approver?
+      Rails.logger.info("Not Approver = #{@user.is_approver?}")
       @user.approver_type = nil
       @user.save
     end
