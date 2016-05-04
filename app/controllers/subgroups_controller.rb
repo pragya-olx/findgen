@@ -23,7 +23,9 @@ class SubgroupsController < ApplicationController
     @groups = Group.all
     @approvers = []
     if @subgroup.user.present?
-      @approvers = User.where(:client_id => @subgroup.user.client.id, :role_type => "approver")
+      @approvers = User.where(:client_id => @subgroup.user.client.id, 
+        :role_type => "approver",
+        :approver_type => "ZOM")
     end
   end
 

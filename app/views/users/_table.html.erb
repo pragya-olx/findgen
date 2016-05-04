@@ -17,7 +17,13 @@
             <td><%= user.location %></td>
             <td><%= user.email %></td>
             <td><%= user.phone_number %></td>
-            <td><%= user.role_type %></td>
+            <td>
+                <% if user.role_type == "approver" %>
+                    <%= user.role_type %> , <%= user.approver_type %>
+                <%else %>
+                    <%= user.role_type %>
+                <%end%>
+            </td>
             <td><%= user.employee_id %></td>
             <td>
                 <%if user.subgroup.present?%>

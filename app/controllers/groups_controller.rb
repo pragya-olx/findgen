@@ -21,7 +21,9 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @approvers = []
     if @group.user.present?
-      @approvers = User.where(:client_id => @group.user.client.id, :role_type => "approver")
+      @approvers = User.where(:client_id => @group.user.client.id, 
+        :role_type => "approver",
+        :approver_type => "NOM")
     end
   end
 

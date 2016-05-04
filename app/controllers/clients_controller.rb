@@ -25,7 +25,13 @@ class ClientsController < ApplicationController
     end
 
     @employees = User.where(:client_id => @current_client.id).order(:employee_id)
-    @approvers = User.where(:client_id => @current_client.id, :role_type => "approver").order(:employee_id)
+    @nom_approvers = User.where(:client_id => @current_client.id, 
+      :role_type => "approver",
+      :approver_type => "NOM").order(:employee_id)
+
+    @zom_approvers = User.where(:client_id => @current_client.id, 
+      :role_type => "approver",
+      :approver_type => "ZOM").order(:employee_id)
 
     unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"])
     cost = 0

@@ -23,13 +23,21 @@
                 <th><%= f.label :phone_number %></th>
                 <td><%= f.text_field :phone_number %></td>
             </tr>
-            <tr>
+            <tr id="role_row">
               <th><%= f.label :Role %></th>
               <td>
                 <% if current_user.is_owner? %>
                 <%= f.select(:role_type, ['owner', 'vendor', 'admin', 'approver', 'spoc', 'employee']) %>
                 <%else%>
                 <%= f.select(:role_type, ['admin', 'approver', 'spoc', 'employee']) %>
+                <%end%>
+              </td>
+            </tr>
+            <tr id="approver_row">
+              <th><%= f.label :approver_type %></th>
+              <td>
+                <% if current_user.is_admin_or_owner? %>
+                <%= f.select(:approver_type, ['NOM', 'ZOM']) %>
                 <%end%>
               </td>
             </tr>
@@ -90,4 +98,16 @@
 
 <script type="text/javascript">
     $(".selectdd").select2()
+
+    $("#role_row").on('change', 'select', function(){
+        if ($(this).val() == "approver") {
+            $("#approver_row").show()
+        } else {
+            $("#approver_row").hide()
+        }
+    })
+
+    <% if !@user.is_approver? %>
+        $("#approver_row").hide()
+    <%end%>
 </script>

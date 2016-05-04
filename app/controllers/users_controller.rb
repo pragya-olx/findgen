@@ -39,7 +39,8 @@ class UsersController < ApplicationController
       return
     end
 
-    @user = User.new(params.require(:user).permit(:name,:location,:email,:phone_number,:role_type,:state,:city, :employee_id))
+    @user = User.new(params.require(:user).permit(:name,:location,:email,
+      :phone_number,:role_type,:state,:city, :employee_id, :approver_type))
     @user.role_type = @user.role_type.downcase
     @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
     if !params[:user][:client_id].blank?
@@ -62,7 +63,13 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update!(params.require(:user).permit(:name, :email, :phone_number, :encrypted_password, :employee_id, :role_type, :subgroup_id))
+    @user.update!(params.require(:user).permit(:name, :email, :phone_number, 
+      :encrypted_password, :employee_id, :role_type, :subgroup_id,
+      :approver_type))
+    if !@user.is_approver?
+      @user.approver_type = nil
+      @user.save
+    end
     if @user.client.present?
       redirect_to "/clients/#{@user.client.id}#users", :flash => {:notice => "Successfully updated user"}
     else
