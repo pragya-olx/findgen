@@ -149,6 +149,9 @@ class Booking < ActiveRecord::Base
         "Completed"
       end
   end
-    
+
+  def show_invoice_update?
+    !self.hours_status.present? or ( self.hours_status.present? and self.hours_status != "Accept" )
+  end
 
 end

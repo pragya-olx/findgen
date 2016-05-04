@@ -185,7 +185,7 @@
                     <%= f.file_field(:invoice, accept: 'image/png,image/gif,image/jpeg') %>
                     <br>
                     <%= f.label :actual_hours %>
-                    <%= f.text_field :actual_hours %>
+                    <%= f.hidden_field :actual_hours, {:required => true} %>
                 </div>
 
                 <div class="on_accepted_details">
@@ -242,16 +242,26 @@
         if (selected == "completed"){
             $(".on_completed_details").show();
             $(".on_accepted_details").hide();
-        } else if (selected == "accepted") {
+            $("#booking_actual_hours").attr('type', 'number')
+            $("#booking_actual_hours").attr('required', true)
+        } else {
+            if (selected == "accepted") {
+                $(".on_accepted_details").show();
+            }
             $(".on_completed_details").hide();
-            $(".on_accepted_details").show();
+            $("#booking_actual_hours").attr('required', false)
         }
     });
 
     if($("#booking_status").val() == "accepted") {
         $(".on_accepted_details").show()
+        $("#booking_actual_hours").attr('required', false)
     } else if ($("#booking_status").val() == "completed") {
         $(".on_completed_details").show();
+        $("#booking_actual_hours").attr('type', 'number')
+        $("#booking_actual_hours").attr('required', true)
+    } else {
+        $("#booking_actual_hours").attr('required', false)
     }
 
 </script>
