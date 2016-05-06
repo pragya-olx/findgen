@@ -242,11 +242,9 @@ div#user_form_error {
 }
 
 #dashboard_bookings_wrapper {
-  overflow: scroll;
 }
 
 #bookings_wrapper {
-  overflow: scroll;
 }
 
 .submit_email {
