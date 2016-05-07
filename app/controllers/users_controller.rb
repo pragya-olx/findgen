@@ -28,30 +28,38 @@ class UsersController < ApplicationController
   end
 
   def create
-    existing_user = User.find_by_email(params[:user][:email])
-    if existing_user.present?
-      render json: "User already exists with this email", status: 500
-      return
-    end
-    existing_user = User.find_by_employee_id(params[:user][:employee_id])
-    if existing_user.present?
-      render json: "User already exists with this employee id", status: 500
-      return
-    end
+    begin
+      existing_user = User.find_by_email(params[:user][:email])
+      if existing_user.present?
+        render json: "User already exists with this email", status: 500
+        return
+      end
+      if params[:user][:employee_id].present?
+        existing_user = User.find_by_employee_id(params[:user][:employee_id])
+        if existing_user.present?
+          render json: "User already exists with this employee id", status: 500
+          return
+        end
+      end
 
-    @user = User.new(params.require(:user).permit(:name,:location,:email,
-      :phone_number,:role_type,:state,:city, :employee_id, :approver_type))
-    @user.role_type = @user.role_type.downcase
-    @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
-    if !params[:user][:client_id].blank?
-      @user.client = Client.find(params[:user][:client_id])
+      @user = User.new(params.require(:user).permit(:name,:location,:email,
+        :phone_number,:role_type,:state,:city, :employee_id, :approver_type))
+      @user.role_type = @user.role_type.downcase
+      @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
+      if !params[:user][:client_id].blank?
+        @user.client = Client.find(params[:user][:client_id])
+      end
+      if params[:user][:subgroup_id].present?
+        @user.subgroup = Subgroup.find(params[:user][:subgroup_id])
+      end
+      @user.save
+      @user.notify
+      render json: {}, status: 201 
+    rescue => e
+      Rails.logger.error e.message
+      render json: e.message, status: 500
     end
-    if params[:user][:subgroup_id].present?
-      @user.subgroup = Subgroup.find(params[:user][:subgroup_id])
-    end
-    @user.save
-    @user.notify
-    render json: {}, status: 201 
+    
   end
 
   def show
