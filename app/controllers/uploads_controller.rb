@@ -7,7 +7,7 @@ class UploadsController < ApplicationController
       if params["data_type"] == "User"
         upload_to_users(data, params["override"].present?)
       elsif params["data_type"] == "LISP"
-        upload_to_lisps(data)
+        raise "Lisp not supported yet"
       end
     rescue => e
       redirect_to '/uploads',  :flash => {:error => e.message}
