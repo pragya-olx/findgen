@@ -24,6 +24,7 @@
       <li><a href="#subgroups">Subgroups</a></li>
       <% if current_user.is_admin_or_owner? %>
       <li><a href="#assessments">Assessment Codes</a></li>
+      <li> <a id="upload">Upload Data</a> </li>
       <%end%>
 	</ul>
 
@@ -46,7 +47,12 @@
         if (location.hash != ""){
             $("#navTabs a[href=\'" + location.hash + "\']").click()
         }
+        $("#upload").click(function(){
+            window.location = '/uploads'
+        })
     })
+
+
 </script>
 
 <% end %>

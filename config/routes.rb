@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :subgroups
   resources :assessments
+  resources :uploads
 
   resources :bookings do
     member do
