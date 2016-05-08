@@ -7,14 +7,17 @@
         <table class="table table-horizontal table-bordered table-striped">
             <tbody>
             <tr>
-                <th>
-                    <%= f.label :name %>
-                </th>
-                <td>
-                    <%= f.text_field :name %>
-                </td>
+                <th> <%= f.label :name %></th>
+                <td><%= f.text_field :name %></td>
             </tr>
-
+            <tr>
+                <th><%= f.label :code %></th>
+                <td><%= f.text_field :code %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :zone %></th>
+                <td><%= f.text_field :zone %></td>
+            </tr>
           	<tr>
                 <th><%= f.label :state %></th>
                 <td><%= f.text_field :state %></td>
@@ -27,15 +30,6 @@
                 <th><%= f.label :address %></th>
                 <td><%= f.text_field :address %></td>
             </tr>
-            <tr>
-                <th><%= f.label :zone %></th>
-                <td><%= f.text_field :zone %></td>
-            </tr>
-            <tr>
-                <th><%= f.label :code %></th>
-                <td><%= f.text_field :code %></td>
-            </tr>
-
             </tbody>
         </table>
         <% if current_user.is_admin_or_owner? %>

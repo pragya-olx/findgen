@@ -17,9 +17,9 @@
 			            <th>Generator Type</th>
 			            <th>KVA</th>
 			            <th>LISP</th>
+                  <th>Zone</th>
                   <th>State</th>
                   <th>City</th>
-                  <th>Zone</th>
                   <th>SPOC</th>
                   <th>Rep</th>
                   <th>Status</th>
@@ -44,9 +44,9 @@
 			            <td><%= booking.gen_type %></td>
 			            <td><%= booking.kva %></td>
                   <td><a class="lisp_id"> <%= booking.lisp %> </a></td>
+                  <td><%= lisp.zone %></td>
                   <td><%= lisp.state %></td>
                   <td><%= lisp.city %></td>
-                  <td><%= lisp.zone %></td>
                   <td><a onclick="window.location = '/users/' + <%=booking.user.id%>"><%= booking.user.name %></a></td>
                   <td>
                   <% if booking.rep.present? %>
