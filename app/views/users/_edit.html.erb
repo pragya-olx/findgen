@@ -11,17 +11,17 @@
                     <%= f.label :name %>
                 </th>
                 <td>
-                    <%= f.text_field :name %>
+                    <%= f.text_field(:name, :class => "form-control") %>
                 </td>
             </tr>
 
             <tr>
                 <th><%= f.label :email %></th>
-                <td><%= f.text_field :email %></td>
+                <td><%= f.text_field(:email, :class => "form-control") %></td>
             </tr>
             <tr>
                 <th><%= f.label :phone_number %></th>
-                <td><%= f.text_field :phone_number %></td>
+                <td><%= f.text_field(:phone_number, :class => "form-control") %></td>
             </tr>
             <tr id="role_row">
               <th><%= f.label :Role %></th>
@@ -44,7 +44,7 @@
             <tr>
                 <th><%= f.label :password %></th>
                 <td>
-                  <%= f.text_field :encrypted_password %>
+                  <%= f.text_field(:encrypted_password, :class => "form-control") %>
                 </td>
             </tr>
 
@@ -84,7 +84,7 @@
             <%end%>
             <tr>
                 <th><label>Employee Id</label></th>
-                <td><%= f.text_field :employee_id %></td>
+                <td><%= f.text_field(:employee_id, :class => "form-control") %></td>
             </tr>
 
             </tbody>

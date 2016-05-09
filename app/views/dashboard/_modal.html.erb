@@ -138,7 +138,17 @@
     })
 
     $("#secondary_lisp").change(function(){
-      $("#spoc_remarks").val("Lisps covered by this Generator :" + $("#secondary_lisp").val().toString())
+      sLisps = $("#secondary_lisp").val()
+      fullLisp = []
+      fullLispStr = "\n"
+      for(var i=0; i < sLisps.length; i++) {
+        fullLispStr += i+1 + ")" + $("#secondary_lisp").find('option[value='+sLisps[i]+']').text() + "\n"
+      }
+      $("#spoc_remarks").val("Lisps(Code, Name, City) covered by this Generator :" + fullLispStr)
+    })
+
+    $("#booking_time_in").change(function(){
+      $("#booking_time_out").attr('min', $("#booking_time_in").val())
     })
 
 </script>

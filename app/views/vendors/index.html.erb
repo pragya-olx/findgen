@@ -6,10 +6,11 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title">Add new Vendor</h4>
 	      </div>
+	      <form>
 	      <div class="modal-body">
 	        <div class="form-group">
-	          <label for="name">Name</label>
-	          <input type="text" class="form-control" id="user_name">
+	          <label for="name">Name <span class="red">*</span></label>
+	          <input type="text" class="form-control" id="user_name" required>
 	        </div>
 	        <div class="form-group">
 	          <label for="location">State</label>
@@ -25,15 +26,17 @@
 			  </select>
 	        </div>
 	        <div class="form-group">
-	          <label for="name">Phone number</label>
-	          <input type="text" class="form-control" id="user_phone_number">
+	          <label for="name">Phone number <span class="red">*</span></label>
+	          <input pattern="[0-9]{10}" maxlength="10" class="form-control" id="user_phone_number" required>
 	        </div>
 	        <div class="form-group">
-	          <label for="location">Email</label>
-	          <input type="text" class="form-control" id="user_email">
+	          <label for="location">Email <span class="red">*</span></label>
+	          <input type="email" class="form-control" id="user_email" required>
 	        </div>
 
 	      </div>
+	      <input class="formSubmit" type="submit"></input>
+	      </form>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	        <button type="button" class="btn btn-primary" id="save_vendor">Save changes</button>
@@ -92,6 +95,11 @@
 	$('table').DataTable();
 
 	$('#save_vendor').click(function(){
+		$('form').find('input[type=submit]').click()
+	})
+
+	$('form').on('submit', function(event){
+ 		event.preventDefault();
 	  formData = {
 	  	user: {
 	    state: $("select[name='state']").find("option:selected").text(),

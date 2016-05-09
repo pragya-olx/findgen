@@ -3,7 +3,12 @@ class BookingsController < ApplicationController
   include CostCalculator
 
   def show
-      @booking = Booking.find(params[:id])
+      begin
+        @booking = Booking.find(params[:id])
+      rescue => e
+        @booking = Booking.find_by_name(params[:id])
+      end
+
       if @booking.lisp.present? and @booking.kva.present?
         @per_day = per_day_cost(@booking.lisp, @booking.kva)
         @per_hour = per_hour_cost(@booking.lisp, @booking.kva)
@@ -133,11 +138,10 @@ class BookingsController < ApplicationController
       booking.user = current_user
       booking.client = Client.find(params[:booking][:client_id])
       booking.rep = User.find_by_employee_id(params[:booking][:employee_id])
-      booking.name = "#{booking.client.name}_#{booking.user.name}"
+      booking.name = "IVTCS" + rand.to_s[2..7]
       booking.location = booking.client.location
-      
       booking.save
-      booking.name = "#{booking.name}_#{booking.id}"
+      booking.name += booking.id.to_s
       
       if current_user.subgroup.present?
         booking.notify("New booking #{booking.name} added by #{booking.user.name}", 

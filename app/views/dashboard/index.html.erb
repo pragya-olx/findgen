@@ -11,7 +11,7 @@
 			<table id="dashboard_bookings" class="table hover table-bordered hover" cellspacing="0">
 			    <thead>
 			        <tr>
-			            <th>Name</th>
+			            <th>ID</th>
                   <th>Submitted On</th>
 			            <th>Required On</th>
 			            <th>Generator Type</th>
@@ -37,7 +37,7 @@
 			        <% @bookings.each do |booking| %>
                 <% lisp = Lisp.find_by_code(booking.lisp) %>
 			          <tr data-id=<%=booking.id%> >
-			            <td><a onclick="window.location='/bookings/' + <%=booking.id%>"><%= booking.name %></a></td>
+			            <td><a onclick="window.location='/bookings/' + '<%=booking.name%>' "><%= booking.name %></a></td>
                   <td><%= booking.created_at.to_formatted_s(:long) %></td>
 			            <td><%= booking.start_date %>
 			            <br><%= booking.time_in %> - <%= booking.time_out %></td>

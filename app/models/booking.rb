@@ -84,7 +84,7 @@ class Booking < ActiveRecord::Base
 
   def booking_data
     [
-      ["Name", self.name],
+      ["ID", self.name],
       ["Location", self.location],
       ["Required_on", self.start_date],
       ["Time In", self.time_in],

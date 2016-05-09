@@ -3,4 +3,3 @@ $(document).ready ->
 		window.clientId = null
 	Client.load()
 	Booking.load()
-	Owner.load()

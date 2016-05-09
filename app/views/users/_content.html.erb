@@ -36,7 +36,7 @@
 
         if(!$("#userForm")[0].checkValidity() || $("#user_name").val() == "" || 
             $("#user_phone_number").val() == "" || $('#role_type').val() == "" ||
-            $('#user_employee_id').val() == "" || $('#user_location').val() == ""
+            $('#user_employee_id').val() == ""
           ) {
           $("#user_form_error").show()
           return
@@ -44,7 +44,6 @@
       formData = {
         user: {
             name: $('#user_name').val(),
-            location: $('#user_location').val(),
             email: $('#user_email').val(),
             phone_number: $('#user_phone_number').val(),
             role_type: $('#role_type').val(),
