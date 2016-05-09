@@ -55,7 +55,7 @@ class Booking < ActiveRecord::Base
 
    def email_body
       body = "<html> Booking #{self.name} :"
-      body += "<a href='http://generator.innovatiview.com/bookings/#{self.id}'>http://generator.innovatiview.com/bookings/#{self.id}</a>"
+      body += "<a href='http://generator.innovatiview.com/bookings/#{self.name}'>http://generator.innovatiview.com/bookings/#{self.name}</a>"
       body += "<br> Current Status - #{self.status}"
       if self.vendor.present?
         body += "<br> Vendor - #{self.vendor.name}"

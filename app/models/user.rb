@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
 
   def email_body
       body = "<html> User #{self.name} :"
-      body += "<a href='http://findgen.herokuapp.com'>http://findgen.herokuapp.com</a>"
+      body += "<a href='http://generator.innovatiview.com'>http://generator.innovatiview.com</a>"
       body += "<br> Email - #{self.email}"
       body += "<br> Password - #{self.encrypted_password}"
       body += "</html>"
