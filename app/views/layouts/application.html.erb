@@ -15,7 +15,10 @@
         <ul class="nav navbar-nav mynav">
           <% if current_user.present? and current_user.is_owner? %>
             <li>
-              <a onclick="location.href = '/'">Bookings</a>
+
+              <a onclick="location.href = '/'">
+              <span class="glyphicon glyphicon-book"></span>  
+              Bookings</a>
             </li>
             <li>
             <a onclick="location.href = '/clients' ">Clients</a>
@@ -36,7 +39,9 @@
 
           <% if current_user.present? %>
             <li class="dropdown user">
+
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span>  
                 <%= current_user.name %> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
