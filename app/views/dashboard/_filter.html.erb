@@ -1,0 +1,173 @@
+<table id="bookings" class="compact table hover table-striped table-bordered" cellspacing="0" >
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Submitted on</th>
+            <th>Required On</th>
+            <th>Generator Type</th>
+            <th>KVA</th>
+            <th>LISP</th>
+            <th>Zone</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Spoc</th>
+            <th>Rep</th>
+            <th>Status</th>
+            <% if params[:booking_status] != "pending" %>
+            <th>Vendor</th>
+            <th>Invoice</th>
+            <%end%>
+            <th>SPOC Verified</th>
+            <% if current_user.is_approver? or current_user.is_spoc? %>
+            <th>Actions</th>
+            <% end %>
+        </tr>
+    </thead>
+    <tbody>
+        <% @bookings.each do |booking| %>
+            <% lisp = Lisp.find_by_code(booking.lisp) %>
+          <tr>
+            <td><a onclick="window.location='/bookings/' + '<%=booking.name%>' "><%= booking.name %></a></td>
+            <td><%= booking.created_at.to_formatted_s(:long) %></td>
+            <td><%= booking.start_date %>
+            <br><%= booking.time_in %> - <%= booking.time_out %></td>
+            <td><%= booking.gen_type %></td>
+            <td><%= booking.kva %></td>
+            <td><a class="lisp_id"><%= booking.lisp %></a></td>
+            <td><%= lisp.zone %></td>
+            <td><%= lisp.state %></td>
+            <td><%= lisp.city %></td>
+            <td><a onclick="window.location = '/users/' + <%=booking.user.id%>"><%= booking.user.name %></a></td>
+            <td>
+            <% if booking.rep.present? %>
+                <a class="rep_id" onclick="window.location = '/users/' + <%= booking.rep.id %> " ><%= booking.rep.name %><br> (<%= booking.rep.phone_number %>) </a>
+            <% end %>
+            <td><%= booking.ui_status %></td>
+            </td>
+            <% if params[:booking_status] != "pending" %>
+                <td>
+                <% if booking.vendor.present? %>
+                    <%= booking.vendor.name %>
+                <% end %>
+                </td>
+                <td>
+                <% if booking.actual_hours.present? %>
+                    <%= link_to "Download", booking.invoice_url %>
+                <% else %>
+                    No Invoice
+                <% end %>
+                </td>
+            <%end%>
+            <td> <%=booking.hours_status%> </td>
+
+            <% if current_user.is_approver? and booking.status == "pending" %>
+                <td>
+                    <button class="btn btn-default btn-sm approve_btn" data-id=<%=booking.id%> >Approve</button>
+                    <button class="btn btn-danger btn-sm cancel_btn" data-id=<%=booking.id%> >Cancel</button>
+                </td>
+            <% elsif current_user.is_spoc? and booking.is_cancelable? %>
+                <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>
+            <%elsif current_user.is_approver? or current_user.is_spoc? %>
+                <td>N/A</td>
+            <% end %>
+          </tr>
+        <% end %>
+
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+    $(".booking_id").on('click', function(event) {
+        id = $(this).text()
+        location = '/bookings/' + id.trim();
+    })
+
+    $(".lisp_id").on('click', function(event) {
+        id = $(this).text()
+        location = '/lisps/unknown?code=' + id.trim();
+    })
+
+    $(".cancel_btn").on('click', function(){
+        if (confirm("Are you sure you want to cancel?")) {
+          id = $(this).data('id')
+          cancel_url = "/bookings/" + id + "/cancel"
+          $.ajax({
+            url: cancel_url
+          }).done( function(){
+            $("#success_message").text('Booking cancelled, Refreshing the page!').show()
+            setTimeout("location.reload()",1000)
+          }).fail(function() {
+            alert("There was an error cancelling the booking")
+          })
+        }
+    });
+
+    $(".approve_btn").on('click', function(){
+        if (confirm("Are you sure you want to approve?")) {
+          id = $(this).data('id')
+          $.ajax({
+            url: "/bookings/" + id + "/approve"
+          }).done( function(){
+            $("#success_message").text('Booking approved successfully, Refreshing the page!').show()
+            setTimeout("location.reload()",1000)
+          }).fail(function() {
+            alert("There was an error approving the booking")
+          })
+        }
+    });
+
+    // $('#bookings tfoot th').each( function () {
+    //     var title = $(this).text();
+    //     $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+    // } );
+
+    var table = $("#bookings").DataTable({
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<input>').attr('placeholder', "Search " + column.header().innerText)
+                    .prependTo( $(column.header()) )
+                    .on( 'keyup', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? val : '' )
+                            .draw();
+                    } );
+                var button = $("<div>").addClass("glyphicon glyphicon-filter")
+                .appendTo($(column.header()))
+                .click(function(){
+                    $(column.header()).find('input').toggle()
+                })
+
+                uniqueNodes = []
+                column.nodes().unique().sort().each( function ( d, j ) {
+                    uniqueNodes.push(d.innerText);
+                } );
+
+                uniqueNodes = $.grep(uniqueNodes, function(v, k){
+                    return $.inArray(v ,uniqueNodes) === k;
+                });
+                uniqueNodes = uniqueNodes.sort();
+                for (var node in uniqueNodes) {
+                    var option = $('<option/>').val(uniqueNodes[node]).text(uniqueNodes[node])
+                    select.append(option)
+                }
+            } );
+        }
+    });
+
+    // table.columns().every( function () {
+    //     var that = this;
+ 
+    //     $( 'input', this.footer() ).on( 'keyup change', function () {
+    //             that
+    //                 .search( this.value )
+    //                 .draw();
+    //     } );
+    // } );
+
+</script>
