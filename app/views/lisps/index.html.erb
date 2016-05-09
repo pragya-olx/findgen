@@ -70,21 +70,21 @@
 			  <thead>
 		        <tr>
 		        	<th>Name</th>
+                <th>Code</th>                                                     
+                <th>Zone</th>                                                     
 		            <th>State</th>
 		            <th>City</th>
 		            <th>Address</th>
-		            <th>Zone</th>		           		            		           		      
-		            <th>Code</th>		           		            		           		      
 		        </tr>
 			  </thead>
 				<% @lisps.each do |lisp| %>
 				  <tr data-id=<%=lisp.id%> >
 				    <td><%= lisp.name %></td>
+            <td><%= lisp.code %></td>
+            <td><%= lisp.zone %></td>
 				    <td><%= lisp.state %></td>
 				    <td><%= lisp.city %></td>
 				    <td><%= lisp.address %></td>
-				    <td><%= lisp.zone %></td>
-				    <td><%= lisp.code %></td>
 				  </tr>
 				<% end %>
 			</table> 
