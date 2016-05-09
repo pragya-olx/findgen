@@ -33,14 +33,14 @@
                 <%end%>
               </td>
             </tr>
+            <% if current_user.is_admin_or_owner? %>
             <tr id="approver_row">
               <th><%= f.label :approver_type %></th>
               <td>
-                <% if current_user.is_admin_or_owner? %>
                 <%= f.select(:approver_type, ['NOM', 'ZOM']) %>
-                <%end%>
               </td>
             </tr>
+            <%end%>
             <tr>
                 <th><%= f.label :password %></th>
                 <td>

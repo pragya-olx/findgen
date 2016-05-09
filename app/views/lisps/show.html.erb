@@ -32,7 +32,7 @@
             </tr>
             </tbody>
         </table>
-        <% if current_user.is_admin_or_owner? %>
+        <% if current_user.is_admin? %>
             <%= f.submit 'Save' %>
         <%end%>
         </div>

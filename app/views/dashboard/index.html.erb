@@ -99,17 +99,19 @@
     })
 
     $(".reject_btn").on('click', function(event) {
-    	id = $(this).parent().parent().data('id')
-    	if (id) {
-    		$.ajax({
-    			url: "/bookings/" + id + "/reject"
-    		}).done(function(){
-    			$("#success_message").text('Booking rejected, Refreshing the page!').show()
-          setTimeout("location.reload()",1000)
-    		}).fail(function(){
-    			alert("There was an error rejecting the booking")
-    		})
-    	}
+      if (confirm("Are you sure you want to reject?")) {
+      	id = $(this).parent().parent().data('id')
+      	if (id) {
+      		$.ajax({
+      			url: "/bookings/" + id + "/reject"
+      		}).done(function(){
+      			$("#success_message").text('Booking rejected, Refreshing the page!').show()
+            setTimeout("location.reload()",1000)
+      		}).fail(function(){
+      			alert("There was an error rejecting the booking")
+      		})
+      	}
+      }
     })
 
     $(".accept_btn").on('click', function(){

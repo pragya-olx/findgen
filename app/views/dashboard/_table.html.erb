@@ -89,28 +89,32 @@
     })
 
     $(".cancel_btn").on('click', function(){
-      id = $(this).data('id')
-      cancel_url = "/bookings/" + id + "/cancel"
-      $.ajax({
-        url: cancel_url
-      }).done( function(){
-        $("#success_message").text('Booking cancelled, Refreshing the page!').show()
-        setTimeout("location.reload()",1000)
-      }).fail(function() {
-        alert("There was an error cancelling the booking")
-      })
+        if (confirm("Are you sure you want to cancel?")) {
+          id = $(this).data('id')
+          cancel_url = "/bookings/" + id + "/cancel"
+          $.ajax({
+            url: cancel_url
+          }).done( function(){
+            $("#success_message").text('Booking cancelled, Refreshing the page!').show()
+            setTimeout("location.reload()",1000)
+          }).fail(function() {
+            alert("There was an error cancelling the booking")
+          })
+        }
     });
 
     $(".approve_btn").on('click', function(){
-      id = $(this).data('id')
-      $.ajax({
-        url: "/bookings/" + id + "/approve"
-      }).done( function(){
-        $("#success_message").text('Booking approved successfully, Refreshing the page!').show()
-        setTimeout("location.reload()",1000)
-      }).fail(function() {
-        alert("There was an error approving the booking")
-      })
+        if (confirm("Are you sure you want to approve?")) {
+          id = $(this).data('id')
+          $.ajax({
+            url: "/bookings/" + id + "/approve"
+          }).done( function(){
+            $("#success_message").text('Booking approved successfully, Refreshing the page!').show()
+            setTimeout("location.reload()",1000)
+          }).fail(function() {
+            alert("There was an error approving the booking")
+          })
+        }
     });
 
     $("#bookings").DataTable();

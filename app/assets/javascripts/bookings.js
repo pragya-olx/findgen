@@ -47,35 +47,44 @@ Booking.load = function() {
       return
     }
 
-    $("#save_bookings").prop('disabled',true)
-	 	formData = {
-	 		booking: {
-    	 		start_date: $("#startDate input").val(),
-    	 		time_in: $("#timeIn input").val(),
-    	 		time_out: $("#timeOut input").val(),
-    	 		gen_type: $('#gen_type').val(),
-    	 		lisp: $('#lisp').val(),
-    	 		kva: $('#kva').val(),
-    	 		client_id: clientId,
-    	 		employee_id: $('#employee_id').val(),
-          assessment: $('#assessment').val(),
-          spoc_remarks: $('#spoc_remarks').val(),
-          rep_phone_number: $("#rep_phone_number").val()
-    	 	}
-	 	};
+    currentDate = new Date()
+    bookingDate = new Date($("#startDate").find('input').val())
 
-	 	$.post({
-    		url: '/bookings',
-    		data: formData
-    	}).done(function(data){
-        $(".close").click()
-        $("#success_message").text('Booking created successfully, Refreshing the page!').show()
-        setTimeout("location.reload()",1000)
-    	}).fail(function(data){
-    		$("#form_error").val(data.error().responseText).show()
-        $("#save_bookings").prop('disabled',false)
-    	});
+    dateCheck = true
+    if ( bookingDate < currentDate ) {
+      dateCheck = confirm("You created a past booking. Is that ok?")
+    }
 
+    if(dateCheck){
+      $("#save_bookings").prop('disabled',true)
+  	 	formData = {
+  	 		booking: {
+      	 		start_date: $("#startDate input").val(),
+      	 		time_in: $("#timeIn input").val(),
+      	 		time_out: $("#timeOut input").val(),
+      	 		gen_type: $('#gen_type').val(),
+      	 		lisp: $('#lisp').val(),
+      	 		kva: $('#kva').val(),
+      	 		client_id: clientId,
+      	 		employee_id: $('#employee_id').val(),
+            assessment: $('#assessment').val(),
+            spoc_remarks: $('#spoc_remarks').val(),
+            rep_phone_number: $("#rep_phone_number").val()
+      	 	}
+  	 	};
+
+  	 	$.post({
+      		url: '/bookings',
+      		data: formData
+      	}).done(function(data){
+          $(".close").click()
+          $("#success_message").text('Booking created successfully, Refreshing the page!').show()
+          setTimeout("location.reload()",1000)
+      	}).fail(function(data){
+      		$("#form_error").val(data.error().responseText).show()
+          $("#save_bookings").prop('disabled',false)
+      	});
+      }
 	 });
 };
 
