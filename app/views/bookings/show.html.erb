@@ -131,9 +131,9 @@
                             Cost Calculations
                         </th>
                         <td>
-                             <% if 0.5.day.from_now > @booking.start_date %>
+                             <% if 0.5.day.from_now > DateTime.parse(@booking.start_date.to_s + "T" + @booking.time_in)%>
                               <div>  A) Amount for 1 Day = <%= @per_day %></div>
-                              <%elsif 1.day.from_now > @booking.start_date %>
+                              <%elsif 1.day.from_now > DateTime.parse(@booking.start_date.to_s + "T" + @booking.time_in) %>
                               <div>  A) Amount for 1/2 Day = <%= 0.5 * @per_day %></div>
                             <%end%>
                         </td>
