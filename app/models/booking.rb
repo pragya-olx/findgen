@@ -100,6 +100,7 @@ class Booking < ActiveRecord::Base
     [
       ["Name", self.user.name],
       ["Email", self.user.email],
+      ["Employee Id", self.user.employee_id],
       ["Spoc Remarks", self.spoc_remarks],
     ]
 
@@ -109,6 +110,7 @@ class Booking < ActiveRecord::Base
     [
       ["Name", self.rep.name],
       ["Email", self.rep.email],
+      ["Employee Id", self.rep.employee_id],
       ["Phone number", self.rep_phone_number],
     ]
   end

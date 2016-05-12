@@ -14,16 +14,15 @@
 			            <th>ID</th>
                   <th>Submitted On</th>
 			            <th>Required On</th>
-			            <th>Generator Type</th>
-			            <th>KVA</th>
-			            <th>LISP</th>
+			            <th>Generator</th>
                   <th>Zone</th>
                   <th>State</th>
                   <th>City</th>
+                  <th>LISP Code</th>
+                  <th>LISP Name</th>
                   <th>SPOC</th>
                   <th>Rep</th>
                   <th>Status</th>
-			            <th>Client</th>
 			            <th>Vendor</th>
 			            <% if @show_cost.present? %>
 			            	<th>Cost</th>
@@ -41,20 +40,19 @@
                   <td><%= booking.created_at.to_formatted_s(:long) %></td>
 			            <td><%= booking.start_date %>
 			            <br><%= booking.time_in %> - <%= booking.time_out %></td>
-			            <td><%= booking.gen_type %></td>
-			            <td><%= booking.kva %></td>
-                  <td><a class="lisp_id"> <%= booking.lisp %> </a></td>
+			            <td><%= booking.gen_type %> - <%= booking.kva %> KVA</td>
                   <td><%= lisp.zone %></td>
                   <td><%= lisp.state %></td>
                   <td><%= lisp.city %></td>
-                  <td><a onclick="window.location = '/users/' + <%=booking.user.id%>"><%= booking.user.name %></a></td>
+                  <td><%= booking.lisp %></td>
+                  <td><%= lisp.name %></td>
+                  <td><%= booking.user.name %></td>
                   <td>
                   <% if booking.rep.present? %>
-                      <a class="rep_id" onclick="window.location = '/users/' + <%= booking.rep.id %> " ><%= booking.rep.name %><br> (<%= booking.rep.phone_number %>) </a>
+                      <%= booking.rep.name %><br> (<%= booking.rep.phone_number %>)
                   <% end %>
                   </td>
                   <td><%=booking.ui_status%></td>
-			            <td><%= booking.client.name %></td>
                   <td>
 			            <% if booking.vendor.present? %>
 			            	<%= booking.vendor.name %>
