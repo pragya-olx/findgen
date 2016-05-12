@@ -49,6 +49,10 @@ class Booking < ActiveRecord::Base
       status == "completed" or status == "paid"
    end
 
+   def is_cancelled?
+      status == "cancelled"
+   end
+
    def invoice_url
       "http://s3.amazonaws.com/#{ENV['S3_BUCKET_NAME']}/image/#{self.id}/invoice.jpg"
    end
@@ -126,10 +130,17 @@ class Booking < ActiveRecord::Base
   end
 
   def cost_data
+    if self.actual_hours.present?
     [
       ["Running hours", self.actual_hours],
 
     ]
+  else
+    [
+      ["Running hours", "0.0"],
+
+    ]
+  end
 
   end
 
