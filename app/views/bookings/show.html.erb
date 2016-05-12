@@ -125,15 +125,15 @@
                             <div>Total (A+B+C+D) = <%= @booking.cost %> </div>
                         </td>
                     </tr>
-                    <% elsif @booking.is_cancelled? %>
+                    <% elsif @booking.is_cancelled? and current_user.is_admin_or_owner? %>
                     <tr>
                         <th>
                             Cost Calculations
                         </th>
                         <td>
-                             <% if 0.5.day.from_now > DateTime.parse(@booking.start_date.to_s + "T" + @booking.time_in)%>
+                             <% if @booking.cost == @per_day %>
                               <div>  A) Amount for 1 Day = <%= @per_day %></div>
-                              <%elsif 1.day.from_now > DateTime.parse(@booking.start_date.to_s + "T" + @booking.time_in) %>
+                              <%elsif @booking.cost == 0.5 * @per_day %>
                               <div>  A) Amount for 1/2 Day = <%= 0.5 * @per_day %></div>
                             <%end%>
                         </td>
