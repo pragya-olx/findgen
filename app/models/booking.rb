@@ -87,6 +87,7 @@ class Booking < ActiveRecord::Base
   end
 
   def booking_data
+    match_lisp = Lisp.find_by_code(self.lisp)
     [
       ["ID", self.name],
       ["Location", self.location],
@@ -94,7 +95,11 @@ class Booking < ActiveRecord::Base
       ["Time In", self.time_in],
       ["Time Out", self.time_out],
       ["KVA", self.kva],
-      ["LISP Code", self.lisp],
+      ["LISP Name", match_lisp.name],
+      ["LISP Code", match_lisp.code],
+      ["Zone", match_lisp.zone],
+      ["State", match_lisp.state],
+      ["City", match_lisp.city],
       ["Assessment", self.assessment],
       ["Submitted On", self.created_at.to_formatted_s(:long)]
     ]
