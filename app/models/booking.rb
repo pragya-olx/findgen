@@ -137,7 +137,7 @@ class Booking < ActiveRecord::Base
     ]
   else
     [
-      ["Running hours", "0.0"],
+      ["Running hours", "N/A"],
 
     ]
   end
