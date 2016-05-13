@@ -138,7 +138,7 @@ class BookingsController < ApplicationController
       booking.user = current_user
       booking.client = Client.find(params[:booking][:client_id])
       booking.rep = User.find_by_employee_id(params[:booking][:employee_id])
-      booking.name = "IVTCS" + rand.to_s[2..7]
+      booking.name = "IVTCS010000" + 
       booking.location = booking.client.location
       booking.save
       booking.name += booking.id.to_s
