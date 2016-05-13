@@ -56,7 +56,9 @@ Booking.load = function() {
     }
 
     if(dateCheck){
-      $("#save_bookings").prop('disabled',true)
+      $("#save_bookings").hide()
+      $("#save_bookings_loading").show()
+
   	 	formData = {
   	 		booking: {
       	 		start_date: $("#startDate input").val(),
@@ -70,20 +72,20 @@ Booking.load = function() {
             assessment: $('#assessment').val(),
             spoc_remarks: $('#spoc_remarks').val(),
             rep_phone_number: $("#rep_phone_number").val()
-      	 	}
-  	 	};
+      	}
+  	 	}
 
-  	 	$.post({
-      		url: '/bookings',
-      		data: formData
-      	}).done(function(data){
-          $(".close").click()
-          $("#success_message").text('Booking created successfully, Refreshing the page!').show()
-          setTimeout("location.reload()",1000)
-      	}).fail(function(data){
-      		$("#form_error").val(data.error().responseText).show()
-          $("#save_bookings").prop('disabled',false)
-      	});
+    	 	$.post({
+        		url: '/bookings',
+        		data: formData
+        	}).done(function(data){
+            $(".close").click()
+            $("#success_message").text('Booking created successfully, Refreshing the page!').show()
+            setTimeout("location.reload()",1000)
+        	}).fail(function(data){
+        		$("#form_error").val(data.error().responseText).show()
+            $("#save_bookings").prop('disabled',false)
+        	});
       }
 	 });
 };

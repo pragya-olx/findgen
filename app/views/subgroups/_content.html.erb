@@ -36,6 +36,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="save_subgroup">Submit</button>
+        <span class="glyphicon glyphicon-refresh spinning loading" id="save_subgroup_loading"></span>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -88,6 +89,8 @@
         client_id: <%=@current_client.id%>
       }
     }
+    $("#save_subgroup").hide()
+    $("#save_subgroup_loading").show()
 
     $.post({
       url: "/subgroups",

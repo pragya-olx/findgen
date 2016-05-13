@@ -255,3 +255,7 @@ div#user_form_error {
   color: white;
   float: right;
 }
+
+.loading {
+  display: none;
+}
