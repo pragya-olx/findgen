@@ -1,0 +1,84 @@
+<%= form_for @booking do |f| %>
+
+    <div class="booking-edit">
+
+      <div class="panel panel-default">
+        <div class="panel-heading"> Invoice <%= link_to "(Download)", @booking.invoice_url %> </div>
+          <div class="panel-body">
+            <div>
+              
+            </div>
+            <table class="table table-striped table-bordered">
+                <tbody>
+                    <tr> 
+                      <th>Invoice</th>
+                      <td><img class="invoice" src=<%=@booking.invoice_url%> ></td>
+                    </tr>
+                    <% @booking.cost_data.each do |key, value| %>
+                    <tr>
+                        <th>
+                            <%=key%>
+                        </th>
+                        <td>
+                            <%=value%>
+                        </td>
+                    </tr>
+                    <%end%>
+                    <% if @booking.actual_hours.present? and current_user.is_admin_or_owner? %>
+                    <tr>
+                        <th>
+                            Cost calculations
+                        </th>
+                        <td>
+                            <div> A) Amount for 1 Day = <%= @per_day %> </div>
+                            <div> B) Amount for Total Hours = <%= @booking.actual_hours %> x <%= @per_hour %> </div>
+                            <div> C) Amount for Generator Type = 
+                            <% if @booking.is_mobile? %>
+                              1500
+                            <%else%>
+                              0
+                            <%end%>
+                            <div>D) Management Charges = 10 % (A+B+C) = <%= @management_charges %></div>
+                            <div>Total (A+B+C+D) = <%= @booking.cost %> </div>
+                        </td>
+                    </tr>
+                    <% elsif @booking.is_cancelled? and current_user.is_admin_or_owner? %>
+                    <tr>
+                        <th>
+                            Cost Calculations
+                        </th>
+                        <td>
+                             <% if @booking.cost == @per_day %>
+                              <div>  A) Amount for 1 Day = <%= @per_day %></div>
+                              <%elsif @booking.cost == 0.5 * @per_day %>
+                              <div>  A) Amount for 1/2 Day = <%= 0.5 * @per_day %></div>
+                            <%end%>
+                        </td>
+                    </tr>
+                    <% end %>
+                </tbody>
+                </table>
+          </div>
+      </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-heading"> Booking Details </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                <tbody>
+                    <% @booking.booking_data.each do |key, value| %>
+                    <tr>
+                        <th>
+                            <%=key%>
+                        </th>
+                        <td>
+                            <%=value%>
+                        </td>
+                    </tr>
+                    <%end%>
+                </tbody>
+                </table>
+            </div>
+        </div>
+
+<% end %>
