@@ -136,7 +136,6 @@ class BookingsController < ApplicationController
         @booking.save
       end
     end
-    @booking_updates = BookingUpdate.where(:booking_id => @booking.id)
     @booking.save
     render 'details_invoice'
   end
