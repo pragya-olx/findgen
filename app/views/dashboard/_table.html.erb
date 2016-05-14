@@ -74,7 +74,7 @@
                         <% if current_user.is_admin_or_owner? %>
                         Cost = <%= booking.cost %>
                         <br>
-                        Running hours = <%= booking.actual_hours %>
+                        Running hours = <%= booking.actual_hours ? booking.actual_hours : 0 %>
                         <%end%>
                     <% else %>
                         Cost = <%= booking.cost ? booking.cost : 0.0  %>
