@@ -16,8 +16,6 @@ class BookingsController < ApplicationController
           total = @per_day + @booking.actual_hours.to_i*@per_hour
           total += 1500 if @booking.is_mobile?
           @management_charges = total * 0.1
-          @booking.cost = total + @management_charges
-          @booking.save
         end
       end
       @booking_updates = BookingUpdate.where(:booking_id => @booking.id)
@@ -132,8 +130,6 @@ class BookingsController < ApplicationController
         total = @per_day + @booking.actual_hours.to_i*@per_hour
         total += 1500 if @booking.is_mobile?
         @management_charges = total * 0.1
-        @booking.cost = total + @management_charges
-        @booking.save
       end
     end
     @booking.save
