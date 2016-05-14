@@ -67,7 +67,7 @@
             <td><%= booking.ui_status %></td>
                 <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
                 <td>
-                    <% if booking.actual_hours.present? or (booking.cost > 0)  %>
+                    <% if booking.actual_hours.present? or (booking.cost? and booking.cost > 0)  %>
                     <button onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
                     Invoice
                     </button>
