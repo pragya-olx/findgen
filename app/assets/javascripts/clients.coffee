@@ -19,7 +19,6 @@ window.Client.load = ->
         t.row.add([
           data[i].id,
           data[i].name,
-          data[i].location,
           data[i].email,
           data[i].balance
         ]).draw()

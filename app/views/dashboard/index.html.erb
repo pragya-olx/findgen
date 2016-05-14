@@ -21,16 +21,22 @@
                   <th>LISP Code</th>
                   <th>LISP Name</th>
                   <th>SPOC</th>
+                  <th>SPOC Remarks </th>
                   <th>Rep</th>
-                  <th>Status</th>
+                  <% if !params[:status].nil? %>
 			            <th>Vendor</th>
+                  <th>Operator</th>
+                  <%end%>
+                  <th>Status</th>
 			            <% if @show_cost.present? %>
-			            	<th>Cost</th>
+			            	<th>Invoice</th>
 			            <%end%>
 			            <% if params[:status].nil? %>
 			            <th>Actions</th>
 			            <%end%>
+                  <% if params[:status] == "previous" %>
                   <th>SPOC Verified</th>
+                  <%end%>
 			        </tr>
 			    </thead>
 			        <% @bookings.each do |booking| %>
@@ -48,18 +54,41 @@
                   <td><%= lisp.name %></td>
                   <td><%= booking.user.name %></td>
                   <td>
+                  <span data-toggle="tooltip" data-placement="top" title= '<%= booking.spoc_remarks %>' ><%= booking.short_spoc_remarks %> </span>
+                  </td>
+                  <td>
                   <% if booking.rep.present? %>
                       <%= booking.rep.name %><br> (<%= booking.rep.phone_number %>)
                   <% end %>
                   </td>
+                  <% if !params[:status].nil? %>
+                    <td>
+  			            <% if booking.vendor.present? %>
+  			            	<%= booking.vendor.name %>
+  			            <%end %>
+                    </td>
+                    <td>
+                    <% if booking.operator.present? %>
+                      <%= booking.operator.name %> <br>
+                      <%= booking.operator.phone_number %>
+                    <%end %>
+                    </td>
+                  <%end%>
                   <td><%=booking.ui_status%></td>
-                  <td>
-			            <% if booking.vendor.present? %>
-			            	<%= booking.vendor.name %>
-			            <%end %>
-                  </td>
 			            <% if @show_cost.present? %>
-			            	<td><%= booking.cost %></td>
+			            	<td>
+                    <button onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
+                    Invoice
+                    </button>
+                    <% if current_user.is_admin_or_owner? %>
+
+                    Cost = <%= booking.cost ? booking.cost : 0.0  %>
+                    <br>
+                    <% if booking.status == "completed" %>
+                    Running hours = <%= booking.actual_hours %>
+                    <%end%>
+                    <%end%>
+                    </td>
 			            <%end%>
 			            <% if params[:status].nil? %>
 			            	<td class="admin_actions">
@@ -71,7 +100,9 @@
 			            		</button>
 			            	</td>
 			            <%end%>
-                  <td><%=booking.hours_status%></td>
+                  <% if params[:status] == "previous" %>
+                    <td><%=booking.hours_status%></td>
+                  <%end%>
 			          </tr>
 			        <% end %>
 
@@ -148,4 +179,6 @@
     });
 
     $("#dashboard_bookings").DataTable();
+    $('[data-toggle="tooltip"]').tooltip();   
+
 </script>

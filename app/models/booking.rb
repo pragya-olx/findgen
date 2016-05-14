@@ -105,6 +105,13 @@ class Booking < ActiveRecord::Base
     ]
   end
 
+  def short_spoc_remarks
+    if self.spoc_remarks.size > 10
+      return spoc_remarks[0..9] + "..."
+    end
+    self.spoc_remarks
+  end
+
   def spoc_data
     [
       ["Name", self.user.name],

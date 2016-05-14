@@ -18,7 +18,7 @@ class UploadsController < ApplicationController
   end
 
   def upload_to_users(data, override = false)
-    if validate_headers(data.first)
+    if validate_headers_users(data.first)
       data.delete_at(0)
       data.each do |x|
         begin

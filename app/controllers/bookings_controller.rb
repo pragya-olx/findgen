@@ -110,13 +110,34 @@ class BookingsController < ApplicationController
   end
 
   def invoice
-    booking = Booking.find params[:id]
+    booking = Booking.find_by_name params[:id]
     if booking.present?
       booking.invoice_status = params[:invoice_status] if params[:invoice_status].present?
       booking.hours_status = params[:hours_status] if params[:hours_status].present?
     end
     booking.save
     render json: {}, status: 201
+  end
+
+  def details_invoice
+    @booking = Booking.find_by_name params[:id]
+    if @booking.present?
+      @booking.invoice_status = params[:invoice_status] if params[:invoice_status].present?
+      @booking.hours_status = params[:hours_status] if params[:hours_status].present?
+    end
+    if @booking.lisp.present? and @booking.kva.present?
+      @per_day = per_day_cost(@booking.lisp, @booking.kva)
+      @per_hour = per_hour_cost(@booking.lisp, @booking.kva)
+      if @booking.actual_hours.present?
+        total = @per_day + @booking.actual_hours.to_i*@per_hour
+        total += 1500 if @booking.is_mobile?
+        @management_charges = total * 0.1
+        @booking.cost = total + @management_charges
+        @booking.save
+      end
+    end
+    @booking.save
+    render 'details_invoice'
   end
 
   def create

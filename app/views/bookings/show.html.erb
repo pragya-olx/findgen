@@ -219,13 +219,19 @@
         </div>
             <div class="actions">
                 <br>
-              <%= f.submit 'Save', :class => "btn btn-primary" %>
+              <%= f.submit 'Save', :class => "save btn btn-primary" %>
             </div>
       </div>
 
 <% end %>
 
 <script type="text/javascript">
+    $("form").on('submit', function(event){
+        if(!confirm("Are you sure you want to update booking ?")) {
+            event.preventDefault();
+        }
+    })
+
     var input_vendor = $('#operators');
     if ($('#booking_vendor_id').val() != "") {
         $.getJSON('/operators/' + $('#booking_vendor_id').val(), function (data) {

@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Office Location</th>
             <th>Email</th>
             <th>Phone number</th>
             <th>Role Type</th>
@@ -14,7 +13,6 @@
         <% @employees.each do |user| %>
           <tr data-id=<%user.id%> >
             <td><a onclick="window.location='/users/' + <%=user.id%>"><%= user.name %></a></td>
-            <td><%= user.location %></td>
             <td><%= user.email %></td>
             <td><%= user.phone_number %></td>
             <td>
