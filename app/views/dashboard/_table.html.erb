@@ -70,7 +70,7 @@
                 <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
                 <td>
                     <% if (booking.cost? and booking.cost > 0)  %>
-                    <button class="btn btn-primary btn-sm" onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
+                    <button class="btn btn-primary btn-sm invoice_details" data-name=<%=booking.name%> >
                     Invoice
                     </button>
                         <% if current_user.is_admin_or_owner? %>
@@ -127,12 +127,7 @@
         location = '/bookings/' + id.trim();
     })
 
-    $(".lisp_id").on('click', function(event) {
-        id = $(this).text()
-        location = '/lisps/unknown?code=' + id.trim();
-    })
-
-    $(".cancel_btn").on('click', function(){
+    $(".cancel_btn").on('click', function(event){
         if (confirm("Are you sure you want to cancel?")) {
           id = $(this).data('id')
           cancel_url = "/bookings/" + id + "/cancel"
@@ -148,7 +143,7 @@
         event.stopPropagation();
     });
 
-    $(".approve_btn").on('click', function(){
+    $(".approve_btn").on('click', function(event){
         if (confirm("Are you sure you want to approve?")) {
           id = $(this).data('id')
           $.ajax({
@@ -233,6 +228,10 @@
         event.stopPropagation();
     })
      
+    $(".invoice_details").click(function(event){
+        window.location= '/bookings/' + $(this).data('name') + '/details_invoice'
+        event.stopPropagation()
+    })
 
     $("#bookings").DataTable();
     $('[data-toggle="tooltip"]').tooltip();   

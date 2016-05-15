@@ -79,7 +79,7 @@
                   <td><%=booking.ui_status%></td>
 			            <% if @show_cost.present? %>
 			            	<td>
-                    <button class="btn btn-primary btn-sm" onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
+                    <button class="btn btn-primary btn-sm invoice_details" data-name=<%=booking.name%> >
                     Invoice
                     </button>
                     <% if current_user.is_admin_or_owner? %>
@@ -123,11 +123,6 @@
 		$("#owner_pending").addClass('active')
 	}
 
-    $(".lisp_id").on('click', function(event) {
-        id = $(this).text()
-        location = '/lisps/unknown?code=' + id.trim();
-    })
-
     $(".reject_btn").on('click', function(event) {
       if (confirm("Are you sure you want to reject?")) {
       	id = $(this).parent().parent().data('id')
@@ -145,14 +140,15 @@
       event.stopPropagation();
     })
 
-    $(".accept_btn").on('click', function(){
+    $(".accept_btn").on('click', function(event){
     	id = $(this).parent().parent().data('id')
     	if (id) {
     		window.current_booking_id = id
     	}
+
     })
 
-    $("#accept_booking").on('click', function(){
+    $("#accept_booking").on('click', function(event){
     	$.ajax({
     		url: "/bookings/" + window.current_booking_id + "/accept",
     		data: {
@@ -180,6 +176,11 @@
         });
       });
     });
+
+    $(".invoice_details").click(function(event){
+        window.location= '/bookings/' + $(this).data('name') + '/details_invoice'
+        event.stopPropagation()
+    })
 
     $("#dashboard_bookings").DataTable();
     $('[data-toggle="tooltip"]').tooltip();   
