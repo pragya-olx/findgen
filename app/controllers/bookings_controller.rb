@@ -108,7 +108,7 @@ class BookingsController < ApplicationController
   end
 
   def invoice
-    booking = Booking.find_by_name params[:id]
+    booking = Booking.find params[:id]
     if booking.present?
       booking.invoice_status = params[:invoice_status] if params[:invoice_status].present?
       booking.hours_status = params[:hours_status] if params[:hours_status].present?
@@ -155,7 +155,7 @@ class BookingsController < ApplicationController
       booking.user = current_user
       booking.client = Client.find(params[:booking][:client_id])
       booking.rep = User.find_by_employee_id(params[:booking][:employee_id])
-      booking.name = "IVTCS010000" + 
+      booking.name = "IVTCS010000"
       booking.location = booking.client.location
       booking.save
       booking.name += booking.id.to_s

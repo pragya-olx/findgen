@@ -20,9 +20,11 @@
             <th>Status</th>
             <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
             <th>Invoice</th>
+            <th>Running hours</th>
             <%end%>
             <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
             <th>SPOC Verified</th>
+            <th>Admin Verified</th>
             <%end%>
             <% if current_user.is_approver? or current_user.is_spoc? %>
             <th>Actions</th>
@@ -35,8 +37,8 @@
             <td><%= booking.name %></td>
             <td><%= booking.created_at.to_formatted_s(:long) %></td>
             <td><%= booking.start_date.to_formatted_s(:long) %>
-            <br><%= booking.time_in %> - <%= booking.time_out %></td>
-            <td><%= booking.gen_type %> - <%= booking.kva %> KVA</td>
+            <br><%= booking.time_in %>-<%= booking.time_out %></td>
+            <td><%= booking.gen_type %>-<%= booking.kva %> KVA</td>
             <td><%= lisp.zone %></td>
             <td><%= lisp.state %></td>
             <td><%= lisp.city %></td>
@@ -67,22 +69,38 @@
             <td><%= booking.ui_status %></td>
                 <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
                 <td>
-                    <% if booking.actual_hours.present? or (booking.cost? and booking.cost > 0)  %>
-                    <button onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
+                    <% if (booking.cost? and booking.cost > 0)  %>
+                    <button class="btn btn-primary btn-sm" onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
                     Invoice
                     </button>
                         <% if current_user.is_admin_or_owner? %>
                         Cost = <%= booking.cost %>
-                        <br>
-                        Running hours = <%= booking.actual_hours ? booking.actual_hours : 0 %>
                         <%end%>
                     <% else %>
                         Cost = <%= booking.cost ? booking.cost : 0.0  %>
                     <% end %>
                 </td>
+                <td>
+                <%= booking.actual_hours ? booking.actual_hours : 0 %>
+                </td>
             <%end%>
             <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
-            <td> <%=booking.hours_status%> </td>
+            <td> 
+                <% if booking.hours_status.present? %>
+                    <%=booking.hours_status%> 
+                <% elsif current_user.is_spoc? %>
+                    <button class="btn btn-default btn-sm spoc_accept_btn" data-id=<%=booking.id%>  >Accept</button>
+                    <button class="btn btn-danger btn-sm spoc_reject_btn" data-id=<%=booking.id%>>Reject</button>
+                <% end %>
+            </td>
+            <td> 
+                <% if booking.invoice_status.present? %>
+                    <%=booking.invoice_status%> 
+                <% elsif current_user.is_admin? %>
+                    <button class="btn btn-default btn-sm admin_accept_btn" data-id=<%=booking.id%>  >Accept</button>
+                    <button class="btn btn-danger btn-sm admin_reject_btn" data-id=<%=booking.id%>>Reject</button>
+                <% end %>
+            </td>
             <%end%>
 
             <% if current_user.is_approver? and booking.status == "pending" %>
@@ -127,6 +145,7 @@
             alert("There was an error cancelling the booking")
           })
         }
+        event.stopPropagation();
     });
 
     $(".approve_btn").on('click', function(){
@@ -141,7 +160,79 @@
             alert("There was an error approving the booking")
           })
         }
+        event.stopPropagation();
     });
+
+    $(".spoc_accept_btn").on("click", function(event){
+        if (confirm("Are you sure you want to accept?")) {
+            $.ajax({
+              url: '/bookings/' + $(this).data('id') + "/invoice",
+              data: {
+                hours_status: "Accepted"
+              }
+            }).done(function(){
+                $("#success_message").text('Accepted booking, Refreshing the page!').show()
+                setTimeout("location.reload()",1000)
+            }).fail(function(){
+                alert("There was an error verifying the booking")
+            });
+        }
+        event.stopPropagation();
+    })
+
+
+    $(".spoc_reject_btn").on("click", function(event){
+        if (confirm("Are you sure you want to reject?")) {
+            $.ajax({
+              url: '/bookings/' + $(this).data('id') + "/invoice",
+              data: {
+                hours_status: "Rejected"
+              }
+            }).done(function(){
+                $("#success_message").text('Rejected booking, Refreshing the page!').show()
+                setTimeout("location.reload()",1000)
+            }).fail(function(){
+                alert("There was an error verifying the booking")
+            });   
+        }
+        event.stopPropagation();
+    })
+
+    $(".admin_accept_btn").on("click", function(event){
+        if (confirm("Are you sure you want to accept?")) {
+            $.ajax({
+              url: '/bookings/' + $(this).data('id') + "/invoice",
+              data: {
+                invoice_status: "Accepted"
+              }
+            }).done(function(){
+                $("#success_message").text('Accepted booking, Refreshing the page!').show()
+                setTimeout("location.reload()",1000)
+            }).fail(function(){
+                alert("There was an error verifying the booking")
+            });
+        }
+        event.stopPropagation();
+    })
+
+
+    $(".admin_reject_btn").on("click", function(event){
+        if (confirm("Are you sure you want to reject?")) {
+            $.ajax({
+              url: '/bookings/' + $(this).data('id') + "/invoice",
+              data: {
+                invoice_status: "Rejected"
+              }
+            }).done(function(){
+                $("#success_message").text('Rejected booking, Refreshing the page!').show()
+                setTimeout("location.reload()",1000)
+            }).fail(function(){
+                alert("There was an error verifying the booking")
+            });   
+        }
+        event.stopPropagation();
+    })
+     
 
     $("#bookings").DataTable();
     $('[data-toggle="tooltip"]').tooltip();   

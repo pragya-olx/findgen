@@ -147,12 +147,10 @@ class Booking < ActiveRecord::Base
     if self.actual_hours.present?
     [
       ["Running hours", self.actual_hours],
-
     ]
   else
     [
       ["Running hours", "N/A"],
-
     ]
   end
 

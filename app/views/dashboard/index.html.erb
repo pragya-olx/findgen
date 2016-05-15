@@ -30,12 +30,14 @@
                   <th>Status</th>
 			            <% if @show_cost.present? %>
 			            	<th>Invoice</th>
+                    <th>Running Hours</th>
 			            <%end%>
 			            <% if params[:status].nil? %>
 			            <th>Actions</th>
 			            <%end%>
                   <% if params[:status] == "previous" %>
                   <th>SPOC Verified</th>
+                  <th>Admin Verified</th>
                   <%end%>
 			        </tr>
 			    </thead>
@@ -45,8 +47,8 @@
 			            <td><%= booking.name %></td>
                   <td><%= booking.created_at.to_formatted_s(:long) %></td>
 			            <td><%= booking.start_date.to_formatted_s(:long) %>
-			            <br><%= booking.time_in %> - <%= booking.time_out %></td>
-			            <td><%= booking.gen_type %> - <%= booking.kva %> KVA</td>
+			            <br><%= booking.time_in %>-<%= booking.time_out %></td>
+			            <td><%= booking.gen_type %>-<%= booking.kva %> KVA</td>
                   <td><%= lisp.zone %></td>
                   <td><%= lisp.state %></td>
                   <td><%= lisp.city %></td>
@@ -77,17 +79,15 @@
                   <td><%=booking.ui_status%></td>
 			            <% if @show_cost.present? %>
 			            	<td>
-                    <button onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
+                    <button class="btn btn-primary btn-sm" onclick="window.location='/bookings/<%=booking.name%>/details_invoice'" >
                     Invoice
                     </button>
                     <% if current_user.is_admin_or_owner? %>
-
                     Cost = <%= booking.cost ? booking.cost : 0.0  %>
-                    <br>
-                    <% if booking.status == "completed" %>
-                    Running hours = <%= booking.actual_hours %>
                     <%end%>
-                    <%end%>
+                    </td>
+                    <td>                 
+                    <%= booking.actual_hours ? booking.actual_hours : 0 %>
                     </td>
 			            <%end%>
 			            <% if params[:status].nil? %>
@@ -102,6 +102,7 @@
 			            <%end%>
                   <% if params[:status] == "previous" %>
                     <td><%=booking.hours_status%></td>
+                    <td><%=booking.invoice_status%></td>
                   <%end%>
 			          </tr>
 			        <% end %>
@@ -141,6 +142,7 @@
       		})
       	}
       }
+      event.stopPropagation();
     })
 
     $(".accept_btn").on('click', function(){
@@ -165,6 +167,7 @@
     	}).fail(function(){
     		alert("There was an error in accepting the booking")
     	})
+      event.stopPropagation();
     })
 
     $('#vendors').change(function () {

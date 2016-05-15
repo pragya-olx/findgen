@@ -1,8 +1,12 @@
 <%= render "invoice" %>
 
+<div>
+<button class="booking-edit back-btn btn btn-primary glyphicon glyphicon-arrow-left"></button>
+</div>
 <%= form_for @booking do |f| %>
 
     <div class="booking-edit">
+
         <div class="panel panel-default">
             <div class="panel-heading"> Booking Details </div>
             <div class="panel-body">
@@ -215,12 +219,13 @@
                     <%= f.label :remarks %>
                     <%= f.text_field :owner_remarks %>
                 </div>
+                <div class="actions">
+                <br>
+              <%= f.submit 'Update', :class => "save btn btn-primary" %>
+            </div>
             </div>
         </div>
-            <div class="actions">
-                <br>
-              <%= f.submit 'Save', :class => "save btn btn-primary" %>
-            </div>
+            
       </div>
 
 <% end %>
@@ -283,5 +288,9 @@
     } else {
         $("#booking_actual_hours").attr('required', false)
     }
+
+    $(".back-btn").click(function(){
+        history.back()
+    })
 
 </script>

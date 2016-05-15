@@ -259,3 +259,7 @@ div#user_form_error {
 .loading {
   display: none;
 }
+
+.back-btn {
+  margin-bottom: 10px; 
+}
