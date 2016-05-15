@@ -48,15 +48,17 @@ class ClientsController < ApplicationController
     status = params[:booking_status].nil? ? "accepted" : params[:booking_status]
 
     if current_user.is_approver?
-      group = Group.find_by_user_id(current_user.id)
+      groups = Group.where(:user_id => current_user.id)
       spoc_ids = []
-      if group.present?
-        subgroups = Subgroup.where(:group_id => group.id)
-        spoc_ids = User.where(:subgroup_id => subgroups)
-      else
-        subgroup = Subgroup.find_by_user_id(current_user.id)
-        if subgroup.present?
-          spoc_ids = User.where(:subgroup_id => subgroup.id)
+      groups.each do |group|
+        if group.present?
+          subgroups = Subgroup.where(:group_id => group.id).pluck(:id)
+          spoc_ids += User.where(:subgroup_id => subgroups).pluck(:id)
+        else
+          subgroup = Subgroup.where(:user_id => current_user.id)
+          if subgroup.present?
+            spoc_ids += User.where(:subgroup_id => subgroup.id)
+          end
         end
       end
       if status == "cancelled"
