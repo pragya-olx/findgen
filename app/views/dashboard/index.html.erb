@@ -145,7 +145,8 @@
     	if (id) {
     		window.current_booking_id = id
     	}
-
+      $("#assignVendor").modal('show')
+      event.stopPropagation();
     })
 
     $("#accept_booking").on('click', function(event){
