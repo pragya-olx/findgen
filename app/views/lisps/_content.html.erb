@@ -80,7 +80,7 @@
 		        </tr>
 			  </thead>
 				<% @lisps.each do |lisp| %>
-				  <tr data-id=<%=lisp.id%> >
+				  <tr onclick="window.location='/lisps/' + '<%=lisp.id%>' " >
 				    <td><%= lisp.name %></td>
             <td><%= lisp.code %></td>
             <td><%= lisp.zone %></td>
@@ -124,13 +124,6 @@
 	    alert(data.error().responseText)
 	  });
 	});
-
-	$('table').on('click','tr', function(event) {
-        id = $(this).data('id')
-        if(id){
-        	location = '/lisps/' + id;
-        }
-    });
 
     $('table').DataTable();
 

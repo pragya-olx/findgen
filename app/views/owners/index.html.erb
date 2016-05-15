@@ -51,8 +51,8 @@
 		        </tr>
 			  </thead>
 				<% @owners.each do |owner| %>
-				  <tr>
-				  	<td><a onclick="window.location='/users/' + <%=owner.id%>"><%= owner.name %></a></td>
+				  <tr onclick="window.location='/users/' + <%=owner.id%>">
+				  	<td><%= owner.name %></td>
 				    <td><%= owner.email %></td>
 				    <td><%= owner.phone_number %></td>
 				    <td><%= owner.role_type %></td>

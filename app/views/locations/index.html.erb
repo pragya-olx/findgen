@@ -92,8 +92,8 @@
 		        </tr>
 			  </thead>
 				<% @locations.each do |location| %>
-				  <tr>
-				  	<td><a onclick="window.location='/locations/' + <%=location.id%>"><%= location.state %></a></td>
+				  <tr onclick="window.location='/locations/' + <%=location.id%>">
+				  	<td><%= location.state %></td>
 				    <td><%= location.kva_30_day %></td>
 				    <td><%= location.kva_30_hour %></td>
 				    <td><%= location.kva_70_day %></td>

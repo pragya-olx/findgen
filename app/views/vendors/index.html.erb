@@ -66,8 +66,8 @@
 		        </tr>
 			  </thead>
 				<% @vendors.each do |vendor| %>
-				  <tr>
-				  	<td><a onclick="window.location='/users/' + <%=vendor.id%>"><%= vendor.name %></a></td>
+				  <tr onclick="window.location='/users/' + <%=vendor.id%>">
+				  	<td><%= vendor.name %></td>
 				    <td><%= vendor.state %></td>
 				    <td><%= vendor.city %></td>
 				    <td><%= vendor.email %></td>

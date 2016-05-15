@@ -42,7 +42,7 @@
             </tr>
         </thead>
         <% @assessments.each do |x| %>
-          <tr data-id=<%=x.id%> >
+          <tr onclick="window.location='/assessments/' + '<%=x.id%>' " >
             <td><%= x.code %></td>
           </tr>
         <% end %>

@@ -91,7 +91,7 @@ class Booking < ActiveRecord::Base
     [
       ["ID", self.name],
       ["Location", self.location],
-      ["Required_on", self.start_date],
+      ["Required_on", self.start_date.to_formatted_s(:long)],
       ["Time In", self.time_in],
       ["Time Out", self.time_out],
       ["KVA", self.kva],

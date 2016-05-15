@@ -61,8 +61,8 @@
             </tr>
         </thead>
         <% @subgroups.each do |subgroup| %>
-          <tr data-id=<%=subgroup.id%> >
-            <td><a onclick="window.location='/subgroups/' + <%=subgroup.id%>"><%= subgroup.name %></a></td>            
+          <tr data-id=<%=subgroup.id%> onclick="window.location='/subgroups/' + <%=subgroup.id%>" >
+            <td><%= subgroup.name %></td>            
             <td><%= subgroup.group.name %></td>
             <td><%= subgroup.user.name %></td>
             <td><%= subgroup.user.employee_id %></td>

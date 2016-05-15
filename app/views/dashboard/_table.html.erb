@@ -31,10 +31,10 @@
     </thead>
         <% @bookings.each do |booking| %>
             <% lisp = Lisp.find_by_code(booking.lisp) %>
-          <tr>
-            <td><a onclick="window.location='/bookings/' + '<%=booking.name%>' "><%= booking.name %></a></td>
+          <tr onclick="window.location='/bookings/' + '<%=booking.name%>' ">
+            <td><%= booking.name %></td>
             <td><%= booking.created_at.to_formatted_s(:long) %></td>
-            <td><%= booking.start_date %>
+            <td><%= booking.start_date.to_formatted_s(:long) %>
             <br><%= booking.time_in %> - <%= booking.time_out %></td>
             <td><%= booking.gen_type %> - <%= booking.kva %> KVA</td>
             <td><%= lisp.zone %></td>
