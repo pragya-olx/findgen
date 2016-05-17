@@ -10,7 +10,7 @@
         <div class="form-group">
             <label>Name <span class="red">*</span></label>
             <br>
-            <input required type="text" class="form-control" id="lisp_name"></input>
+            <input required pattern="[a-zA-Z0-9]+" type="text" required class="form-control" id="lisp_name" oninvalid="setCustomValidity('No Special Characters are allowed in Name')" oninput="try{setCustomValidity('')}catch(e){}"></input>
          </div>
 
 
@@ -26,19 +26,22 @@
 		<div class="form-group">
     		<label>City <span class="red">*</span></label>
     		<br>
-    		<input required type="text" class="form-control" id="lisp_city"></input>
+    		<input required type="text" class="form-control" id="lisp_city" pattern="[a-zA-Z0-9]+" 
+            oninvalid="setCustomValidity('No Special Characters are allowed in City')" oninput="try{setCustomValidity('')}catch(e){}"></input>
     	</div>
 
          <div class="form-group">
             <label>Zone <span class="red">*</span></label>
             <br>
-            <input required type="text" class="form-control" id="lisp_zone"></input>
+            <input required type="text" class="form-control" id="lisp_zone" pattern="[a-zA-Z0-9]+" 
+            oninvalid="setCustomValidity('No Special Characters are allowed in Zone')" oninput="try{setCustomValidity('')}catch(e){}"></input>
         </div>
 
            <div class="form-group">
             <label>Address <span class="red">*</span></label>
             <br>
-            <input required type="text" class="form-control" id="lisp_address"></input>
+            <input required type="text" class="form-control" id="lisp_address" pattern="[a-zA-Z0-9-/]+" 
+            oninvalid="setCustomValidity('Special characters other than \- and \/ are not allowed in Address')" oninput="try{setCustomValidity('')}catch(e){}"></input>
             </div>
 
            <div class="form-group">
