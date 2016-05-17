@@ -10,7 +10,7 @@
         <div class="form-group">
             <label>Name <span class="red">*</span></label>
             <br>
-            <input required type="text" class="form-control" id="subgroup_name"></input>
+            <input required type="text" class="form-control" id="subgroup_name" pattern="[a-zA-Z0-9 ]+" oninvalid="setCustomValidity('No Special Characters are allowed in Name')" oninput="try{setCustomValidity('')}catch(e){}"></input>
          </div>
 
           <div class="form-group">

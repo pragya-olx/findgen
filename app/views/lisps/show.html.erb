@@ -8,27 +8,27 @@
             <tbody>
             <tr>
                 <th> <%= f.label :name %></th>
-                <td><%= f.text_field(:name, :class => "form-control", :required =>true) %></td>
+                <td><%= f.text_field(:name, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
             </tr>
             <tr>
                 <th><%= f.label :code %></th>
-                <td><%= f.text_field(:code, :class => "form-control", :required =>true) %></td>
+                <td><%= f.text_field(:code, :class => "form-control", :required =>true, :pattern => '[0-9]+', :oninvalid => "setCustomValidity('Please enter Numeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
             </tr>
             <tr>
                 <th><%= f.label :zone %></th>
-                <td><%= f.text_field(:zone, :class => "form-control", :required =>true) %></td>
+                <td><%= f.text_field(:zone, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
             </tr>
           	<tr>
                 <th><%= f.label :state %></th>
-                <td><%= f.text_field(:state, :class => "form-control", :required =>true) %></td>
+                <td><%= f.text_field(:state, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
             </tr>
             <tr>
                 <th><%= f.label :city %></th>
-                <td><%= f.text_field(:city, :class => "form-control", :required =>true) %></td>
+                <td><%= f.text_field(:city, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
             </tr>
             <tr>
                 <th><%= f.label :address %></th>
-                <td><%= f.text_field(:address, :class => "form-control", :required =>true) %></td>
+                <td><%= f.text_field(:address, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9\-\/ ]+', :oninvalid => "setCustomValidity('Special characters other than \- and \/ are not allowed in Address')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
             </tr>
             </tbody>
         </table>
