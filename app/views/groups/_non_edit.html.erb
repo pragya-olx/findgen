@@ -1,0 +1,25 @@
+<%= form_for @group do |f| %>
+    <div class="booking-edit panel panel-default">
+        <div class="panel-heading"> Group Details </div>
+        <div class="panel-body">
+
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th>
+                    <%= f.label :name %>
+                </th>
+                <td>
+                    <%= @group.name %>
+                </td>
+            </tr>
+
+            <tr>
+                <th><%= f.label :auth_name %></th>
+                <td><%= @group.user.name %></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+<% end %>

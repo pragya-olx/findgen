@@ -1,0 +1,37 @@
+
+<%= form_for @lisp do |f| %>
+    <div class="booking-edit panel panel-default">
+        <div class="panel-heading"> LISP Details </div>
+        <div class="panel-body">
+
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th> <%= f.label :name %></th>
+                <td><%= @lisp.name %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :code %></th>
+                <td><%= @lisp.code %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :zone %></th>
+                <td><%= @lisp.zone %></td>
+            </tr>
+          	<tr>
+                <th><%= f.label :state %></th>
+                <td><%= @lisp.state %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :city %></th>
+                <td><%= @lisp.city %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :address %></th>
+                <td><%= @lisp.address %></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+<% end %>
