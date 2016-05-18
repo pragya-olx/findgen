@@ -24,7 +24,7 @@
                   <th>SPOC</th>
                   <th>SPOC Remarks </th>
                   <th>Rep</th>
-                  <% if !params[:status].nil? %>
+                  <% if !params[:status].nil? and params[:status] != "pending_approval" %>
 			            <th>Vendor</th>
                   <th>Operator</th>
                   <%end%>
@@ -64,7 +64,7 @@
                       <%= booking.rep.name %><br> (<%= booking.rep.phone_number %>)
                   <% end %>
                   </td>
-                  <% if !params[:status].nil? %>
+                  <% if !params[:status].nil? and params[:status] != "pending_approval" %>
                     <td>
   			            <% if booking.vendor.present? %>
   			            	<%= booking.vendor.name %>
