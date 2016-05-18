@@ -16,6 +16,8 @@ class DashboardController < ApplicationController
           @show_cost = true
         elsif params[:status] == "accepted"
           @bookings = Booking.where(:status => "accepted")
+        elsif params[:status] == "pending_approval"
+          @bookings = Booking.where(:status => "pending")          
         end
       end
     end
