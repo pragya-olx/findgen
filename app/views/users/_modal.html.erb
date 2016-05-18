@@ -9,7 +9,7 @@
         <form id="userForm">
         <div class="form-group">
           <label for="name">Name <span class="red">*</span></label>
-          <input required type="text" class="form-control" id="user_name">
+          <input required type="text" class="form-control" id="user_name" pattern="[a-zA-Z0-9 ]+" oninvalid="setCustomValidity('No Special Characters are allowed in Name')" oninput="try{setCustomValidity('')}catch(e){}">
         </div>
         <div class="form-group">
           <label for="name">Phone number(10 digits) <span class="red">*</span></label>
