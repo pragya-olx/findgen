@@ -8,7 +8,7 @@
             <tbody>
             <tr>
                 <th> <%= f.label :name %></th>
-                <td><%= f.text_field(:name, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
+                <td><%= f.text_field(:name, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
             </tr>
             <tr>
                 <th><%= f.label :code %></th>
