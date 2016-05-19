@@ -129,18 +129,13 @@ class Booking < ActiveRecord::Base
   end
 
   def rep_data
-  match_rep_subgroup = Subgroup.find_by_id(self.rep.subgroup_id)
+  #match_rep_subgroup = Subgroup.find_by_id(self.rep.subgroup_id)
     [
       ["Name", self.rep.name],
       ["Employee Id", self.rep.employee_id],
       ["Email", self.rep.email],
       ["Phone number", self.rep_phone_number],
       ["Role Type", self.rep.role_type],
-      if match_rep_subgroup.present?
-      ["Sub Group", match_rep_subgroup.name]
-      else
-      ["Sub Group", ""]
-      end
     ]
   end
 
@@ -156,17 +151,6 @@ class Booking < ActiveRecord::Base
     end
   end
 
-  def owner_vendor_data
-    if self.vendor.present? and self.operator.present?
-      [
-        ["Vendor Name", self.vendor.name],
-        ["Operator", self.operator.name],
-        ["Operator Phone number", self.operator.phone_number]
-      ]
-    else
-      []
-    end
-  end
 
   def cost_data
     if self.actual_hours.present?
