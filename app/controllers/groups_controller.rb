@@ -19,6 +19,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    @subgroups = Subgroup.where(:group_id => params[:id])
     @approvers = []
     if @group.user.present?
       @approvers = User.where(:client_id => @group.user.client.id, 

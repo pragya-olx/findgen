@@ -30,6 +30,21 @@
                 </td>
             </tr>
             <tr>
+                <th>
+                    <%= f.label :SubGroups %>
+                </th>
+                <td> 
+                    <% count = 1 %>
+                    <% @subgroups.each do |subgroup| %>
+                    <% if @group.id == subgroup.group.id %>
+                    <%= count %>)   <%= subgroup.name %>
+                    <% count+=1 %>
+                    <br>
+                     <% end %>
+                     <% end %>
+                </td>
+            </tr>
+            <tr>
             </tr>
             </tbody>
         </table>
