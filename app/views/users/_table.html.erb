@@ -2,10 +2,10 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Employee Id</th>
             <th>Email</th>
             <th>Phone number</th>
             <th>Role Type</th>
-            <th>Employee Id</th>
             <th>Subgroup</th>
         </tr>
     </thead>
@@ -13,6 +13,7 @@
         <% @employees.each do |user| %>
           <tr onclick="window.location='/users/' + <%=user.id%>">
             <td><%= user.name %></td>
+            <td><%= user.employee_id %></td>
             <td><%= user.email %></td>
             <td><%= user.phone_number %></td>
             <td>
@@ -22,7 +23,6 @@
                     <%= user.role_type %>
                 <%end%>
             </td>
-            <td><%= user.employee_id %></td>
             <td>
                 <%if user.subgroup.present?%>
                     <%= user.subgroup.name %>

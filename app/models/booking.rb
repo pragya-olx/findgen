@@ -90,18 +90,20 @@ class Booking < ActiveRecord::Base
     match_lisp = Lisp.find_by_code(self.lisp)
     [
       ["ID", self.name],
-      ["Location", self.location],
+      #["Location", self.location],
+       ["Submitted On", self.created_at.to_formatted_s(:long)],
       ["Required_on", self.start_date.to_formatted_s(:long)],
       ["Time In", self.time_in],
       ["Time Out", self.time_out],
+      ["Generator", self.gen_type],
       ["KVA", self.kva],
-      ["LISP Name", match_lisp.name],
-      ["LISP Code", match_lisp.code],
       ["Zone", match_lisp.zone],
       ["State", match_lisp.state],
       ["City", match_lisp.city],
-      ["Assessment", self.assessment],
-      ["Submitted On", self.created_at.to_formatted_s(:long)]
+      ["LISP Code", match_lisp.code],
+      ["LISP Name", match_lisp.name],
+      ["LISP Address", match_lisp.address],
+      ["Assessment", self.assessment]
     ]
   end
 
@@ -113,25 +115,48 @@ class Booking < ActiveRecord::Base
   end
 
   def spoc_data
+    match_spoc_subgroup = Subgroup.find_by_id(self.user.subgroup_id)
     [
-      ["Name", self.user.name],
-      ["Email", self.user.email],
+      ["Employee Name", self.user.name],
       ["Employee Id", self.user.employee_id],
-      ["Spoc Remarks", self.spoc_remarks],
+      ["Email ID", self.user.email],
+      ["Phone Number", self.user.phone_number],
+      ["Role Type", self.user.role_type],
+      ["Sub Group", match_spoc_subgroup.name],
+      ["Spoc Remarks", self.spoc_remarks]
     ]
 
   end
 
   def rep_data
+  match_rep_subgroup = Subgroup.find_by_id(self.rep.subgroup_id)
     [
       ["Name", self.rep.name],
-      ["Email", self.rep.email],
       ["Employee Id", self.rep.employee_id],
+      ["Email", self.rep.email],
       ["Phone number", self.rep_phone_number],
+      ["Role Type", self.rep.role_type],
+      if match_rep_subgroup.present?
+      ["Sub Group", match_rep_subgroup.name]
+      else
+      ["Sub Group", ""]
+      end
     ]
   end
 
   def vendor_data
+    if self.vendor.present? and self.operator.present?
+      [
+        ["Vendor Name", self.vendor.name],
+        ["Operator", self.operator.name],
+        ["Operator Phone number", self.operator.phone_number]
+      ]
+    else
+      []
+    end
+  end
+
+  def owner_vendor_data
     if self.vendor.present? and self.operator.present?
       [
         ["Vendor Name", self.vendor.name],
