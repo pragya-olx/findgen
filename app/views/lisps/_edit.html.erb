@@ -1,0 +1,40 @@
+
+<%= form_for @lisp do |f| %>
+    <div class="booking-edit panel panel-default">
+        <div class="panel-heading"> LISP Details </div>
+        <div class="panel-body">
+
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th> <%= f.label :name %></th>
+                <td><%= f.text_field(:name, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :code %></th>
+                <td><%= @lisp.code %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :zone %></th>
+                <td><%= f.text_field(:zone, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
+            </tr>
+          	<tr>
+                <th><%= f.label :state %></th>
+                <td><%= f.text_field(:state, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :city %></th>
+                <td><%= f.text_field(:city, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9 ]+', :oninvalid => "setCustomValidity('Please enter Alphanumeric value only.')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :address %></th>
+                <td><%= f.text_field(:address, :class => "form-control", :required =>true, :pattern => '[A-Za-z0-9\-\/ ]+', :oninvalid => "setCustomValidity('Special characters other than \- and \/ are not allowed in Address')", :oninput => "try{setCustomValidity('')}catch(e){}") %></td>
+            </tr>
+            </tbody>
+        </table>
+        <% if current_user.is_admin? %>
+            <%= f.submit 'Save' %>
+        <%end%>
+        </div>
+    </div>
+<% end %>

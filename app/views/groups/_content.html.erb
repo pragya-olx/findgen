@@ -1,4 +1,4 @@
-<div class="modal fade" id="createGroup" role="dialog">
+  <div class="modal fade" id="createGroup" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,7 +10,7 @@
         <div class="form-group">
             <label>Name <span class="red">*</span></label>
             <br>
-            <input required type="text" class="form-control" id="group_name"></input>
+            <input required type="text" class="form-control" id="group_name" pattern="[a-zA-Z0-9 ]+" oninvalid="setCustomValidity('No Special Characters are allowed in Name')" oninput="try{setCustomValidity('')}catch(e){}"></input>
          </div>
 
           <div class="form-group">
@@ -48,6 +48,7 @@
               <th>Name</th>
               <th>Auth Employee Name</th>
               <th>Auth Employee Id</th>
+              <th>SubGroups</th>
             </tr>
         </thead>
         <% @groups.each do |group| %>
@@ -55,6 +56,16 @@
             <td><%= group.name %></td>
             <td><%= group.user.name %></td>
             <td><%= group.user.employee_id %></td>
+            <td> 
+              <% count = 1 %>
+              <% @subgroups.each do |subgroup| %>
+                <% if group.id == subgroup.group.id %>
+                  <%= count %>)   <%= subgroup.name %>
+                  <% count+=1 %>
+                   <br>
+                 <% end %>
+               <% end %>
+            </td>
           </tr>
         <% end %>
       </table> 

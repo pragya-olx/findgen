@@ -1,0 +1,32 @@
+
+<%= form_for @subgroup do |f| %>
+    <div class="booking-edit panel panel-default">
+        <div class="panel-heading"> Subgroup Details </div>
+        <div class="panel-body">
+
+        <table class="table table-horizontal table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th>
+                    <%= f.label :name %>
+                </th>
+                <td>
+                    <%= @subgroup.name%>
+                </td>
+            </tr>
+
+            <tr>
+                <th><%= f.label :auth_name %></th>
+                <td><%= @subgroup.user.name %></td>
+            </tr>
+            <tr>
+                <th><%= f.label :group_name %></th>
+                <td><%= @subgroup.group.name %></td>
+            </tr>
+            <tr>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+<% end %>

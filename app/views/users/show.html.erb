@@ -2,6 +2,10 @@
   Invalid access
 <%else%>
 
+<div>
+<button class="booking-edit back-btn btn btn-primary glyphicon glyphicon-arrow-left"></button>
+</div>
+
 <div class="container main-content">
   <% if current_user.is_admin_or_owner? %>
     <%= render 'edit.html.erb' %>
@@ -73,6 +77,10 @@
         if(!confirm("Are you sure you want to update user info ?")) {
             event.preventDefault();
         }
+    })
+
+     $(".back-btn").click(function(){
+        history.back()
     })
 
 </script>
