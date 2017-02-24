@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :assessments
   resources :uploads
 
+
   resources :bookings do
     member do
       get 'approve'
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
     member do
       get 'add_operator'
       get 'update_password'
+      get 'checkifemployee_exists'
     end
   end
 
@@ -48,7 +50,7 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

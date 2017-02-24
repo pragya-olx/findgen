@@ -9,7 +9,7 @@
             </button>
         <% end %>
     </div>
-    
+
 
     <div class="row">
 		<%= render "users/table.html.erb" %>
@@ -31,17 +31,37 @@
         $('#userForm').find('input[type=submit]').click()
     });
 
+    $("#user_employee_id").on("click", function() {
+      request = void 0;
+      employeeid = $('#user_employee_id').val()
+      request = $.ajax({
+        url: '/users/checkifemployeeExists',
+        data: {
+          employeeid : $('#user_employee_id').val(),
+          id: '1'
+        }
+      });
+      request.done(function(data, textStatus, jqXHR) {
+        alert(data);
+        $('#save_user').show();
+        location.reload()
+      });
+      request.error(function(jqXHR, textStatus, errorThrown) {
+        alert("AJAX Error:" + textStatus);
+        $('#save_user').hide();
+      });
+  });
+
     $('#userForm').on('submit', function(event) {
         event.preventDefault();
 
-        if(!$("#userForm")[0].checkValidity() || $("#user_name").val() == "" || 
+        if(!$("#userForm")[0].checkValidity() || $("#user_name").val() == "" ||
             $("#user_phone_number").val() == "" || $('#role_type').val() == "" ||
             $('#user_employee_id').val() == ""
           ) {
           $("#user_form_error").show()
           return
         }
-        $("#save_user").hide()
         $("#save_user_loading").show()
       formData = {
         user: {
@@ -54,11 +74,12 @@
             subgroup_id: $('#user_subgroup_id').val(),
             approver_type: $("#approver_type").val()
         }
-      }   
+      }
       $.post({
         url: '/users',
         data: formData}).done(function(data){
-        location.reload()
+          alert("user created Successfully");
+          location.reload();
       }).fail(function(data){
         alert(data.error().responseText);
       });

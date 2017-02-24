@@ -20,11 +20,11 @@ class UsersController < ApplicationController
       users = users.where(:client_id => params[:client_id])
     end
     users.includes(:subgroup)
-    render json: users.to_json(include: :subgroup), status: 201 
+    render json: users.to_json(include: :subgroup), status: 201
   end
 
   def new
-    @user = User.new 
+    @user = User.new
   end
 
   def create
@@ -53,25 +53,38 @@ class UsersController < ApplicationController
         @user.subgroup = Subgroup.find(params[:user][:subgroup_id])
       end
       @user.save
-      @user.notify
-      render json: {}, status: 201 
+      redirect_to "/users/#{@user.id}", :flash => {:notice => "Successfully created user"}
     rescue => e
       Rails.logger.error e.message
       render json: e.message, status: 500
     end
-    
+
   end
 
-  def show
+  def checkifemployeeExists
     @user = User.find(params[:id])
+    existing_user = User.find_by_employee_id(params[:employeeid])
+      if existing_user.present?
+         @user.destroy
+      end
+       @user.destroy
+ end
+
+  def show
+    @user =   User.find(params[   :id])
     if @user.client.present?
       @subgroups = Subgroup.where(:client_id => @user.client.id)
     end
   end
 
+  def destroy
+  # ... your code ...
+    head :ok # this will return HTTP 200 OK to jQuery!
+  end
+
   def update
     @user = User.find(params[:id])
-    @user.update!(params.require(:user).permit(:name, :email, :phone_number, 
+    @user.update!(params.require(:user).permit(:name, :email, :phone_number,
       :encrypted_password, :employee_id, :role_type, :subgroup_id,
       :approver_type))
     Rails.logger.info("Is Approver = #{@user.is_approver?}")
@@ -80,6 +93,7 @@ class UsersController < ApplicationController
       @user.approver_type = nil
       @user.save
     end
+
     if @user.client.present?
       redirect_to "/clients/#{@user.client.id}#users", :flash => {:notice => "Successfully updated user"}
     else
