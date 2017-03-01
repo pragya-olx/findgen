@@ -27,9 +27,9 @@
               <th><%= f.label :Role %></th>
               <td>
                 <% if current_user.is_owner? %>
-                <%= f.select(:role_type, ['owner', 'vendor', 'admin', 'approver', 'spoc', 'employee']) %>
+                <%= f.select( :role_type, ['owner', 'vendor', 'admin', 'approver', 'spoc', 'employee']) %>
                 <%else%>
-                <%= f.select(:role_type, ['admin', 'approver', 'spoc', 'employee']) %>
+                <%= f.select( :role_type, ['admin', 'approver', 'spoc', 'employee']) %>
                 <%end%>
               </td>
             </tr>
@@ -82,7 +82,7 @@
                 </td>
             </tr>
             <%end%>
-            <tr>
+            <tr id="employee_id_field">
                 <th><label>Employee Id</label></th>
                 <td><%= f.number_field(:employee_id, :class => "form-control",:readonly => true) %></td>
             </tr>
@@ -105,9 +105,21 @@
         } else {
             $("#approver_row").hide()
         }
+        if($('#user_employee_id').val() == '1' && window.loggedInuser == 'owner')
+        {
+          alert('YOU CANT CHANGE YOUR ROLE TYPE');
+          $("#user_role_type").val('owner');
+        }
     })
 
     <% if !@user.is_approver? %>
         $("#approver_row").hide()
+    <%end%>
+
+    <% if @user.is_owner? %>
+      window.loggedInuser = 'owner';
+      if($('#user_employee_id').val() == '1'){
+        $("#user_role_type").val('owner');
+      }
     <%end%>
 </script>
