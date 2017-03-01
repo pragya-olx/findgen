@@ -22,7 +22,7 @@
 
         <div class="form-group">
           <label for="location">Employee Id <span class="red">*</span></label>
-          <input required type="number" class="form-control" id="user_employee_id">
+          <input required type="number" class="form-control" id="user_employee_id" oninput="checkIfemployeeExists()">
         </div>
 
         <div class="form-group">
@@ -82,4 +82,27 @@
   })
   $("#subgroup_select").hide()
   $("#approver_type_select").hide()
+
+
+  function checkIfemployeeExists()
+  {
+        formData = {
+            user: {
+                name : $('#user_name').val(),
+                employee_id: $('#user_employee_id').val(),
+                role_type : $('#role_type').val(),
+                email: $('#user_email').val()
+            }
+         };
+        $.post({
+            url: '/users/check_if_employee_exists',
+            data: formData
+          }).done(function(data){
+              $("#save_user").show()
+          }).fail(function(data){
+            alert("Employee id exists already");
+              $("#save_user").hide()
+          });
+      }
+
 </script>

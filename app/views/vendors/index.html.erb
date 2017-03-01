@@ -22,7 +22,7 @@
 	        </div>
 	        <div class="form-group">
 	          <label for="location">City</label>
-	          <select class="form-control" name="city">
+	          <select multiple class="form-control" name="city">
 			  </select>
 	        </div>
 	        <div class="form-group">
@@ -103,7 +103,7 @@
 	  formData = {
 	  	user: {
 	    state: $("select[name='state']").find("option:selected").text(),
-	    city: $('select[name="city"]').val(),
+	    city: $('select[name="city"]').val().join(','),
 	    name: $('#user_name').val(),
 	    email: $('#user_email').val(),
 	    phone_number: $('#user_phone_number').val(),

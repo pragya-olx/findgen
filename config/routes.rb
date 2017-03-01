@@ -42,6 +42,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users do
+    collection do
+      post 'check_if_employee_exists'
+    end
+  end 
+
   get 'cities/:state', to: 'application#cities'
   get 'operators/:vendor_id', to: 'application#operators'
 

@@ -27,6 +27,8 @@ class UsersController < ApplicationController
     @user = User.new 
   end
 
+
+
   def create
     begin
       existing_user = User.find_by_email(params[:user][:email])
@@ -38,12 +40,13 @@ class UsersController < ApplicationController
         existing_user = User.find_by_employee_id(params[:user][:employee_id])
         if existing_user.present?
           render json: "User already exists with this employee id", status: 500
-          return
+          return 
         end
       end
 
       @user = User.new(params.require(:user).permit(:name,:location,:email,
         :phone_number,:role_type,:state,:city, :employee_id, :approver_type))
+
       @user.role_type = @user.role_type.downcase
       @user.encrypted_password = (0...8).map { (65 + rand(26)).chr }.join
       if !params[:user][:client_id].blank?
@@ -52,6 +55,7 @@ class UsersController < ApplicationController
       if params[:user][:subgroup_id].present?
         @user.subgroup = Subgroup.find(params[:user][:subgroup_id])
       end
+
       @user.save
       @user.notify
       render json: {}, status: 201 
@@ -102,6 +106,22 @@ class UsersController < ApplicationController
     @user.save
     render json: {}, status: 200
 
+  end
+
+  def check_if_employee_exists
+    existing_user = User.find_by_email(params[:user][:email])
+      if existing_user.present?
+        render json: "User already exists with this email", status: 500
+        return
+      end
+      if params[:user][:employee_id].present?
+        existing_user = User.find_by_employee_id(params[:user][:employee_id])
+        if existing_user.present?
+          render json: "User already exists with this employee id", status: 500
+          return 
+        end
+      end
+    render json: {}, status: 201 
   end
 
 end

@@ -46,7 +46,7 @@ class ClientsController < ApplicationController
     @bookings = Booking.where(:client_id => params[:id])
 
     status = params[:booking_status].nil? ? "accepted" : params[:booking_status]
-
+   
     if current_user.is_approver?
       groups = Group.where(:user_id => current_user.id)
       spoc_ids = []
@@ -64,7 +64,11 @@ class ClientsController < ApplicationController
       if status == "cancelled"
         @bookings = Booking.where(:status => ["cancelled", "rejected"]).where(:user_id => spoc_ids.uniq)
       else
-        @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
+        if spoc_ids == []
+          @bookings = Booking.where(:status => status)
+        else
+          @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
+        end
       end
     else
       if status == "cancelled"
