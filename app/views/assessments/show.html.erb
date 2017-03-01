@@ -7,14 +7,28 @@
     <br>
 
     <% if current_user.is_admin_or_owner? %>
-    <%= f.submit 'Save' %>
+    <%= button_to "Save" ,name: 'save',:onclick=>'return get_action("save");'%>
+    <%= button_to "Delete", @assessment, :method => :delete ,:onclick=>'return get_action("delete");'%>
+     
     <%end%>
   </div>
 <% end %>
+
+
 <script type="text/javascript">
-  $("form").on('submit', function(event){
-        if(!confirm("Are you sure you want to update assessment code ?")) {
-            event.preventDefault();
-        }
-    })
+
+ function get_action(str)
+{
+
+    if(str == 'save'){
+        if(!confirm("Are you sure you want to update assessment code ?"))  event.preventDefault();
+      }
+      else{
+        if(!confirm("Are you sure you want to delete assessment code ?"))  event.preventDefault();
+
+      }
+       
+   
+} 
+
 </script>

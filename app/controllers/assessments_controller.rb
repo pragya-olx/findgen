@@ -14,10 +14,13 @@ class AssessmentsController < ApplicationController
       @assessment = Assessment.find(params[:id])
     else
       @assessment = Assessment.find_by_code(params[:code])
-      if @assessment.nil?
-        redirect_to '/assessments'
-      end
     end
+  end
+
+  def destroy
+    @assessment = Assessment.find(params[:id]) 
+    @assessment.destroy
+    redirect_to '/assessments',  :flash => {:notice => "Assessment deleted successfully"}
   end
 
   def update
