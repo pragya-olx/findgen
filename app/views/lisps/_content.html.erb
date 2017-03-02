@@ -47,7 +47,7 @@
            <div class="form-group">
             <label>Code <span class="red">*</span></label>
             <br>
-            <input required type="number" class="form-control" id="lisp_code"></input>
+            <input required type="number" class="form-control" id="lisp_code" oninput="checkIflispExists();"></input>
             </div>
             <input class="formSubmit" type="submit"></input>
         </form>
@@ -102,6 +102,24 @@
 	$('#save_lisp').click(function(){
     $("#lispForm").find('input[type=submit]').click()
   });
+
+function checkIflispExists()
+{
+    formData = {
+        lisp: {
+            code: $("#lisp_code").val()
+        }
+     };
+    $.post({
+        url: '/lisps/check_if_lisp_exists',
+        data: formData
+      }).done(function(data){
+          $("#save_lisp").show()
+      }).fail(function(data){
+        alert("Lisp exists already");
+          $("#save_lisp").hide()
+      });
+}
 
   $("#lispForm").on('submit', function(event){
     event.preventDefault()
