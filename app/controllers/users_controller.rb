@@ -57,8 +57,8 @@ class UsersController < ApplicationController
       end
 
       @user.save
-      @user.notify
-      render json: {}, status: 201 
+      redirect_to "/users/#{@user.id}", :flash => {:notice => "Successfully created user"}
+      
     rescue => e
       Rails.logger.error e.message
       render json: e.message, status: 500

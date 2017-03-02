@@ -58,6 +58,7 @@
       $.post({
         url: '/users',
         data: formData}).done(function(data){
+            alert("user created Successfully");
         location.reload()
       }).fail(function(data){
         alert(data.error().responseText);
