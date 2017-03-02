@@ -48,6 +48,12 @@ Rails.application.routes.draw do
     end
   end 
 
+  resources :lisps do
+    collection do
+      post 'check_if_lisp_exists'
+    end
+  end 
+
   get 'cities/:state', to: 'application#cities'
   get 'operators/:vendor_id', to: 'application#operators'
 

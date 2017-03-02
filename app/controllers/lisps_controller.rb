@@ -15,6 +15,15 @@ class LispsController < ApplicationController
       render json: {}, status: 201 
   end
 
+  def check_if_lisp_exists
+    if Lisp.find_by_code(params[:lisp][:code]).present?
+      render json: "LISP code already exists", status: 500
+      return
+    end
+    render json: {}, status: 201 
+    return
+  end
+
   def show
     if params[:id] != 'unknown'
       @lisp = Lisp.find(params[:id])
