@@ -117,7 +117,7 @@ function checkIflispExists()
           $("#save_lisp").show()
       }).fail(function(data){
         alert("Lisp exists already");
-          $("#save_lisp").hide()
+          $("#save_lisp").show()
       });
 }
 
@@ -133,7 +133,7 @@ function checkIflispExists()
 		    code: $("#lisp_code").val()
 		}
 	  }
-    $("#save_lisp").hide()
+    $("#save_lisp").show()
     $("#save_lisp_loading").show()
 
 	  $.post({
