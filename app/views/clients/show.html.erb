@@ -8,7 +8,7 @@
 <div class="container main-content">
 
 	<ul class="nav nav-tabs" id="navTabs">
-	  <li class="active dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Bookings<b class="caret"></b></a>
+	  <li class="active dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="hide_uplaod_form_books()">Bookings<b class="caret" ></b></a>
 	    <ul class="dropdown-menu">
             <li> <a id="accepted">Active Bookings</a> </li>
             <li> <a id="completed">Completed Bookings</a> </li>
@@ -18,13 +18,13 @@
 
 	    </ul>
 	  </li>
-	  <li><a  href="#lisps">LISP</a></li>
-	  <li><a href="#users">Users</a></li>
-      <li><a href="#groups">Groups</a></li>
-      <li><a href="#subgroups">Subgroups</a></li>
+	  <li><a  href="#lisps" onclick="hide_uplaod_form();">LISP</a></li>
+	  <li><a href="#users" onclick="hide_uplaod_form_users();">Users</a></li>
+      <li><a href="#groups" onclick="hide_uplaod_form();">Groups</a></li>
+      <li><a href="#subgroups" onclick="hide_uplaod_form();">Subgroups</a></li>
       <% if current_user.is_admin_or_owner? %>
-      <li><a href="#assessments">Assessment Codes</a></li>
-      <li> <a id="upload">Upload Data</a> </li>
+      <li><a href="#assessments" onclick="hide_uplaod_form();">Assessment Codes</a></li>
+      <li><a href="#uploads" onclick="upload_form();">Upload Data</a></li>
       <%end%>
 	</ul>
 
@@ -36,6 +36,7 @@
         <%= render "subgroups/content" %>
         <% if current_user.is_admin_or_owner? %>
           <%= render "assessments/content" %>
+          <%= render "uploads/content" %>
         <%end%>
     </div>
 
@@ -47,11 +48,33 @@
         if (location.hash != ""){
             $("#navTabs a[href=\'" + location.hash + "\']").click()
         }
-        $("#upload").click(function(){
-            window.location = '/uploads'
-        })
     })
 
+function upload_form()
+{
+  $('#bookings_wrapper').hide();
+  $('#users_wrapper').hide()
+  $("div[id$='content']").hide();
+  $('#upload_form').show();
+  $('.users_content').hide();
+}
+  
+function hide_uplaod_form()
+{
+  $("div[id$='upload_form']").hide();
+}
+
+function hide_uplaod_form_users()
+{
+  $("div[id$='upload_form']").hide();
+  $('#users_wrapper').show();
+}
+
+function hide_uplaod_form_books()
+{
+  $("div[id$='upload_form']").hide();
+  $('#bookings_wrapper').show();
+}
 
 </script>
 

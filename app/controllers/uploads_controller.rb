@@ -10,11 +10,11 @@ class UploadsController < ApplicationController
         upload_to_lisps(data, params["override"].present?)
       end
     rescue => e
-      redirect_to '/uploads',  :flash => {:error => e.message}
+      redirect_to '/clients/1#',  :flash => {:error => e.message}
       return
     end
 
-    redirect_to '/uploads',  :flash => {:notice => "Successfully uploaded data"}
+    redirect_to '/clients/1#',  :flash => {:notice => "Successfully uploaded data"}
   end
 
   def upload_to_users(data, override = false)
