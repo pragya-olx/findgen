@@ -13,10 +13,9 @@
 	            <input type="text" class="form-control" id="name"></input>
 	         </div>
 
-
 	        <div class="form-group">
 	          <label for="name">State</label>
-	          <select class="form-control" name="state">
+	          <select class="form-control" name="state" id="state_name">
 				<% @states.each do |key, value| %>
 					<option value="<%= key %>"><%= value%></option>
 				<% end %>
@@ -36,9 +35,15 @@
 	        </div>
 
 	           <div class="form-group">
-	            <label>Address</label>
+	            <label>Area</label>
 	            <br>
-	            <input type="text" required class="form-control" id="address"></input>
+	            <input type="text" required class="form-control" id="area"></input>
+	            </div>
+
+	             <div class="form-group">
+	            <label>Locality</label>
+	            <br>
+	            <input type="text" required class="form-control" id="locality"></input>
 	            </div>
 
 	           <div class="form-group">
@@ -74,7 +79,8 @@
                 <th>Zone</th>                                                     
 		            <th>State</th>
 		            <th>City</th>
-		            <th>Address</th>
+		            <th>Area</th>
+		            <th>Locality</th>
 		        </tr>
 			  </thead>
 				<% @lisps.each do |lisp| %>
@@ -84,7 +90,8 @@
             <td><%= lisp.zone %></td>
 				    <td><%= lisp.state %></td>
 				    <td><%= lisp.city %></td>
-				    <td><%= lisp.address %></td>
+				    <td><%= lisp.area %></td>
+				    <td><%= lisp.locality %></td>
 				  </tr>
 				<% end %>
 			</table> 
@@ -94,6 +101,25 @@
 </div>
 
 <script>
+	var input_state = $('select[name="city"]');
+	  $.getJSON('/cities/' + $("#state_name").val(), function (data) {
+	    input_state.empty();
+	    $.each(data, function (i) {
+	      var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
+	      input_state.append(opt);
+	    });
+	  });
+
+	$('select[name="state"]').change(function () {
+	  var input_state = $('select[name="city"]');
+	  $.getJSON('/cities/' + $(this).val(), function (data) {
+	    input_state.empty();
+	    $.each(data, function (i) {
+	      var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
+	      input_state.append(opt);
+	    });
+	  });
+	});
 
 	$('#save_lisp').click(function(){
 	  formData = {

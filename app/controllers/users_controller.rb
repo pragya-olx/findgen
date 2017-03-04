@@ -33,13 +33,13 @@ class UsersController < ApplicationController
     begin
       existing_user = User.find_by_email(params[:user][:email])
       if existing_user.present?
-        render json: "User already exists with this email", status: 500
+        redirect_to "/users/", :flash => {:notice => "User already exists with this email"}
         return
       end
       if params[:user][:employee_id].present?
         existing_user = User.find_by_employee_id(params[:user][:employee_id])
         if existing_user.present?
-          render json: "User already exists with this employee id", status: 500
+          redirect_to "/users/#{@user.id}", :flash => {:notice => "User already exists with this employee id"}
           return 
         end
       end

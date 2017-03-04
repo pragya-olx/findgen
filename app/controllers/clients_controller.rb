@@ -61,15 +61,12 @@ class ClientsController < ApplicationController
           end
         end
       end
-      if status == "cancelled"
-        @bookings = Booking.where(:status => ["cancelled", "rejected"]).where(:user_id => spoc_ids.uniq)
+      if spoc_ids == []
+        @bookings = Booking.where(:status => status)
       else
-        if spoc_ids == []
-          @bookings = Booking.where(:status => status)
-        else
-          @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
-        end
+        @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
       end
+      
     else
       if status == "cancelled"
         @bookings = Booking.where(:status => ["cancelled", "rejected"])

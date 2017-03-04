@@ -5,7 +5,7 @@
 <div class="bookings_content">
     <div>
         <div>
-        <% if current_user.is_spoc? %>
+       <% if current_user.is_admin_or_owner? or current_user.is_spoc? %>
             <button type="button" class="btn btn-primary create-booking" data-toggle="modal" data-target="#createBooking">
                 Create New Booking
             </button>

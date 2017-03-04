@@ -96,6 +96,11 @@
     </div>
 <% end %>
 
+<% if current_user.is_owner? %>
+    <script type="text/javascript">
+        window.is_owner= true;
+    </script>
+<% end %>
 <script type="text/javascript">
     $(".selectdd").select2()
 
@@ -105,9 +110,16 @@
         } else {
             $("#approver_row").hide()
         }
+        if( window.is_owner)
+        {
+            alert("You cannot change your role as you are the owner");
+            $(this).val("owner");
+        }
     })
 
     <% if !@user.is_approver? %>
         $("#approver_row").hide()
     <%end%>
+
+
 </script>

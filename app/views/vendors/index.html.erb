@@ -14,7 +14,7 @@
 	        </div>
 	        <div class="form-group">
 	          <label for="location">State</label>
-	          <select class="form-control" name="state">
+	          <select class="form-control" name="state" id="state_name">
 				<% @states.each do |key, value| %>
 					<option value="<%= key %>"><%= value%></option>
 				<% end %>
@@ -27,7 +27,7 @@
 	        </div>
 	        <div class="form-group">
 	          <label for="name">Phone number <span class="red">*</span></label>
-	          <input pattern="[0-9]{10}" maxlength="10" class="form-control" id="user_phone_number" required>
+	          <input type="number" pattern="[0-9]{10}" maxlength="10" class="form-control" id="user_phone_number" required>
 	        </div>
 	        <div class="form-group">
 	          <label for="location">Email <span class="red">*</span></label>
@@ -81,6 +81,16 @@
 </div>
 
 <script>
+
+    var input_state = $('select[name="city"]');
+	  $.getJSON('/cities/' + $("#state_name").val(), function (data) {
+	    input_state.empty();
+	    $.each(data, function (i) {
+	      var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
+	      input_state.append(opt);
+	    });
+	  });
+
 	$('select[name="state"]').change(function () {
 	  var input_state = $('select[name="city"]');
 	  $.getJSON('/cities/' + $(this).val(), function (data) {

@@ -46,6 +46,6 @@ class LispsController < ApplicationController
   end
 
   def lisp_params
-    params.require(:lisp).permit(:name, :state, :city, :address, :zone, :code)
+    params.require(:lisp).permit(:name, :state, :city, :area, :locality, :zone, :code)
   end
 end

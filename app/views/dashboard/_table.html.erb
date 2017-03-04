@@ -23,8 +23,8 @@
             <th>Running hours</th>
             <%end%>
             <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
-            <th>SPOC Verified</th>
-            <th>Admin Verified</th>
+         
+            <th><ABBR></ABBR>Admin Verified</th>
             <%end%>
             <% if current_user.is_approver? or current_user.is_spoc? %>
             <th>Actions</th>
@@ -86,14 +86,6 @@
             <%end%>
             <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
             <td> 
-                <% if booking.hours_status.present? %>
-                    <%=booking.hours_status%> 
-                <% elsif current_user.is_spoc? %>
-                    <button class="btn btn-default btn-sm spoc_accept_btn" data-id=<%=booking.id%>  >Accept</button>
-                    <button class="btn btn-danger btn-sm spoc_reject_btn" data-id=<%=booking.id%>>Reject</button>
-                <% end %>
-            </td>
-            <td> 
                 <% if booking.invoice_status.present? %>
                     <%=booking.invoice_status%> 
                 <% elsif current_user.is_admin? %>
@@ -128,7 +120,7 @@
     })
 
     $(".cancel_btn").on('click', function(event){
-        if (confirm("Are you sure you want to cancel?")) {
+        if (confirm("Are you sure you want to cancel. You will be chaged for it after a certain time range?")) {
           id = $(this).data('id')
           cancel_url = "/bookings/" + id + "/cancel"
           $.ajax({
@@ -210,6 +202,10 @@
         event.stopPropagation();
     })
 
+    function cancelBooking()
+    {
+        alert
+    }
 
     $(".admin_reject_btn").on("click", function(event){
         if (confirm("Are you sure you want to reject?")) {
@@ -233,6 +229,8 @@
         event.stopPropagation()
     })
 
-    $("#bookings").DataTable();
+    var table = $("#bookings").DataTable();
+    $('#container').css( 'display', 'block' );
+    table.columns.adjust().draw();
     $('[data-toggle="tooltip"]').tooltip();   
 </script>

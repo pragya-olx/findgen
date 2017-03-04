@@ -16,19 +16,18 @@
 
         <div class="form-group">
           <label for="name">State <span class="red">*</span></label>
-          <select class="form-control" name="state">
-			<% @rates_states.each do |key, value| %>
+          <select class="form-control" name="state"  id="state_name">
+			<% @states.each do |key, value| %>
 				<option value="<%= key %>"><%= value%></option>
 			<% end %>
 		  </select>
         </div>
 
-		<div class="form-group">
-    		<label>City <span class="red">*</span></label>
-    		<br>
-    		<input required type="text" class="form-control" id="lisp_city" pattern="[a-zA-Z0-9 ]+" 
-            oninvalid="setCustomValidity('No Special Characters are allowed in City')" oninput="try{setCustomValidity('')}catch(e){}"></input>
-    	</div>
+		  <div class="form-group">
+            <label for="location">City</label>
+            <select multiple class="form-control" name="city">
+        </select>
+          </div>
 
          <div class="form-group">
             <label>Zone <span class="red">*</span></label>
@@ -102,7 +101,25 @@
 	$('#save_lisp').click(function(){
     $("#lispForm").find('input[type=submit]').click()
   });
+  var input_state = $('select[name="city"]');
+    $.getJSON('/cities/' + $("#state_name").val(), function (data) {
+      input_state.empty();
+      $.each(data, function (i) {
+        var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
+        input_state.append(opt);
+      });
+    });
 
+  $('select[name="state"]').change(function () {
+    var input_state = $('select[name="city"]');
+    $.getJSON('/cities/' + $(this).val(), function (data) {
+      input_state.empty();
+      $.each(data, function (i) {
+        var opt = '<option value='+ data[i] +'>' + data[i] + '</option>';
+        input_state.append(opt);
+      });
+    });
+  });
 function checkIflispExists()
 {
     formData = {

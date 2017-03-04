@@ -1,3 +1,4 @@
+
 <%= render "assign_vendor" %>
 <div class="container main-content">
 	<ul class="nav nav-tabs" id="navTabs">
@@ -9,7 +10,7 @@
 
     <div class="row">
         <div class="col-md-12">
-			<table id="dashboard_bookings" class="table compact hover table-bordered hover" cellspacing="0">
+			<table id="dashboard_bookings" class="table  compact hover table-bordered hover" cellspacing="0">
 			    <thead>
 			        <tr>
 			            <th>ID</th>
@@ -37,7 +38,7 @@
 			            <th>Actions</th>
 			            <%end%>
                   <% if params[:status] == "previous" %>
-                  <th>SPOC Verified</th>
+                 
                   <th>Admin Verified</th>
                   <%end%>
 			        </tr>
@@ -91,16 +92,7 @@
                     <%= booking.actual_hours ? booking.actual_hours : 0 %>
                     </td>
 			            <%end%>
-			            <% if params[:status].nil? %>
-			            	<td class="admin_actions">
-			            		<button class="btn btn-default btn-sm accept_btn" data-toggle="modal" data-target="#assignVendor">
-			            			Accept
-			            		</button>
-			            		<button class="btn btn-danger btn-sm reject_btn">
-			            			Reject
-			            		</button>
-			            	</td>
-			            <%end%>
+			            
                   <% if params[:status] == "previous" %>
                     <td><%=booking.hours_status%></td>
                     <td><%=booking.invoice_status%></td>
@@ -184,7 +176,10 @@
         event.stopPropagation()
     })
 
-    $("#dashboard_bookings").DataTable();
+    $("#dashboard_bookings").DataTable({
+        initComplete: function(settings) {
+            $('#example').colResizable({liveDrag:true});
+        });
     $('[data-toggle="tooltip"]').tooltip();   
 
 </script>
