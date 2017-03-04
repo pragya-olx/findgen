@@ -54,7 +54,7 @@ Booking.load = function() {
     if ( bookingDate < currentDate ) {
       dateCheck = confirm("You created a past booking. Is that ok?")
     }
-
+    checkforsamecenterandDate();
     if(dateCheck){
       $("#save_bookings").hide()
       $("#save_bookings_loading").show()
@@ -90,3 +90,22 @@ Booking.load = function() {
 	 });
 };
 
+ function checkforsamecenterandDate()
+    {
+
+      formData = {
+          booking: {    
+           lispcenter : $('#lisp').val(),
+           date : $("#startDate input").val()
+        }
+       }
+         $.post({
+            url: '/bookings/find_by_date_and_center',
+            data: formData
+          }).done(function(data){
+            setTimeout("location.reload()",1000)
+          }).fail(function(data){
+            $("#form_error").val(data.error().responseText).show()
+            $("#save_bookings").prop('disabled',false)
+          });
+    }

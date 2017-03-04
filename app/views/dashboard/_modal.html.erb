@@ -155,30 +155,10 @@
 
     $("#save_bookings").click(function(){
       validatedate($("#booking_start_date"));
-      checkforsamecenterandDate();  
+      
      })
 
-    function checkforsamecenterandDate()
-    {
-
-      formData = {
-          booking: {    
-           lispcenter : $('#lisp').val(),
-           date : $("#booking_start_date").val()
-        }
-       }
-         $.post({
-            url: '/bookings/find_by_date_and_center',
-            data: formData
-          }).done(function(data){
-            $(".close").click()
-            $("#success_message").text('Booking created successfully, Refreshing the page!').show()
-            setTimeout("location.reload()",1000)
-          }).fail(function(data){
-            $("#form_error").val(data.error().responseText).show()
-            $("#save_bookings").prop('disabled',false)
-          });
-    }
+   
 
 function validatedate(inputText)  
   {  
