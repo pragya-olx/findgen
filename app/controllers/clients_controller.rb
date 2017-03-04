@@ -79,4 +79,8 @@ class ClientsController < ApplicationController
       @bookings = @bookings.where(:user_id => current_user.id)
     end
   end
+
+ 
+
+
 end

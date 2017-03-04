@@ -27,6 +27,9 @@ Rails.application.routes.draw do
       get 'invoice'
       get 'details_invoice'
     end
+    collection do
+      post 'find_by_date_and_center'
+    end
   end
 
   resources :sessions do
@@ -54,6 +57,7 @@ Rails.application.routes.draw do
     end
   end 
 
+  
   get 'cities/:state', to: 'application#cities'
   get 'operators/:vendor_id', to: 'application#operators'
 

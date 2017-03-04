@@ -233,4 +233,12 @@ class BookingsController < ApplicationController
       :vendor_id, :actual_hours, :invoice, :owner_remarks)
   end
 
+  def find_by_date_and_center
+    booking = Booking.where(:start_date => params[:booking][:start_date]).where(:lisp => params[:booking][:lisp])
+    if booking.present?
+        render json: "Booking at thihs center at this date already exists", status: 500
+        return
+    end
+  end
+  
 end
