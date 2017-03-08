@@ -122,7 +122,6 @@ class Booking < ActiveRecord::Base
       ["Email ID", self.user.email],
       ["Phone Number", self.user.phone_number],
       ["Role Type", self.user.role_type],
-      ["Sub Group", match_spoc_subgroup.name],
       ["Spoc Remarks", self.spoc_remarks]
     ]
 

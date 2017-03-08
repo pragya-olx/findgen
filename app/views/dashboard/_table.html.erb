@@ -1,3 +1,4 @@
+
 <table id="bookings" class="table compact hover table-striped table-bordered" cellspacing="0" >
     <thead>
         <tr>
@@ -8,6 +9,7 @@
             <th>Zone</th>
             <th>State</th>
             <th>City</th>
+            
             <th>LISP Code</th>
             <th>LISP Name</th>
             <th>SPOC</th>
@@ -23,8 +25,8 @@
             <th>Running hours</th>
             <%end%>
             <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
-         
-            <th><ABBR></ABBR>Admin Verified</th>
+            <th>SPOC Verified</th>
+            <th>Admin Verified</th>
             <%end%>
             <% if current_user.is_approver? or current_user.is_spoc? %>
             <th>Actions</th>
@@ -202,10 +204,7 @@
         event.stopPropagation();
     })
 
-    function cancelBooking()
-    {
-        alert
-    }
+    
 
     $(".admin_reject_btn").on("click", function(event){
         if (confirm("Are you sure you want to reject?")) {

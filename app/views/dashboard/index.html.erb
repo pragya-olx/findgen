@@ -38,7 +38,7 @@
 			            <th>Actions</th>
 			            <%end%>
                   <% if params[:status] == "previous" %>
-                 
+                  <th>SPOC Verified</th>
                   <th>Admin Verified</th>
                   <%end%>
 			        </tr>
@@ -92,7 +92,16 @@
                     <%= booking.actual_hours ? booking.actual_hours : 0 %>
                     </td>
 			            <%end%>
-			            
+			            <% if params[:status].nil? %>                      
+                     <td class="admin_actions">    
+                       <button class="btn btn-default btn-sm accept_btn" data-toggle="modal" data-target="#assignVendor">    
+                         Accept    
+                       </button>   
+                       <button class="btn btn-danger btn-sm reject_btn">   
+                         Reject    
+                       </button>   
+                     </td>   
+                   <%end%>
                   <% if params[:status] == "previous" %>
                     <td><%=booking.hours_status%></td>
                     <td><%=booking.invoice_status%></td>
