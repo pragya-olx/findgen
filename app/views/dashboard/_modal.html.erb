@@ -155,7 +155,15 @@
 
     $("#save_bookings").click(function(){
       validatedate($("#booking_start_date"));
-      
+      if($('#lisp').val() == null){
+        alert('Lisp should not be empty');
+        $("input[type=submit]").attr('disabled','disabled');
+      }
+      if($('#assessment').val() == null){
+        alert('Assessment should not be empty');
+       $("input[type=submit]").attr('disabled','disabled');
+         return false;
+      }
      })
 
    
@@ -182,8 +190,7 @@ function validatedate(inputText)
   var dd  = parseInt(pdate[1]);  
   var yy = parseInt(pdate[0]); 
   if(yy >=2020)
-  {
-    console.log(yy);  
+  { 
     alert("Please enter a valid date");
      return false;  
   }
