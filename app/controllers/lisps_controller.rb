@@ -29,6 +29,7 @@ class LispsController < ApplicationController
       @lisp = Lisp.find(params[:id])
     else
       @lisp = Lisp.find_by_code(params[:code])
+    puts @lisp
       if @lisp.nil?
         redirect_to '/lisps'
       end
@@ -46,6 +47,6 @@ class LispsController < ApplicationController
   end
 
   def lisp_params
-    params.require(:lisp).permit(:name, :state, :city, :area, :locality, :zone, :code)
+    params.require(:lisp).permit(:name, :state, :city, :area, :locality, :address, :zone, :code)
   end
 end

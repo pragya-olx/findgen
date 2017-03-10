@@ -51,6 +51,12 @@ Rails.application.routes.draw do
     end
   end 
 
+  resources :locations do
+    collection do
+      post 'check_if_location_exists'
+    end
+  end
+
   resources :lisps do
     collection do
       post 'check_if_lisp_exists'

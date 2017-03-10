@@ -110,12 +110,29 @@
 </div>
 
 <script>
-
+function checkIflocationExists()
+  {
+        formData = {
+ 
+                	    state: $("select[name='state']").find("option:selected").text()
+         };
+        $.post({
+            url: '/locations/check_if_location_exists',
+            data: formData
+          }).done(function(data){
+             window.location = '/locations'
+          }).fail(function(data){
+          	alert('location exists already');
+           	console.log('error');
+          });
+      }
 	$('#save_location').click(function(){
+
     $('form').find('input[type=submit]').click()
   });
 
   $('form').on('submit', function(event) {
+  	checkIflocationExists();
     event.preventDefault();
 	  formData = {
 	    state: $("select[name='state']").find("option:selected").text(),

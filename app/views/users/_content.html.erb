@@ -28,6 +28,7 @@
     $('#users').DataTable()
 
     $('#save_user').click(function(){
+        checkIfemployeeExists();
         $('#userForm').find('input[type=submit]').click()
     });
 
