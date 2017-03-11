@@ -94,7 +94,7 @@ class UsersController < ApplicationController
    def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to "/users",:flash => {:notice => "vendor deleted successfully"}
+    redirect_to "/users",:flash => {:notice => "Deleted successfully"}
   end
 
   def add_operator
