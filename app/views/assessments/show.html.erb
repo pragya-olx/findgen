@@ -22,16 +22,13 @@
 
  function get_action(str)
 {
-
-    if(str == 'save'){
+   if(str == 'save'){
         if(!confirm("Are you sure you want to update assessment code ?"))  event.preventDefault();
-      }
-      else{
-        if(!confirm("Are you sure you want to delete assessment code ?"))  event.preventDefault();
+    }
+    else{
+      if(!confirm("Are you sure you want to delete assessment code ?"))  event.preventDefault();
 
-      }
-       
-   
+    }
 } 
 $(".back-btn").click(function(){
         history.back()

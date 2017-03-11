@@ -29,11 +29,12 @@ class AssessmentsController < ApplicationController
   end
 
   def update
-    @assessment = Assessment.find(params[:id])
+    @assessment = Assessment.find_by_code(params[:code])
+    @assessment2 = Assessment.find(params[:id]) 
     if @assessment.present?
-        render json: {}, status: 500 
+      redirect_to '/assessments',  :flash => {:notice => "Assessment exists already"}
     else
-      @assessment.update!(assessment_params)
+      @assessment2.update!(assessment_params)
       redirect_to '/assessments'
     end
   end
