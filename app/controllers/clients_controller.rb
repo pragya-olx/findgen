@@ -13,8 +13,7 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @current_client = Client.find(params[:id])  
-    render json: @current_client, status: 201 
+    @current_client = Client.find(params[:id])
   end
 
 end
