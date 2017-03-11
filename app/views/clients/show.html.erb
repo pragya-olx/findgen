@@ -3,6 +3,81 @@
     You dont have permissions to view this client's details
 
 <% else %>
-<%= render "details.html.erb" %>
+<%= render "modal.html.erb" %>
+
+<div class="container main-content">
+
+	<ul class="nav nav-tabs" id="navTabs">
+	  <li class="active dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#" onclick="hide_uplaod_form_books()">Bookings<b class="caret" ></b></a>
+	    <ul class="dropdown-menu">
+            <li> <a id="accepted">Active Bookings</a> </li>
+            <li> <a id="completed">Completed Bookings</a> </li>
+            <li> <a id="cancelled">Cancelled/Rejected Bookings</a> </li>
+            <li> <a id="pending">Pending Approval</a> </li>
+            <li> <a id="client_approved">Pending Acceptance</a> </li>
+
+	    </ul>
+	  </li>
+	  <li><a  href="#lisps" onclick="hide_uplaod_form();">LISP</a></li>
+	  <li><a href="#users" onclick="hide_uplaod_form_users();">Users</a></li>
+      <li><a href="#groups" onclick="hide_uplaod_form();">Groups</a></li>
+      <li><a href="#subgroups" onclick="hide_uplaod_form();">Subgroups</a></li>
+      <% if current_user.is_admin_or_owner? %>
+      <li><a href="#assessments" onclick="hide_uplaod_form();">Assessment Codes</a></li>
+      <li><a href="#uploads" onclick="upload_form();">Upload Data</a></li>
+      <%end%>
+	</ul>
+
+    <div class="row">
+    	<%= render "dashboard/content" %>
+    	<%= render "users/content" %>
+    	<%= render "lisps/content" %>
+        <%= render "groups/content" %>
+        <%= render "subgroups/content" %>
+        <% if current_user.is_admin_or_owner? %>
+          <%= render "assessments/content" %>
+          <%= render "uploads/content" %>
+        <%end%>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+	window.clientId = <%= @current_client.id %>
+    $(document).ready(function(){
+        if (location.hash != ""){
+            $("#navTabs a[href=\'" + location.hash + "\']").click()
+        }
+    })
+
+function upload_form()
+{
+  $('#booking_button').hide();
+  $('#bookings_wrapper').hide();
+  $('#users_wrapper').hide()
+  $("div[id$='content']").hide();
+  $('#upload_form').show();
+  $('.users_content').hide();
+}
+  
+function hide_uplaod_form()
+{
+  $("div[id$='upload_form']").hide();
+}
+
+function hide_uplaod_form_users()
+{
+  $("div[id$='upload_form']").hide();
+  $('#users_wrapper').show();
+}
+
+function hide_uplaod_form_books()
+{
+  $("div[id$='upload_form']").hide();
+  $('#bookings_wrapper').show();
+   $('#booking_button').show();
+}
+
+</script>
 
 <% end %>
