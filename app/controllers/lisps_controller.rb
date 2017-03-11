@@ -29,7 +29,6 @@ class LispsController < ApplicationController
       @lisp = Lisp.find(params[:id])
     else
       @lisp = Lisp.find_by_code(params[:code])
-    puts @lisp
       if @lisp.nil?
         redirect_to '/lisps'
       end
