@@ -91,7 +91,6 @@
         </table>
         <% if current_user.is_admin_or_owner? %>
             <%= f.submit 'Update' %>
-             <%= button_to "Delete", @rates, :method => :delete %>
 
         <%end%>
       </div>

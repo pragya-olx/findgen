@@ -91,11 +91,6 @@ class UsersController < ApplicationController
     end
   end
 
-   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to "/users",:flash => {:notice => "Deleted successfully"}
-  end
 
   def add_operator
     @user = User.find(params[:id])
