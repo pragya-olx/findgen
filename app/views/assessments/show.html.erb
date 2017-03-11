@@ -1,3 +1,6 @@
+<div>
+<button class="booking-edit back-btn btn btn-primary glyphicon glyphicon-arrow-left"></button>
+</div>
 <%= form_for @assessment do |f| %>
   <div class="booking-edit">
 
@@ -30,5 +33,7 @@
        
    
 } 
-
+$(".back-btn").click(function(){
+        history.back()
+    });
 </script>
