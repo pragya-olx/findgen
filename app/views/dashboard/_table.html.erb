@@ -17,8 +17,9 @@
             <th>Rep</th>
             <% if params[:booking_status] != "pending" %>
             <th>Vendor</th>
+             <%end%>
             <th>Operator</th>
-            <%end%>
+           
             <th>Status</th>
             <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
             <th>Invoice</th>
