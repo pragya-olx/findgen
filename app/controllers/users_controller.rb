@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     begin
       existing_user = User.find_by_email(params[:user][:email])
       if existing_user.present?
-        redirect_to "/users/", :flash => {:notice => "User already exists with this email"}
+        render json: e.message, status: 500
         return
       end
       if params[:user][:employee_id].present?
@@ -89,6 +89,12 @@ class UsersController < ApplicationController
     else
       redirect_to "/users/#{@user.id}", :flash => {:notice => "Successfully updated user"}
     end
+  end
+
+   def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to "/users",:flash => {:notice => "vendor deleted successfully"}
   end
 
   def add_operator

@@ -28,6 +28,12 @@ class GroupsController < ApplicationController
     end
   end
 
+   def destroy
+    @group = Group.find(params[:id])
+    @group.destroy
+    redirect_to "/groups/#{1}",:flash => {:notice => "Group deleted successfully"}
+  end
+
   def update
     @group = Group.find(params[:id])
     @group.update!(group_params)
@@ -38,7 +44,7 @@ class GroupsController < ApplicationController
     if current_user.client.present?
       redirect_to "/clients/#{current_user.client.id}#groups", :flash => {:notice => "Successfully updated Group"}
     else
-      redirect_to "/groups/#{@group.id}", :flash => {:notice => "Successfully updated group"}
+      redirect_to "/", :flash => {:notice => "Successfully updated group"}
     end
   end
 

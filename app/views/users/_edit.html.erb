@@ -91,6 +91,8 @@
         </table>
         <% if current_user.is_admin_or_owner? %>
             <%= f.submit 'Update' %>
+             <%= button_to "Delete", @rates, :method => :delete %>
+
         <%end%>
       </div>
     </div>
@@ -105,7 +107,7 @@
     $(".selectdd").select2()
 
     $("#role_row").on('change', 'select', function(){
-        if ($(this).val() == "approver") {
+        if ($(this).val() == "approver" && !window.is_owner) {
             $("#approver_row").show()
         } else {
             $("#approver_row").hide()

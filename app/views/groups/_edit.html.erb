@@ -50,6 +50,7 @@
         </table>
         <% if current_user.is_admin_or_owner? %>
             <%= f.submit 'Save' %>
+            <%= button_to "Delete", @groups, :method => :delete %>
         <%end%>
         </div>
     </div>

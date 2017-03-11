@@ -1,3 +1,6 @@
+<div>
+<button class="booking-edit back-btn btn btn-primary glyphicon glyphicon-arrow-left"></button>
+</div>
 <%= form_for @location do |f| %>
   <div class="booking-edit panel panel-default">
     <div class="panel-heading"> Rate Details </div>
@@ -53,6 +56,8 @@
             </tbody>
         </table>
         <%= f.submit 'Save' %>
+         <%= button_to "Delete", @rates, :method => :delete %>
+
         </div>
     </div>
   </div>
@@ -60,7 +65,7 @@
 
 <script type="text/javascript">
     $("form").on('submit', function(event){
-        if(!confirm("Are you sure you want to update rate details ?")) {
+        if(!confirm("Are you sure you want to update/delete rate details ?")) {
             event.preventDefault();
         }
     })
