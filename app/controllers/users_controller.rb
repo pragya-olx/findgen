@@ -59,9 +59,9 @@ class UsersController < ApplicationController
       @user.save
       redirect_to "/users/#{@user.id}", :flash => {:notice => "Successfully created user"}
       
-    rescue => e
-      Rails.logger.error e.message
-      render json: e.message, status: 500
+    rescue => error
+      render json: "Unable to create employee as email id or employee id exists already", status: 500
+      return
     end
     
   end
