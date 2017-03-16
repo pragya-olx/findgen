@@ -24,24 +24,19 @@ class LocationsController < ApplicationController
 
   def update
     @location = Location.find(params[:id])
-    if @location.present?
+     @location.update!(params.require(:location).permit(:kva_30_day, :kva_70_day, :kva_130_day, :kva_250_day, :kva_30_hour, :kva_70_hour, :kva_130_hour, :kva_250_hour))
+  
         @location.save
-        render json: {}, status: 200 
-    end
+        redirect_to '/locations',  :flash => {:notice => "Rate updated successfully"}
+  
   end
-  def destroy
-    @location = Location.find(params[:id]) 
-    @location.destroy
-    redirect_to '/locations',  :flash => {:notice => "location deleted successfully"}
-  end
-
 
     def location_params
       params.require(:location).permit(:kva_30_day, :kva_70_day, :kva_130_day, :kva_250_day, :kva_30_hour, :kva_70_hour, :kva_130_hour, :kva_250_hour)
     end
 
     def check_if_location_exists
-    existing_location = ocation.where(:state => params[:state]).first
+    existing_location = Location.where(:state => params[:state]).first
       if existing_location.present?
         render json: "Location exists with this email", status: 500
         return

@@ -122,7 +122,7 @@ function checkIflocationExists()
           }).done(function(data){
              window.location = '/locations'
           }).fail(function(data){
-          	alert('location exists already');
+          	  window.location = '/locations'
            	console.log('error');
           });
       }
