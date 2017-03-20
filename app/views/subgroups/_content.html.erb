@@ -62,8 +62,12 @@
         </thead>
         <% @subgroups.each do |subgroup| %>
           <tr data-id=<%=subgroup.id%> onclick="window.location='/subgroups/' + <%=subgroup.id%>" >
-            <td><%= subgroup.name %></td>            
+            <td><%= subgroup.name %></td>        
+            <% if subgroup.group and subgroup.group.name? %>
             <td><%= subgroup.group.name %></td>
+            <%else%>
+            <td>Group not present</td>
+            <%end%>
             <td><%= subgroup.user.name %></td>
             <td><%= subgroup.user.employee_id %></td>
           </tr>

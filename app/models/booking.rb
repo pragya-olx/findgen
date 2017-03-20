@@ -114,21 +114,25 @@ class Booking < ActiveRecord::Base
     self.spoc_remarks
   end
 
-  def spoc_data
-    match_spoc_subgroup = Subgroup.find_by_id(self.user.subgroup_id)
-    [
-      ["Employee Name", self.user.name],
-      ["Employee Id", self.user.employee_id],
-      ["Email ID", self.user.email],
-      ["Phone Number", self.user.phone_number],
-      ["Role Type", self.user.role_type],
-      ["Spoc Remarks", self.spoc_remarks]
-    ]
-
+  def spoc_data 
+    if(self.user and self.user.subgroup_id)
+      match_spoc_subgroup = Subgroup.find_by_id(self.user.subgroup_id)
+      [
+        ["Employee Name", self.user.name],
+        ["Employee Id", self.user.employee_id],
+        ["Email ID", self.user.email],
+        ["Phone Number", self.user.phone_number],
+        ["Role Type", self.user.role_type],
+        ["Spoc Remarks", self.spoc_remarks]
+      ]
+    else
+      []
+    end
   end
 
   def rep_data
-  #match_rep_subgroup = Subgroup.find_by_id(self.rep.subgroup_id)
+    if self.rep.present? and self.rep.subgroup_id.present?
+  match_rep_subgroup = Subgroup.find_by_id(self.rep.subgroup_id)
     [
       ["Name", self.rep.name],
       ["Employee Id", self.rep.employee_id],
@@ -136,6 +140,7 @@ class Booking < ActiveRecord::Base
       ["Phone number", self.rep_phone_number],
       ["Role Type", self.rep.role_type],
     ]
+  end
   end
 
   def vendor_data

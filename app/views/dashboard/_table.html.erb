@@ -5,7 +5,9 @@
             <th>ID</th>
             <th>Submitted on</th>
             <th>Required On</th>
+             <th>Time IN-OUT</th>
             <th>Generator</th>
+
             <th>Zone</th>
             <th>State</th>
             <th>City</th>
@@ -47,7 +49,11 @@
             <td><%= lisp.city %></td>
             <td><%= booking.lisp %></td>
             <td><%= lisp.name %></td>
+             <%if booking.user and booking.user.name? %>
             <td><%= booking.user.name %></td>
+            <%else%>
+            <td>Name not present </td>
+            <%end%>
             <td>
               <span data-toggle="tooltip" data-placement="top" title= '<%= booking.spoc_remarks %>' ><%= booking.short_spoc_remarks %> </span>
             </td>
@@ -62,13 +68,16 @@
                     <%= booking.vendor.name %>
                 <% end %>
                 </td>
+                 <%end%>
                 <td>
                 <% if booking.operator.present? %>
                     <%= booking.operator.name %> <br>
                     <%= booking.operator.phone_number %>
+                    <%else%>
+                    Operator not present
                 <% end %>
                 </td>
-            <%end%>
+           
             <td><%= booking.ui_status %></td>
                 <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
                 <td>

@@ -33,7 +33,11 @@
 
             <tr>
                 <th><%= f.label :group_name %></th>
+                <%if @subgroup.group.present? and @subgroup.group.name.present? %>
                 <td><%= @subgroup.group.name %></td>
+                <%else%>
+                Group not prsent
+                <%end%>
             </tr>
             <tr>
                 <th><%= f.label :change_group %></th>
