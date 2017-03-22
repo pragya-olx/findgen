@@ -131,8 +131,9 @@ class Booking < ActiveRecord::Base
   end
 
   def rep_data
-    if self.rep.present? and self.rep.subgroup_id.present?
-  match_rep_subgroup = Subgroup.find_by_id(self.rep.subgroup_id)
+     if self.rep.present? 
+  # self.rep.subgroup_id.present?
+  # match_rep_subgroup = Subgroup.find_by_id(self.rep.subgroup_id)
     [
       ["Name", self.rep.name],
       ["Employee Id", self.rep.employee_id],
