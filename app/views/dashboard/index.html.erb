@@ -47,8 +47,8 @@
                 <% lisp = Lisp.find_by_code(booking.lisp) %>
 			          <tr data-id=<%=booking.id%> onclick="window.location='/bookings/' + '<%=booking.name%>' " >
 			            <td><%= booking.name %></td>
-                  <td><%= booking.created_at.to_formatted_s(:long) %></td>
-			            <td><%= booking.start_date.to_formatted_s(:long) %>
+                  <td><%if booking.created_at.present? %><%= booking.created_at.to_formatted_s(:long) %><%end %></td>
+			            <td><%if booking.start_date.present? %><%= booking.start_date.to_formatted_s(:long) %><%end %>
 			            <br><%= booking.time_in %>-<%= booking.time_out %></td>
 			            <td><%= booking.gen_type %>-<%= booking.kva %> KVA</td>
                   <td><%= lisp.zone %></td>
