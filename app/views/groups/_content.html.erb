@@ -59,7 +59,7 @@
             <td> 
               <% count = 1 %>
               <% @subgroups.each do |subgroup| %>
-                <% if group.present? and group.id.present? and  group.id == subgroup.group.id %>
+                <% if group.present? and group.id.present? and subgroup.group.present? and subgroup.group.id.present? and  group.id == subgroup.group.id %>
                   <%= count %>)   <%= subgroup.name %>
                   <% count+=1 %>
                    <br>
