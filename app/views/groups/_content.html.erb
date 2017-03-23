@@ -58,6 +58,7 @@
             <td><%= group.user.employee_id %></td>
             <td> 
               <% count = 1 %>
+              <%if group.id.present ?%>
               <% @subgroups.each do |subgroup| %>
                 <% if group.id == subgroup.group.id %>
                   <%= count %>)   <%= subgroup.name %>
@@ -65,6 +66,7 @@
                    <br>
                  <% end %>
                <% end %>
+               <%end%>
             </td>
           </tr>
         <% end %>
