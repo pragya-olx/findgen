@@ -34,7 +34,7 @@ class LispsController < ApplicationController
         redirect_to '/lisps'
       end
     end
-  end
+  end 
 
   def update
     @lisp = Lisp.find(params[:id])

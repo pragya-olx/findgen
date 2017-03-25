@@ -33,7 +33,6 @@ class ClientsController < ApplicationController
       :role_type => "approver",
       :approver_type => "ZOM").order(:employee_id)
     puts @zom_approvers.pluck(:id)
-    puts "riti"
     unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"])
     cost = 0
     unpaid_bookings.each {|x| 
@@ -55,21 +54,14 @@ class ClientsController < ApplicationController
         if group.present?
           subgroups = Subgroup.where(:group_id => group.id).pluck(:id)
           spoc_ids += User.where(:subgroup_id => subgroups).pluck(:id)
-          puts spoc_ids
-          spoc_ids += @nom_approvers.pluck(:id)
-          puts spoc_ids
-          spoc_ids += @zom_approvers.pluck(:id)
-          puts "pragya11111111"
-          puts  spoc_ids.uniq
+          
         else
           subgroup = Subgroup.where(:user_id => current_user.id)
           if subgroup.present?
-            spoc_ids += User.where(:subgroup_id => subgroup.id)
-            spoc_ids += @nom_approvers.pluck(:id)
-            spoc_ids += @zom_approvers.pluck(:id)
+            
             spoc_ids += User.where(:user_id => current_user.id).pluck(:id)
-            puts  spoc_ids.uniq
-             puts "pragya111111"
+            puts spoc_ids
+             puts "pragya"
           end
         end
       end
