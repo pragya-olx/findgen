@@ -23,17 +23,18 @@ class BookingsController < ApplicationController
   end
 
   def index
+
     if params[:status].nil?
-      render json: Booking.where(:status => "completed").to_json, status: 201 
+      render json: Booking.where(:status => "completed").where(:user_id => session[:user_id]).to_json, status: 201 
       return
     end
 
     bookings = nil
 
     if !params[:client_id].blank?
-      bookings = Booking.where(:status => params[:status]).where(:client_id => params[:client_id])
-    else
-      bookings = Booking.where(:status => params[:status])
+      bookings = Booking.where(:status => params[:status]).where(:client_id => params[:client_id]).where(:user_id => session[:user_id])
+    else if
+      bookings = Booking.where(:status => params[:status]).where(:user_id => session[:user_id])
     end
 
     render json: bookings, status: 201

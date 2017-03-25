@@ -33,7 +33,7 @@ class ClientsController < ApplicationController
       :role_type => "approver",
       :approver_type => "ZOM").order(:employee_id)
 
-    unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"])
+    unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"]).where(:user_id => session[:user_id])
     cost = 0
     unpaid_bookings.each {|x| 
       if x.cost?
@@ -43,7 +43,7 @@ class ClientsController < ApplicationController
     @current_client.balance = cost
     @current_client.save
 
-    @bookings = Booking.where(:client_id => params[:id])
+    @bookings = Booking.where(:client_id => params[:id]).where(:user_id => session[:user_id])
 
     status = params[:booking_status].nil? ? "accepted" : params[:booking_status]
    
@@ -62,21 +62,21 @@ class ClientsController < ApplicationController
         end
       end
       if spoc_ids == []
-        @bookings = Booking.where(:status => status)
+        @bookings = Booking.where(:status => status).where(:user_id => session[:user_id])
       else
-        @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
+        @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq).where(:user_id => session[:user_id])
       end
       
     else
       if status == "cancelled"
-        @bookings = Booking.where(:status => ["cancelled", "rejected"])
+        @bookings = Booking.where(:status => ["cancelled", "rejected"]).where(:user_id => session[:user_id])
       else
-        @bookings = Booking.where(:status => status)
+        @bookings = Booking.where(:status => status).where(:user_id => session[:user_id])
       end
     end
 
     if current_user.is_spoc?
-      @bookings = @bookings.where(:user_id => current_user.id)
+      @bookings = @bookings.where(:user_id => current_user.id).where(:user_id => session[:user_id])
     end
   end
 
