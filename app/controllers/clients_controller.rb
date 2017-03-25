@@ -53,9 +53,6 @@ class ClientsController < ApplicationController
       groups.each do |group|
         if group.present?
           subgroups = Subgroup.where(:group_id => group.id).pluck(:id)
-          @approvers = User.where(:client_id => @group.user.client.id, 
-        :role_type => "approver",
-        :approver_type => "NOM")
           spoc_ids += User.where(:subgroup_id => subgroups.id).where(:user_id => current_user.id) 
           spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'NOM')
           spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'ZOM')
