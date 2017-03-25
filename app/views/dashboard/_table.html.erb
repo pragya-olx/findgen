@@ -119,6 +119,10 @@
                 <td>N/A</td>
                 <%end %>
             <% end %>
+            <% if params[:booking_status] == "cancelled" %>
+            <td>
+            </td>
+            <%end%>
           </tr>
         <% end %>
 
@@ -127,7 +131,7 @@
 </table>
 
 <script type="text/javascript">
-
+`
     $(".booking_id").on('click', function(event) {
         id = $(this).text()
         location = '/bookings/' + id.trim();
