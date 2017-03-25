@@ -33,7 +33,7 @@ class BookingsController < ApplicationController
 
     if !params[:client_id].blank?
       bookings = Booking.where(:status => params[:status]).where(:client_id => params[:client_id]).where(:user_id => session[:user_id])
-    else if
+    elsif
       bookings = Booking.where(:status => params[:status]).where(:user_id => session[:user_id])
     end
 
