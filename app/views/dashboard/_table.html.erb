@@ -114,7 +114,7 @@
                 </td>
             <% elsif current_user.is_spoc? and booking.is_cancelable? %>
                 <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>
-            <%elsif current_user.is_approver? or current_user.is_spoc? %>
+            <%elsif current_user.is_approver? or current_user.is_spoc? or  current_user.is_admin? %>
                 <td>N/A</td>
             <% end %>
           </tr>

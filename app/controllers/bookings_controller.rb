@@ -5,6 +5,7 @@ class BookingsController < ApplicationController
   def show
       begin
         @booking = Booking.find(params[:id])
+        puts @booking
       rescue => e
         @booking = Booking.find_by_name(params[:id])
       end
