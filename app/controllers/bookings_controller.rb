@@ -238,7 +238,7 @@ class BookingsController < ApplicationController
   def find_by_date_and_center
     booking = @booking = Booking.find_by_name params[:lisp]
     if booking.present?
-        render json: "Booking at thihs center at this date already exists", status: 500
+        render json: "BookingUpdateooking at thihs center at this date already exists", status: 500
         return
     end
   end
