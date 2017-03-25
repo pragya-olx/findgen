@@ -56,6 +56,7 @@ class ClientsController < ApplicationController
           spoc_ids += User.where(:subgroup_id => subgroups).pluck(:id)
           spoc_ids += @nom_approvers.pluck(:id)
           spoc_ids += @zom_approvers.pluck(:id)
+          spoc_ids += User.where(:user_id => current_user.id).pluck(:id)
 
         else
           subgroup = Subgroup.where(:user_id => current_user.id)
@@ -63,6 +64,8 @@ class ClientsController < ApplicationController
             spoc_ids += User.where(:subgroup_id => subgroup.id)
             spoc_ids += @nom_approvers.pluck(:id)
             spoc_ids += @zom_approvers.pluck(:id)
+            spoc_ids += User.where(:user_id => current_user.id).pluck(:id)
+
 
           end
         end
