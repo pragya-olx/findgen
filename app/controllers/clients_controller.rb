@@ -54,8 +54,8 @@ class ClientsController < ApplicationController
         if group.present?
           subgroups = Subgroup.where(:group_id => group.id).pluck(:id)
           spoc_ids += User.where(:subgroup_id => subgroups.id).where(:user_id => current_user.id) 
-          spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'NOM')
-          spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'ZOM')
+          spoc_ids += User.where(:subgroup_id => subgroups.id).where(:approver_type => 'NOM')
+          spoc_ids += User.where(:subgroup_id => subgroups.id).where(:approver_type => 'ZOM')
         else
           subgroup = Subgroup.where(:user_id => current_user.id)
           if subgroup.present?
