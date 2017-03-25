@@ -53,36 +53,30 @@ class ClientsController < ApplicationController
       groups.each do |group|
         if group.present?
           subgroups = Subgroup.where(:group_id => group.id).pluck(:id)
-          @approvers = User.where(:client_id => @group.user.client.id, 
-        :role_type => "approver",
-        :approver_type => "NOM")
-          spoc_ids += User.where(:subgroup_id => subgroups.id).where(:user_id => current_user.id) 
-          spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'NOM')
-          spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'ZOM')
+          spoc_ids += User.where(:subgroup_id => subgroups).pluck(:id)
         else
           subgroup = Subgroup.where(:user_id => current_user.id)
           if subgroup.present?
-            spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'NOM')
-            spoc_ids += User.where(:subgroup_id => subgroup.id).where(:approver_type => 'ZOM')
+            spoc_ids += User.where(:subgroup_id => subgroup.id)
           end
         end
       end
       if spoc_ids == []
         @bookings = Booking.where(:status => status).where(:user_id => session[:user_id])
       else
-        @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
+        @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq).where(:user_id => session[:user_id])
       end
       
     else
       if status == "cancelled"
         @bookings = Booking.where(:status => ["cancelled", "rejected"]).where(:user_id => session[:user_id])
       else
-        @bookings = Booking.where(:status => status)
+        @bookings = Booking.where(:status => status).where(:user_id => session[:user_id])
       end
     end
 
     if current_user.is_spoc?
-      @bookings = @bookings.where(:user_id => spoc_ids.uniq)
+      @bookings = @bookings.where(:user_id => current_user.id).where(:user_id => session[:user_id])
     end
   end
 
