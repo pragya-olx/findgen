@@ -114,8 +114,10 @@
                 </td>
             <% elsif current_user.is_spoc? and booking.is_cancelable? %>
                 <td><button class="cancel_btn" data-id=<%=booking.id%> >Cancel</button></td>
-            <%elsif current_user.is_approver? or current_user.is_spoc? or params[:booking_status] == "completed" or arams[:booking_status] == "cancelled" %>
+            <%elsif current_user.is_approver? or current_user.is_spoc? or  current_user.is_admin? %>
+                     <% if params[:booking_status] == "completed" || params[:booking_status] == "cancelled" %>
                 <td>N/A</td>
+                <%end %>
             <% end %>
           </tr>
         <% end %>
