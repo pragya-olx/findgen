@@ -68,8 +68,17 @@
             <%else%>
             <td>Group not present</td>
             <%end%>
+            <% if subgroup.user and subgroup.user.name? %>
             <td><%= subgroup.user.name %></td>
-            <td><%= subgroup.user.employee_id %></td>
+            <%else%>
+            <td>Name not present</td>
+            <%end%>
+            <% if subgroup.user and subgroup.user.employee_id? %>
+            <td><%= subgroup.user
+            .employee_id %></td>
+            <%else%>
+            <td>Id not present</td>
+            <%end%>
           </tr>
         <% end %>
       </table> 
