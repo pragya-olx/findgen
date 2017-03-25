@@ -53,16 +53,16 @@ class ClientsController < ApplicationController
       groups.each do |group|
         if group.present?
           subgroups = Subgroup.where(:group_id => group.id).pluck(:id)
-          #spoc_ids += User.where(:subgroup_id => subgroups).pluck(:id)
-          #spoc_ids += @nom_approvers.pluck(:id)
-          #poc_ids += @zom_approvers.pluck(:id)
+          spoc_ids += User.where(:subgroup_id => subgroups).pluck(:id)
+          spoc_ids += @nom_approvers.pluck(:id)
+          spoc_ids += @zom_approvers.pluck(:id)
 
         else
           subgroup = Subgroup.where(:user_id => current_user.id)
           if subgroup.present?
-            #spoc_ids += User.where(:subgroup_id => subgroup.id)
-            #spoc_ids += @nom_approvers.pluck(:id)
-            #spoc_ids += @zom_approvers.pluck(:id)
+            spoc_ids += User.where(:subgroup_id => subgroup.id)
+            spoc_ids += @nom_approvers.pluck(:id)
+            spoc_ids += @zom_approvers.pluck(:id)
 
           end
         end
