@@ -32,7 +32,6 @@ class ClientsController < ApplicationController
     @zom_approvers = User.where(:client_id => @current_client.id, 
       :role_type => "approver",
       :approver_type => "ZOM").order(:employee_id)
-    puts @zom_approvers.pluck(:id)
     unpaid_bookings = Booking.where(:client_id => params[:id], :status => ["completed"])
     cost = 0
     unpaid_bookings.each {|x| 
@@ -46,32 +45,43 @@ class ClientsController < ApplicationController
     @bookings = Booking.where(:client_id => params[:id])
 
     status = params[:booking_status].nil? ? "accepted" : params[:booking_status]
-   
+    spoc_ids = []
     if current_user.is_approver?
       groups = Group.where(:user_id => current_user.id)
-      spoc_ids = []
+      subgroup = Subgroup.where(:user_id => current_user.id)
+      if subgroup.present?
+
+      spoc_ids += User.where(:subgroup_id => subgroup).pluck(:id)
+    end
       groups.each do |group|
-        if group.present?
+         puts "fffffffff1"
+        if group.present? 
+         
           subgroups = Subgroup.where(:group_id => group.id).pluck(:id)
+          spoc_ids += User.where(:subgroup_id => subgroups).where(:approver_type => 'ZOM').pluck(:id)
+          spoc_ids += User.where(:id => group.user_id).where(:approver_type => 'NOM').pluck(:id)
           spoc_ids += User.where(:subgroup_id => subgroups).pluck(:id)
-          
         else
+          puts "ffffffffffffffffffffffff2"
           subgroup = Subgroup.where(:user_id => current_user.id)
           if subgroup.present?
-            
-            spoc_ids += User.where(:user_id => current_user.id).pluck(:id)
-            puts spoc_ids
-             puts "pragya"
+            spoc_ids += User.where(:subgroup_id => subgroup).where(:approver_type => 'ZOM').pluck(:id)
+            spoc_ids += User.where(:id => group.user_id).where(:approver_type => 'NOM').pluck(:id)
+            spoc_ids +=User.where(:subgroup_id => subgroups).pluck(:id)
+
           end
         end
       end
-      if spoc_ids == []
-        @bookings = Booking.where(:status => status)
+      puts "ffffffffffffffffffffffffffff 34"
+      if status == "cancelled"
+        @bookings = Booking.where(:status => ["cancelled", "rejected"]).where(:user_id => spoc_ids.uniq)
       else
         @bookings = Booking.where(:status => status).where(:user_id => spoc_ids.uniq)
       end
       
+      
     else
+      puts "ffffffffffffffffffffffffffff 3  "
       if status == "cancelled"
         @bookings = Booking.where(:status => ["cancelled", "rejected"])
       else
